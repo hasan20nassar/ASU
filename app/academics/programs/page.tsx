@@ -1,14 +1,13 @@
-import { Metadata } from "next";
+"use client";
+
 import { ProgramFinder } from "@/components/academics/program-finder";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-
-export const metadata: Metadata = {
-  title: "مستكشف التخصصات والبرامج | Program Finder - Antioch Syrian University",
-  description: "ابحث واستكشف البرامج والتخصصات الأكاديمية في جامعة أنطاكية السورية",
-};
+import { useLanguage } from "@/contexts/language-context";
 
 export default function ProgramsPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
@@ -16,11 +15,10 @@ export default function ProgramsPage() {
         <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
           <div className="mb-10 max-w-2xl">
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-primary">
-              مستكشف التخصصات
+              {t("programs.title")}
             </h1>
-            <h2 className="text-xl text-muted-foreground mt-2 font-medium">Program Finder</h2>
             <p className="mt-4 text-muted-foreground text-lg leading-relaxed">
-              استكشف مجموعة واسعة من البرامج الأكاديمية التي تقدمها كليات جامعة أنطاكية السورية. يمكنك البحث والتصفية للعثور على التخصص الذي يناسب طموحاتك وميولك.
+              {t("programs.description")}
             </p>
           </div>
           

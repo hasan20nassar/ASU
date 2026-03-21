@@ -77,22 +77,22 @@ export function ProgramFinder() {
         <div className="sticky top-24 space-y-6">
           <div className="space-y-4 rounded-xl border bg-card p-5 shadow-sm">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-lg">{isArabic ? "تصفية البرامج" : "Filter Programs"}</h3>
+              <h3 className="font-semibold text-lg">{t("programs.filter")}</h3>
               {hasActiveFilters && (
                 <Button variant="ghost" size="sm" onClick={clearFilters} className="h-8 px-2 text-muted-foreground hover:text-foreground">
                   <X className="mr-1 h-3 w-3" />
-                  {isArabic ? "مسح" : "Clear"}
+                  {t("programs.clear")}
                 </Button>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="search-programs">{isArabic ? "بحث بالاسم" : "Search by name"}</Label>
+              <Label htmlFor="search-programs">{t("programs.searchLabel")}</Label>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   id="search-programs"
-                  placeholder={isArabic ? "مثال: هندسة..." : "e.g. Engineering..."}
+                  placeholder={t("programs.searchPlaceholder")}
                   className="pl-9"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -102,13 +102,13 @@ export function ProgramFinder() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="faculty-select">{isArabic ? "الكلية" : "Faculty"}</Label>
+              <Label htmlFor="faculty-select">{t("programs.facultyLabel")}</Label>
               <Select value={selectedFaculty} onValueChange={setSelectedFaculty} dir={dir}>
                 <SelectTrigger id="faculty-select">
-                  <SelectValue placeholder={isArabic ? "جميع الكليات" : "All Faculties"} />
+                  <SelectValue placeholder={t("programs.allFaculties")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{isArabic ? "جميع الكليات" : "All Faculties"}</SelectItem>
+                  <SelectItem value="all">{t("programs.allFaculties")}</SelectItem>
                   {faculties.map((f) => (
                     <SelectItem key={f.slug} value={f.slug}>
                       {isArabic ? f.nameAr : f.nameEn}
@@ -119,13 +119,13 @@ export function ProgramFinder() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="branch-select">{isArabic ? "الفرع الثانوي المطلوب" : "Required High School Branch"}</Label>
+              <Label htmlFor="branch-select">{t("programs.branchLabel")}</Label>
               <Select value={selectedBranch} onValueChange={setSelectedBranch} dir={dir}>
                 <SelectTrigger id="branch-select">
-                  <SelectValue placeholder={isArabic ? "جميع الفروع" : "All Branches"} />
+                  <SelectValue placeholder={t("programs.allBranches")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{isArabic ? "جميع الفروع" : "All Branches"}</SelectItem>
+                  <SelectItem value="all">{t("programs.allBranches")}</SelectItem>
                   <SelectItem value="scientific">{isArabic ? "علمي" : "Scientific"}</SelectItem>
                   <SelectItem value="literary">{isArabic ? "أدبي" : "Literary"}</SelectItem>
                 </SelectContent>
@@ -139,21 +139,19 @@ export function ProgramFinder() {
       <section className="flex-1">
         <div className="mb-4 flex items-center justify-between">
           <p className="text-sm text-muted-foreground">
-            {isArabic ? "تم العثور على" : "Found"} <strong className="text-foreground font-medium">{filteredPrograms.length}</strong> {isArabic ? "برنامج أكاديمي" : "academic programs"}
+            {t("programs.found")} <strong className="text-foreground font-medium">{filteredPrograms.length}</strong> {t("programs.programFound")}
           </p>
         </div>
 
         {filteredPrograms.length === 0 ? (
           <div className="flex flex-col items-center justify-center rounded-xl border border-dashed p-12 text-center">
             <Search className="mb-4 h-12 w-12 text-muted-foreground/50" />
-            <h3 className="text-lg font-bold">{isArabic ? "لم يتم العثور على برامج" : "No programs found"}</h3>
+            <h3 className="text-lg font-bold">{t("programs.noPrograms")}</h3>
             <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-              {isArabic 
-                ? "حاول تعديل كلمات البحث أو تغيير الفلاتر للحصول على نتائج أفضل." 
-                : "Try adjusting your search terms or filters to get better results."}
+              {t("programs.noProgramsDesc")}
             </p>
             <Button variant="outline" className="mt-6" onClick={clearFilters}>
-              {isArabic ? "مسح جميع الفلاتر" : "Clear all filters"}
+              {t("programs.clearAll")}
             </Button>
           </div>
         ) : (
@@ -183,21 +181,21 @@ export function ProgramFinder() {
                   <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
                     <div className="flex items-center gap-1.5">
                       <GraduationCap className="h-4 w-4 text-foreground/70" />
-                      <span>{program.duration} {isArabic ? "سنوات" : "Years"}</span>
+                      <span>{program.duration} {t("programs.years")}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <BookOpen className="h-4 w-4 text-foreground/70" />
-                      <span>{program.creditHours} {isArabic ? "ساعة معتمدة" : "Credit Hours"}</span>
+                      <span>{program.creditHours} {t("common.creditHours")}</span>
                     </div>
                   </div>
                 </CardContent>
                 <CardFooter className="pt-0 border-t mt-auto px-6 py-4 flex justify-between items-center bg-muted/20">
                   <span className="text-xs font-medium">
-                    {isArabic ? "الحد الأدنى للقبول:" : "Min. Score:"} {program.minScorePercent}%
+                    {t("programs.minScore")}: {program.minScorePercent}%
                   </span>
                   <Button asChild size="sm" variant="outline" className="h-8">
                     <Link href={`/academics/${program.facultySlug}/${program.slug}`}>
-                      {isArabic ? "التفاصيل" : "Details"}
+                      {t("programs.details")}
                     </Link>
                   </Button>
                 </CardFooter>

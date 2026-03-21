@@ -24,6 +24,7 @@ import {
   BookOpen,
   Globe,
 } from "lucide-react";
+import { MouseGravityIcons } from "@/components/ui/mouse-gravity-icons";
 
 export default function AboutPage() {
   const { language, t, dir } = useLanguage();
@@ -96,10 +97,11 @@ export default function AboutPage() {
       <Navbar />
       <main className="flex-1">
         {/* Hero */}
-        <section className="border-b bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="relative border-b bg-muted/30 py-12 sm:py-16 overflow-hidden">
+          <MouseGravityIcons />
+          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-              <div className="text-start">
+              <div className="text-start relative z-10">
                 <Badge variant="secondary" className="mb-4">
                   {t("nav.about")}
                 </Badge>

@@ -27,6 +27,7 @@ import {
   Trophy,
   Heart,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function CampusLifePage() {
   const { language, dir } = useLanguage();
@@ -122,18 +123,27 @@ export default function CampusLifePage() {
       <Navbar />
       <main className="flex-1">
         {/* Header */}
-        <section className="border-b bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <Badge variant="secondary" className="mb-4">
+        {/* Hero Section */}
+        <section className="relative h-[40vh] min-h-[350px] w-full overflow-hidden">
+          <Image
+            src="/images/pages/campus-life.png"
+            alt="Campus Life"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="relative h-full flex items-center">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full text-start">
+              <Badge variant="secondary" className="mb-4 bg-primary text-primary-foreground border-none">
                 {language === "ar" ? "الحياة الجامعية" : "Campus Life"}
               </Badge>
-              <h1 className="text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
+              <h1 className="text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
                 {language === "ar"
-                  ? "حياة جامعية نابضة بالحيوية"
+                  ? "حياة جامعة نابضة بالحيوية"
                   : "A Vibrant Campus Life"}
               </h1>
-              <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+              <p className="mt-4 max-w-2xl text-lg text-white/90">
                 {language === "ar"
                   ? "اكتشف تجربة جامعية متكاملة تجمع بين التعليم والأنشطة الثقافية والرياضية"
                   : "Discover a complete university experience combining education with cultural and sports activities"}
@@ -211,12 +221,13 @@ export default function CampusLifePage() {
                   </div>
                   <Card className="h-fit">
                     <CardContent className="p-0">
-                      <div className="relative h-64 bg-muted">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-4xl text-muted-foreground/20">
-                            {language === "ar" ? "صورة السكن" : "Housing Image"}
-                          </div>
-                        </div>
+                      <div className="relative h-64 overflow-hidden">
+                        <Image
+                          src="/images/pages/campus-life.png"
+                          alt="Student Housing"
+                          fill
+                          className="object-cover opacity-80"
+                        />
                       </div>
                       <div className="p-6 text-start">
                         <h3 className="mb-2 font-semibold text-foreground">
@@ -295,14 +306,13 @@ export default function CampusLifePage() {
                   </div>
                   <Card>
                     <CardContent className="p-0 text-start">
-                      <div className="relative h-64 bg-muted">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-4xl text-muted-foreground/20">
-                            {language === "ar"
-                              ? "المرافق الرياضية"
-                              : "Sports Facilities"}
-                          </div>
-                        </div>
+                      <div className="relative h-64 overflow-hidden">
+                        <Image
+                          src="/images/pages/campus-life.png"
+                          alt="Sports Facilities"
+                          fill
+                          className="object-cover"
+                        />
                       </div>
                       <div className="p-6">
                         <h3 className="mb-2 font-semibold text-foreground">

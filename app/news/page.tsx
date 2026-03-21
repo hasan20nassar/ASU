@@ -19,6 +19,7 @@ import {
   Newspaper,
   CalendarDays,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function NewsPage() {
   const { language, t, dir } = useLanguage();
@@ -51,16 +52,25 @@ export default function NewsPage() {
       <Navbar />
       <main className="flex-1">
         {/* Header */}
-        <section className="border-b bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <Badge variant="secondary" className="mb-4">
+        {/* Hero Section */}
+        <section className="relative h-[35vh] min-h-[300px] w-full overflow-hidden">
+          <Image
+            src="/images/pages/news.png"
+            alt="University News"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="relative h-full flex items-center">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full text-start">
+              <Badge variant="secondary" className="mb-4 bg-primary text-primary-foreground border-none">
                 {t("nav.news")}
               </Badge>
-              <h1 className="text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
+              <h1 className="text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
                 {language === "ar" ? "الأخبار والفعاليات" : "News & Events"}
               </h1>
-              <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+              <p className="mt-4 max-w-2xl text-lg text-white/90">
                 {language === "ar"
                   ? "تابع آخر أخبار ومستجدات جامعة أنطاكية السورية"
                   : "Stay updated with the latest news from Antioch Syrian University"}
@@ -110,13 +120,15 @@ export default function NewsPage() {
                     >
                       <Card className="h-full overflow-hidden transition-all hover:border-primary/50 hover:shadow-lg">
                         <CardContent className="p-0">
-                          {/* Image Placeholder */}
-                          <div className="relative h-48 bg-muted">
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="text-4xl text-muted-foreground/20">
-                                ASU
-                              </div>
-                            </div>
+                          {/* Image */}
+                          <div className="relative h-48 overflow-hidden bg-muted">
+                            <Image
+                              src="/images/pages/news.png"
+                              alt={article.titleEn}
+                              fill
+                              className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
                             <Badge
                               className="absolute start-4 top-4"
                               variant="secondary"

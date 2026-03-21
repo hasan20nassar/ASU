@@ -28,6 +28,7 @@ export interface Faculty {
   descriptionEn: string;
   icon: string;
   color: string;
+  image?: string;
   programs: Program[];
 }
 
@@ -41,6 +42,7 @@ export const faculties: Faculty[] = [
     descriptionEn: "Offers distinguished programs in Civil Engineering, Architecture, and Computer & Communications Engineering",
     icon: "Building2",
     color: "bg-blue-500",
+    image: "/images/faculties/engineering.png",
     programs: [
       {
         id: "civil",
@@ -104,6 +106,7 @@ export const faculties: Faculty[] = [
     descriptionEn: "Distinguished medical education in oral and dental medicine and surgery",
     icon: "Stethoscope",
     color: "bg-teal-500",
+    image: "/images/faculties/dentistry.png",
     programs: [
       {
         id: "dentistry",
@@ -133,6 +136,7 @@ export const faculties: Faculty[] = [
     descriptionEn: "Advanced pharmaceutical education combining sciences and professional practice",
     icon: "Pill",
     color: "bg-green-500",
+    image: "/images/faculties/pharmacy.png",
     programs: [
       {
         id: "pharmacy",
@@ -156,12 +160,13 @@ export const faculties: Faculty[] = [
   {
     id: "admin",
     slug: "administrative-sciences",
-    nameAr: "كلية العلوم الإدارية",
-    nameEn: "Faculty of Administrative Sciences",
-    descriptionAr: "برامج متنوعة في إدارة الأعمال والتسويق ونظم المعلومات",
-    descriptionEn: "Diverse programs in Business Administration, Marketing, and Information Technology",
+    nameAr: "كلية العلوم الإدارية والاقتصادية",
+    nameEn: "Faculty of Administrative and Economic Sciences",
+    descriptionAr: "برامج متميزة في إدارة الأعمال والتسويق ونظم المعلومات والمحاسبة والمصارف",
+    descriptionEn: "Distinguished programs in Business Administration, Marketing, IT, Accounting, and Banking",
     icon: "Briefcase",
     color: "bg-amber-500",
+    image: "/images/faculties/admin.png",
     programs: [
       {
         id: "business",
@@ -225,6 +230,7 @@ export const faculties: Faculty[] = [
     descriptionEn: "Comprehensive legal education preparing for professional and judicial practice",
     icon: "Scale",
     color: "bg-indigo-500",
+    image: "/images/faculties/law.png",
     programs: [
       {
         id: "law",
@@ -248,12 +254,13 @@ export const faculties: Faculty[] = [
   {
     id: "arts",
     slug: "arts",
-    nameAr: "كلية الآداب",
-    nameEn: "Faculty of Arts",
-    descriptionAr: "برامج في اللغة الإنجليزية والترجمة",
-    descriptionEn: "Programs in English Language and Translation",
+    nameAr: "كلية الآداب والعلوم الإنسانية",
+    nameEn: "Faculty of Arts and Humanities",
+    descriptionAr: "برامج متميزة في اللغة الإنجليزية والترجمة لتأهيل الكوادر المتخصصة",
+    descriptionEn: "Distinguished programs in English Language and Translation to qualify specialized personnel",
     icon: "BookOpen",
     color: "bg-purple-500",
+    image: "/images/faculties/arts.png",
     programs: [
       {
         id: "english",
@@ -300,6 +307,7 @@ export const faculties: Faculty[] = [
     descriptionEn: "Solid foundation in natural sciences and mathematics",
     icon: "Atom",
     color: "bg-cyan-500",
+    image: "/images/faculties/science.png",
     programs: [
       {
         id: "basic-science",

@@ -6,6 +6,7 @@ import { useLanguage } from "@/contexts/language-context";
 import { useTheme } from "@/contexts/theme-context";
 import { faculties } from "@/data/programs";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/magnetic";
 import {
@@ -66,9 +67,15 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary">
-            <GraduationCap className="h-6 w-6 text-primary-foreground" />
+        <Link href="/" className="flex items-center gap-3">
+          <div className="relative h-10 w-10 shrink-0">
+            <Image 
+              src="/logo.png" 
+              alt="ASU Logo" 
+              fill 
+              className="object-contain"
+              priority
+            />
           </div>
           <div className="hidden lg:flex">
             <span className="font-bold whitespace-nowrap text-foreground tracking-tight">
@@ -250,7 +257,7 @@ export function Navbar() {
           </DropdownMenu>
 
           {/* Mobile Menu */}
-          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen} dir={dir}>
+          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="lg:hidden">
                 <Menu className="h-5 w-5" />
@@ -259,9 +266,14 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side={dir === "rtl" ? "right" : "left"} className="w-80">
               <SheetHeader className="text-start border-b pb-4">
-                <SheetTitle className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                    <GraduationCap className="h-5 w-5 text-primary-foreground" />
+                <SheetTitle className="flex items-center gap-3">
+                  <div className="relative h-8 w-8 shrink-0">
+                    <Image 
+                      src="/logo.png" 
+                      alt="ASU Logo" 
+                      fill 
+                      className="object-contain"
+                    />
                   </div>
                   <span className="font-bold">
                     {language === "ar" ? "جامعة أنطاكية السورية" : "Antioch Syrian University"}

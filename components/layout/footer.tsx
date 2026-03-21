@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/language-context";
+import Image from "next/image";
 import { contactInfo, universityInfo } from "@/data/contact";
 import { faculties } from "@/data/programs";
 import {
@@ -44,9 +45,14 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* About Section */}
           <div className="lg:col-span-1">
-            <Link href="/" className="mb-4 flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
-                <GraduationCap className="h-6 w-6 text-primary-foreground" />
+            <Link href="/" className="mb-4 flex items-center gap-3">
+              <div className="relative h-10 w-10 shrink-0">
+                <Image 
+                  src="/logo.png" 
+                  alt="ASU Logo" 
+                  fill 
+                  className="object-contain"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-bold leading-tight text-foreground">

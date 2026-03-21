@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, BookMarked } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export function LibraryHero() {
   const { language, dir } = useLanguage();
@@ -12,13 +13,17 @@ export function LibraryHero() {
 
   return (
     <section className="relative overflow-hidden bg-primary/5 py-16 sm:py-24 lg:py-32">
-      {/* Background Decorative Pattern */}
-      <div className="absolute inset-0 z-0 opacity-10"
-        style={{
-          backgroundImage: "radial-gradient(circle at center, hsl(var(--primary)) 1px, transparent 1px)",
-          backgroundSize: "24px 24px"
-        }}
-      />
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/pages/library.png"
+          alt="University Library"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+      </div>
       
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">

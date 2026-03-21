@@ -1,16 +1,16 @@
 export const contactInfo = {
-  phone: "(+963) 11 5954910",
+  phone: "(+963) 11 5954910 / 5958552",
   email: "info@asu.edu.sy",
   address: {
-    ar: "معرة صيدنايا، ريف دمشق، سوريا",
-    en: "Maarat Saidnaya, Damascus Countryside, Syria",
+    ar: "معرة صيدنايا، طريق دير السريان، مقابل دير مار افرام السرياني، ريف دمشق، سوريا",
+    en: "Maarat Saidnaya, Deir Al-Suryan Road, opposite St. Ephrem the Syrian Monastery, Damascus Countryside, Syria",
   },
   coordinates: {
     lat: 33.6585718,
     lng: 36.374508,
   },
   socialMedia: {
-    facebook: "https://facebook.com/antiochsyrianuniversity",
+    facebook: "https://www.facebook.com/asu.edu.sy.private",
     twitter: "https://twitter.com/asu_syria",
     instagram: "https://instagram.com/asu_syria",
     linkedin: "https://linkedin.com/school/antioch-syrian-university",
@@ -32,8 +32,8 @@ export const universityInfo = {
   opened: "September 2018",
   decree: "Presidential Decree No. 233 (2017)",
   affiliation: {
-    ar: "مفتاح المستقبل",
-    en: "The key to the future",
+    ar: "تساهم في التنمية البشرية والاقتصادية والاجتماعية في سورية",
+    en: "Contributes to human, economic, and social development in Syria",
   },
   location: {
     ar: "معرة صيدنايا، ريف دمشق",

@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { GravityHero } from "@/components/home/gravity-hero";
+import { StatsSection } from "@/components/home/stats-section";
 import { FacultiesGrid } from "@/components/home/faculties-grid";
 import { QuickLinks } from "@/components/home/quick-links";
 import { NewsPreview } from "@/components/home/news-preview";
@@ -11,6 +12,7 @@ export default function HomePage() {
       <Navbar />
       <main className="flex-1">
         <GravityHero />
+        <StatsSection />
         <FacultiesGrid />
         <QuickLinks />
         <NewsPreview />

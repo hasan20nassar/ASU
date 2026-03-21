@@ -21,6 +21,7 @@ import {
   Target,
   ExternalLink,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function ResearchPage() {
   const { language, dir } = useLanguage();
@@ -128,22 +129,33 @@ export default function ResearchPage() {
       <Navbar />
       <main className="flex-1">
         {/* Header */}
-        <section className="border-b bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <Badge variant="secondary" className="mb-4">
-                {language === "ar" ? "البحث العلمي" : "Research"}
-              </Badge>
-              <h1 className="text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
-                {language === "ar"
-                  ? "البحث العلمي والابتكار"
-                  : "Research & Innovation"}
-              </h1>
-              <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-                {language === "ar"
-                  ? "نسعى لتعزيز البحث العلمي وتحويل المعرفة إلى حلول عملية تخدم المجتمع"
-                  : "We strive to enhance scientific research and transform knowledge into practical solutions that serve society"}
-              </p>
+        {/* Hero Section */}
+        <section className="relative h-[40vh] min-h-[300px] w-full overflow-hidden">
+          <Image
+            src="/images/pages/research.png"
+            alt="Research and Innovation"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="relative h-full flex items-center">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+              <div className="text-start">
+                <Badge variant="secondary" className="mb-4 bg-primary text-primary-foreground border-none">
+                  {language === "ar" ? "البحث العلمي" : "Research"}
+                </Badge>
+                <h1 className="text-4xl font-bold text-white sm:text-5xl lg:text-6xl max-w-2xl">
+                  {language === "ar"
+                    ? "البحث العلمي والابتكار"
+                    : "Research & Innovation"}
+                </h1>
+                <p className="mt-4 max-w-2xl text-lg text-white/90">
+                  {language === "ar"
+                    ? "نسعى لتعزيز البحث العلمي وتحويل المعرفة إلى حلول عملية تخدم المجتمع"
+                    : "We strive to enhance scientific research and transform knowledge into practical solutions that serve society"}
+                </p>
+              </div>
             </div>
           </div>
         </section>

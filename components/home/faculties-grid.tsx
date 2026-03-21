@@ -8,6 +8,7 @@ import { faculties } from "@/data/programs";
 import { Button } from "@/components/ui/button";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { Magnetic } from "@/components/ui/magnetic";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import {
   Building2,
@@ -67,13 +68,26 @@ export function FacultiesGrid() {
                   className="group block h-full"
                 >
                   <TiltCard tiltAmount={8} scale={1.03} className="h-full">
-                    <div className="h-full rounded-xl border border-border bg-card p-4 sm:p-6 transition-all group-hover:border-primary/50 group-hover:shadow-lg">
-                      <div
-                        className={cn(
-                          "mb-3 sm:mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110",
-                          faculty.color
-                        )}
-                      >
+                    <div className="group relative h-full overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/50 hover:shadow-lg">
+                      {faculty.image && (
+                        <div className="relative h-32 w-full overflow-hidden">
+                          <Image
+                            src={faculty.image}
+                            alt={language === "ar" ? faculty.nameAr : faculty.nameEn}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
+                        </div>
+                      )}
+                      <div className="p-4 sm:p-6">
+                        <div
+                          className={cn(
+                            "mb-3 sm:mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110",
+                            faculty.color,
+                            faculty.image && "relative -mt-12 border-2 border-card"
+                          )}
+                        >
                         <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                       </div>
                       <h3 className="text-base sm:text-lg font-semibold text-foreground">
@@ -89,10 +103,11 @@ export function FacultiesGrid() {
                           {faculty.programs.length}{" "}
                           {language === "ar" ? "برامج" : "programs"}
                         </span>
-                        <Arrow className="h-3 w-3 sm:h-4 sm:w-4 text-primary opacity-0 transition-opacity group-hover:opacity-100" />
+                        <Arrow className="h-3 w-3 sm:h-4 w-4 text-primary opacity-0 transition-opacity group-hover:opacity-100" />
                       </div>
                     </div>
-                  </TiltCard>
+                  </div>
+                </TiltCard>
                 </Link>
               </motion.div>
             );
