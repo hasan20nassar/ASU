@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/language-context";
-import Image from "next/image";
+import { ASULogo } from "@/components/ui/asu-logo";
 import { contactInfo, universityInfo } from "@/data/contact";
 import { faculties } from "@/data/programs";
 import {
@@ -45,23 +45,8 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* About Section */}
           <div className="lg:col-span-1">
-            <Link href="/" className="mb-4 flex items-center gap-3">
-              <div className="relative h-10 w-10 shrink-0">
-                <Image 
-                  src="/logo.png" 
-                  alt="ASU Logo" 
-                  fill 
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-bold leading-tight text-foreground">
-                  {language === "ar" ? "جامعة أنطاكية" : "Antioch Syrian"}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  {language === "ar" ? "السورية" : "University"}
-                </span>
-              </div>
+            <Link href="/" className="mb-4 block">
+              <ASULogo imageClassName="max-h-12" />
             </Link>
             <p className="mt-4 text-sm text-muted-foreground">
               {language === "ar"

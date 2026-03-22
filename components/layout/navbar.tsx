@@ -6,7 +6,7 @@ import { useLanguage } from "@/contexts/language-context";
 import { useTheme } from "@/contexts/theme-context";
 import { faculties } from "@/data/programs";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
+import { ASULogo } from "@/components/ui/asu-logo";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/magnetic";
 import {
@@ -67,21 +67,8 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <div className="relative h-10 w-10 shrink-0">
-            <Image 
-              src="/logo.png" 
-              alt="ASU Logo" 
-              fill 
-              className="object-contain"
-              priority
-            />
-          </div>
-          <div className="hidden lg:flex">
-            <span className="font-bold whitespace-nowrap text-foreground tracking-tight">
-              {language === "ar" ? "جامعة أنطاكية السورية" : "Antioch Syrian University"}
-            </span>
-          </div>
+        <Link href="/" className="flex items-center">
+          <ASULogo priority />
         </Link>
 
         {/* Desktop Navigation */}
@@ -266,18 +253,10 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side={dir === "rtl" ? "right" : "left"} className="w-80">
               <SheetHeader className="text-start border-b pb-4">
-                <SheetTitle className="flex items-center gap-3">
-                  <div className="relative h-8 w-8 shrink-0">
-                    <Image 
-                      src="/logo.png" 
-                      alt="ASU Logo" 
-                      fill 
-                      className="object-contain"
-                    />
-                  </div>
-                  <span className="font-bold">
-                    {language === "ar" ? "جامعة أنطاكية السورية" : "Antioch Syrian University"}
-                  </span>
+                <SheetTitle>
+                  <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
+                    <ASULogo imageClassName="max-h-8" />
+                  </Link>
                 </SheetTitle>
               </SheetHeader>
               <div className="mt-4 px-2">

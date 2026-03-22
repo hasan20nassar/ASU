@@ -3,38 +3,13 @@
 import { useLanguage } from "@/contexts/language-context";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Database, MonitorPlay, MessageSquare, BookOpenCheck, ExternalLink, Library } from "lucide-react";
+import { MonitorPlay, MessageSquare, BookOpenCheck, ExternalLink, Library } from "lucide-react";
 
 export function LibraryServices() {
   const { language, dir } = useLanguage();
   const isArabic = language === "ar";
 
-  const databases = [
-    {
-      name: "IEEE Xplore",
-      descAr: "مكتبة رقمية لأبحاث الهندسة والتكنولوجيا والحوسبة",
-      descEn: "Digital library for engineering, technology, and computing research",
-      color: "bg-blue-500/10 text-blue-600",
-    },
-    {
-      name: "PubMed Central",
-      descAr: "قاعدة بيانات للعلوم الطبية والصيدلانية وعلوم الحياة",
-      descEn: "Database for medical, pharmaceutical, and life sciences",
-      color: "bg-teal-500/10 text-teal-600",
-    },
-    {
-      name: "JSTOR",
-      descAr: "أرشيف للمجلات الأكاديمية في العلوم الإنسانية والإدارية",
-      descEn: "Archive of academic journals in humanities and administrative sciences",
-      color: "bg-amber-500/10 text-amber-600",
-    },
-    {
-      name: "ScienceDirect",
-      descAr: "منصة رائدة للبحوث العلمية المقيمة من قبل النظراء",
-      descEn: "Leading platform for peer-reviewed scientific research",
-      color: "bg-orange-500/10 text-orange-600",
-    }
-  ];
+
 
   const services = [
     {
@@ -108,43 +83,7 @@ export function LibraryServices() {
           </div>
         </div>
 
-        {/* Global Databases List */}
-        <div className="rounded-3xl bg-muted/30 p-8 sm:p-12 border">
-          <div className="flex flex-col lg:flex-row gap-12 items-center">
-            <div className="lg:w-1/3 text-center lg:text-start" dir={dir}>
-              <div className="inline-flex items-center justify-center rounded-full bg-primary/10 p-3 mb-6">
-                <Database className="h-8 w-8 text-primary" />
-              </div>
-              <h2 className="text-3xl font-bold tracking-tight mb-4">
-                {isArabic ? "قواعد البيانات العالمية المشتركة" : "Subscribed Global Databases"}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-8">
-                {isArabic 
-                  ? "توفر الجامعة وصولاً مجانياً للطلاب وأعضاء هيئة التدريس لأبرز قواعد البيانات العلمية لنشر الأبحاث والوصول للمجلات العلمية المحكمة."
-                  : "The university provides free access for students and faculty members to the most prominent scientific databases to publish research and access peer-reviewed journals."}
-              </p>
-              <Button size="lg" className="w-full sm:w-auto">
-                {isArabic ? "تصفح جميع قواعد البيانات" : "Browse All Databases"}
-              </Button>
-            </div>
-            
-            <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-              {databases.map((db, idx) => (
-                <div key={idx} className="flex flex-col rounded-2xl border bg-background p-6 shadow-sm hover:border-primary/50 transition-colors">
-                  <div className={`mb-4 inline-flex self-start rounded-lg px-3 py-1 text-sm font-bold ${db.color}`}>
-                    {db.name}
-                  </div>
-                  <p className="text-sm text-muted-foreground font-medium mb-4 flex-1">
-                    {isArabic ? db.descAr : db.descEn}
-                  </p>
-                  <Button variant="outline" size="sm" className="w-full mt-auto">
-                    {isArabic ? "تسجيل الدخول المؤسسي" : "Institutional Login"}
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+
 
       </div>
     </section>

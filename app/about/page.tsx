@@ -11,8 +11,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   History,
-  Building2,
-  MapPin,
   Users,
   Target,
   Eye,
@@ -95,10 +93,10 @@ export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
-      <main className="flex-1">
+      <main className="flex-1 relative overflow-hidden">
+        <MouseGravityIcons />
         {/* Hero */}
-        <section className="relative border-b bg-muted/30 py-12 sm:py-16 overflow-hidden">
-          <MouseGravityIcons />
+        <section className="relative border-b bg-muted/30 py-12 sm:py-16">
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
               <div className="text-start relative z-10">
@@ -151,10 +149,10 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* History & Affiliation */}
+        {/* History */}
         <section className="py-12 sm:py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-4 sm:gap-6 md:grid-cols-3 text-start">
+            <div className="text-start">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -165,34 +163,6 @@ export default function AboutPage() {
                 <CardContent>
                   <p className="text-muted-foreground">
                     {t("about.historyText")}
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Building2 className="h-5 w-5 text-primary" />
-                    {t("about.affiliation")}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    {t("about.affiliationText")}
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MapPin className="h-5 w-5 text-primary" />
-                    {t("about.location")}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    {t("about.locationText")}
                   </p>
                 </CardContent>
               </Card>

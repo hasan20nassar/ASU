@@ -3,7 +3,7 @@
 import { useLanguage } from "@/contexts/language-context";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, BookMarked } from "lucide-react";
+import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -12,33 +12,19 @@ export function LibraryHero() {
   const isArabic = language === "ar";
 
   return (
-    <section className="relative overflow-hidden bg-primary/5 py-16 sm:py-24 lg:py-32">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/pages/library.png"
-          alt="University Library"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
-      </div>
+    <section className="relative overflow-hidden py-16 sm:py-24 lg:py-32">
+
       
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center justify-center rounded-2xl bg-primary/10 p-4">
-              <BookMarked className="h-10 w-10 text-primary" />
-            </div>
-          </div>
+
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl mb-4">
             {isArabic ? "المكتبة المركزية للجامعة" : "University Central Library"}
           </h1>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground mb-10 leading-relaxed">
             {isArabic
-              ? "بوابتك المفتوحة نحو المعرفة. ابحث في آلاف الكتب، المراجع العلمية، وقواعد البيانات العالمية لدعم مسيرتك الأكاديمية والبحثية."
-              : "Your open gateway to knowledge. Search through thousands of books, scientific references, and global databases to support your academic and research journey."}
+              ? "بوابتك المفتوحة نحو المعرفة. ابحث في آلاف الكتب والمراجع العلمية لدعم مسيرتك الأكاديمية والبحثية."
+              : "Your open gateway to knowledge. Search through thousands of books and scientific references to support your academic and research journey."}
           </p>
 
           <form 
@@ -71,8 +57,6 @@ export function LibraryHero() {
 
           <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground font-medium">
             <span>{isArabic ? "أكثر من 50,000 كتاب مطبوع" : "Over 50,000 printed books"}</span>
-            <span className="hidden sm:inline">•</span>
-            <span>{isArabic ? "الوصول لـ 12 قاعدة بيانات عالمية" : "Access to 12 global databases"}</span>
             <span className="hidden sm:inline">•</span>
             <span>{isArabic ? "مساحات دراسية مفتوحة 24/7" : "24/7 open study spaces"}</span>
           </div>
