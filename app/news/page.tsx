@@ -122,13 +122,21 @@ export default function NewsPage() {
                         <CardContent className="p-0">
                           {/* Image */}
                           <div className="relative h-48 overflow-hidden bg-muted">
-                            <Image
-                              src="/images/pages/news.png"
-                              alt={article.titleEn}
-                              fill
-                              className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
+                            {article.image ? (
+                              <Image
+                                src={article.image}
+                                alt={language === "ar" ? article.titleAr : article.titleEn}
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                              />
+                            ) : (
+                              <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="text-4xl font-bold text-muted-foreground/20">
+                                  ASU
+                                </div>
+                              </div>
+                            )}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                             <Badge
                               className="absolute start-4 top-4"
                               variant="secondary"

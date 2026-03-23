@@ -8,6 +8,8 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { useLanguage } from "@/contexts/language-context";
 import { getFacultyBySlug } from "@/data/programs";
+import { DepartmentStaff } from "@/components/academics/department-staff";
+import { TopStudents } from "@/components/academics/top-students";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -154,6 +156,12 @@ export default function FacultyPage({
             </div>
           </div>
         </section>
+
+        {/* Department Staff */}
+        <DepartmentStaff facultySlug={faculty.slug} />
+
+        {/* Top Students */}
+        <TopStudents facultySlug={faculty.slug} />
       </main>
       <Footer />
     </div>

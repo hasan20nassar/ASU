@@ -65,19 +65,31 @@ export function NewsPreview() {
                   >
                     {/* Image Placeholder */}
                     <div
-                      className={`relative bg-muted ${
+                      className={`relative overflow-hidden bg-muted ${
                         index === 0
-                          ? "h-48 md:h-auto md:w-1/2"
-                          : "h-40"
+                          ? "h-56 md:h-auto md:w-1/2"
+                          : "h-48"
                       }`}
                     >
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-4xl text-muted-foreground/20">
-                          ASU
+                      {article.image ? (
+                        <img
+                          src={article.image}
+                          alt={language === "ar" ? article.titleAr : article.titleEn}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-4xl font-bold text-muted-foreground/20">
+                            ASU
+                          </div>
                         </div>
-                      </div>
+                      )}
+                      
+                      {/* Gradient Overlay for better text readability if needed, or just for aesthetic */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+
                       <Badge
-                        className="absolute start-4 top-4"
+                        className="absolute start-4 top-4 shadow-sm"
                         variant="secondary"
                       >
                         {language === "ar"

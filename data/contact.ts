@@ -32,8 +32,8 @@ export const universityInfo = {
   opened: "September 2018",
   decree: "Presidential Decree No. 233 (2017)",
   affiliation: {
-    ar: "تساهم في التنمية البشرية والاقتصادية والاجتماعية في سورية",
-    en: "Contributes to human, economic, and social development in Syria",
+    ar: "نحو التميز في التعليم العالي والبحث العلمي",
+    en: "Towards Excellence in Higher Education and Scientific Research",
   },
   location: {
     ar: "معرة صيدنايا، ريف دمشق",

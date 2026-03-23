@@ -30,7 +30,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Hero
     "hero.title": "جامعة أنطاكية السورية",
     "hero.subtitle": "تأسست عام 2017",
-    "hero.description": "نحو التميز في التعليم العالي والبحث العلمي",
+    "hero.description": "مفتاح مستقبلكم",
     "hero.cta.admissions": "التقديم الآن",
     "hero.cta.explore": "استكشاف الكليات",
     
@@ -137,7 +137,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Hero
     "hero.title": "Antioch Syrian University",
     "hero.subtitle": "Established 2017",
-    "hero.description": "Towards Excellence in Higher Education and Scientific Research",
+    "hero.description": "Your Key to the Future",
     "hero.cta.admissions": "Apply Now",
     "hero.cta.explore": "Explore Faculties",
     

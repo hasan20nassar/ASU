@@ -21,7 +21,11 @@ import {
   Facebook,
   Twitter,
   Linkedin,
+  Newspaper,
+  CalendarDays,
+  Image as ImageIcon,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function NewsArticlePage({
   params,
@@ -105,11 +109,22 @@ export default function NewsArticlePage({
         {/* Article Content */}
         <section className="py-12 sm:py-16">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            {/* Featured Image Placeholder */}
-            <div className="relative mb-8 h-64 w-full overflow-hidden rounded-xl bg-muted sm:h-96">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-6xl text-muted-foreground/20">ASU</div>
-              </div>
+            {/* Featured Image */}
+            <div className="relative mb-10 h-64 w-full overflow-hidden rounded-2xl bg-muted shadow-lg sm:h-[400px]">
+              {article.image ? (
+                <Image
+                  src={article.image}
+                  alt={language === "ar" ? article.titleAr : article.titleEn}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-6xl font-bold text-muted-foreground/10 italic">ASU</div>
+                </div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
 
             {/* Article Text */}
@@ -175,12 +190,22 @@ export default function NewsArticlePage({
                   >
                     <Card className="h-full overflow-hidden transition-all hover:border-primary/50 hover:shadow-lg">
                       <CardContent className="p-0">
-                        <div className="relative h-40 bg-muted">
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="text-3xl text-muted-foreground/20">
-                              ASU
+                        <div className="relative h-44 overflow-hidden bg-muted">
+                          {related.image ? (
+                            <Image
+                              src={related.image}
+                              alt={language === "ar" ? related.titleAr : related.titleEn}
+                              fill
+                              className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
+                          ) : (
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <div className="text-3xl font-bold text-muted-foreground/10 italic">
+                                ASU
+                              </div>
                             </div>
-                          </div>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                         </div>
                         <div className="p-4">
                           <h3 className="font-semibold text-foreground transition-colors group-hover:text-primary">

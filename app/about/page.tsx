@@ -21,6 +21,7 @@ import {
   GraduationCap,
   BookOpen,
   Globe,
+  Quote,
 } from "lucide-react";
 import { MouseGravityIcons } from "@/components/ui/mouse-gravity-icons";
 
@@ -146,6 +147,33 @@ export default function AboutPage() {
                 </Card>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* President's Message */}
+        <section className="py-12 sm:py-16">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <Card className="relative overflow-hidden border-primary/10 shadow-xl bg-gradient-to-br from-card to-primary/5">
+              <div className="absolute top-0 right-0 max-w-[50%] p-6 opacity-[0.03] rtl:left-0 rtl:right-auto transform -rotate-12">
+                <Quote className="h-64 w-64 text-primary" />
+              </div>
+              <CardContent className="relative flex flex-col items-center p-8 sm:p-14 text-center">
+                <Quote className="mb-8 h-10 w-10 text-primary/40 rotate-180" />
+                <p className="mb-10 text-xl sm:text-2xl md:text-3xl font-serif leading-relaxed text-foreground/90 max-w-4xl">
+                  {language === "ar"
+                    ? "«نسعى في جامعة أنطاكية السورية إلى بناء صرح علمي متين، يمثل منارة للعلم والمعرفة، وحاضنة للإبداع والابتكار. نحن ملتزمون بتقديم تعليم نوعي يواكب مستجدات العصر، ويؤهل جيل الشباب ليكون قادراً على المنافسة في سوق العمل، مساهماً بفاعلية في بناء المستقبل وازدهار مجتمعنا.»"
+                    : `"At Antioch Syrian University, we strive to build a solid scientific edifice, serving as a beacon of knowledge and an incubator for creativity and innovation. We are committed to providing quality education that keeps pace with modern developments, empowering our youth to compete globally and actively contribute to the prosperity of our society."`}
+                </p>
+                <div className="flex flex-col items-center justify-center gap-3">
+                  <h3 className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
+                    {language === "ar" ? "أ.د. راكان رزوق" : "Prof. Dr. Rakan Razzouk"}
+                  </h3>
+                  <Badge variant="outline" className="text-sm font-semibold sm:text-base px-5 py-1.5 uppercase tracking-wider text-primary border-primary/20 bg-background/50 backdrop-blur-sm">
+                    {language === "ar" ? "رئيس الجامعة" : "University President"}
+                  </Badge>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
