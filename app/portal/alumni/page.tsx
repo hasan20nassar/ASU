@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/contexts/language-context";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -200,7 +201,7 @@ export default function AlumniPortalPage() {
                   <DialogTrigger asChild>
                     <button className="group relative flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground overflow-hidden transition-transform hover:scale-105 active:scale-95 focus:outline-none ring-offset-2 focus:ring-2 focus:ring-primary">
                       {profile.profileImage ? (
-                        <img src={profile.profileImage} alt={alumniName} className="h-full w-full object-cover" />
+                        <Image src={profile.profileImage} alt={alumniName} fill className="object-cover" unoptimized priority />
                       ) : (
                         <GraduationCap className="h-6 w-6 sm:h-8 sm:w-8" />
                       )}
@@ -212,11 +213,12 @@ export default function AlumniPortalPage() {
                   <DialogContent className="sm:max-w-md" dir={language === "ar" ? "rtl" : "ltr"}>
                     <DialogHeader>
                       <DialogTitle className="text-start">{t.profilePicture}</DialogTitle>
+                      <DialogDescription className="sr-only">Your current profile picture</DialogDescription>
                     </DialogHeader>
                     <div className="flex flex-col items-center gap-6 py-4">
-                      <div className="h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-primary/10 overflow-hidden flex items-center justify-center border-4 border-muted shadow-xl">
+                      <div className="relative h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-primary/10 overflow-hidden flex items-center justify-center border-4 border-muted shadow-xl">
                         {profile.profileImage ? (
-                          <img src={profile.profileImage} alt={alumniName} className="h-full w-full object-cover" />
+                          <Image src={profile.profileImage} alt={alumniName} fill className="object-cover" unoptimized />
                         ) : (
                           <GraduationCap className="h-20 w-20 sm:h-32 sm:w-32 text-muted-foreground" />
                         )}
@@ -261,6 +263,7 @@ export default function AlumniPortalPage() {
                   <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto" dir={language === "ar" ? "rtl" : "ltr"}>
                     <DialogHeader>
                       <DialogTitle className="text-start">{t.editProfile}</DialogTitle>
+                      <DialogDescription className="sr-only">Update your profile information</DialogDescription>
                     </DialogHeader>
                     <form onSubmit={(e) => { e.preventDefault(); setIsEditDialogOpen(false); }} className="space-y-4 pt-4 text-start">
                       <div className="grid gap-4 sm:grid-cols-2">
@@ -336,10 +339,6 @@ export default function AlumniPortalPage() {
                     </form>
                   </DialogContent>
                 </Dialog>
-                <Button variant="outline" className="gap-2 bg-transparent w-full sm:w-auto">
-                  <LogOut className="h-4 w-4" />
-                  {t.logout}
-                </Button>
               </div>
             </div>
           </div>
@@ -471,10 +470,12 @@ export default function AlumniPortalPage() {
                               <Dialog>
                                 <DialogTrigger asChild>
                                   <div className="aspect-square relative rounded-lg overflow-hidden group cursor-pointer border">
-                                    <img
+                                    <Image
                                       src={img}
                                       alt={`Gallery ${idx + 1}`}
-                                      className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                                      fill
+                                      className="object-cover transition-transform group-hover:scale-105"
+                                      priority={idx === 0}
                                     />
                                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                       <Maximize2 className="h-6 w-6 text-white" />
@@ -487,9 +488,11 @@ export default function AlumniPortalPage() {
                                     <DialogDescription>عرض مكبر لصورة حفل التخرج</DialogDescription>
                                   </DialogHeader>
                                   <div className="relative flex flex-col">
-                                    <img
+                                    <Image
                                       src={img}
                                       alt={`Full Gallery ${idx + 1}`}
+                                      width={1200}
+                                      height={800}
                                       className="w-full h-auto max-h-[80vh] object-contain rounded-lg shadow-2xl"
                                     />
                                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 p-2 bg-black/60 rounded-full backdrop-blur-sm border border-white/10 opacity-0 hover:opacity-100 transition-opacity">

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import { useLanguage } from "@/contexts/language-context";
 import { useTheme } from "@/contexts/theme-context";
 import { faculties } from "@/data/programs";
@@ -50,17 +51,38 @@ export function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAcademicsOpen, setIsAcademicsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    // Check auth status on mount and when path changes
+    const auth = localStorage.getItem("asu_auth");
+    const isAuth = auth === "true";
+    Promise.resolve().then(() => setIsLoggedIn(isAuth));
+  }, [pathname]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("asu_auth");
+    setIsLoggedIn(false);
+    setIsMobileMenuOpen(false);
+    router.push("/");
+    router.refresh();
+  };
 
   const navLinks = [
     { href: "/", label: t("nav.home"), icon: Building2 },
     { href: "/about", label: t("nav.about"), icon: Users },
-    { href: "/about/directory", label: language === "ar" ? "هيئة التدريس" : "Faculty Directory", icon: Users },
+    { href: "/about/directory", label: t("nav.directory"), icon: Users },
     { href: "/admissions", label: t("nav.admissions"), icon: GraduationCap },
-    { href: "/library", label: language === "ar" ? "المكتبة المركزية" : "University Library", icon: BookOpen },
-    { href: "/campus-life", label: t("nav.campusLife"), icon: TreePine },
-    { href: "/research", label: t("nav.research"), icon: FlaskConical },
     { href: "/news", label: t("nav.news"), icon: Newspaper },
     { href: "/contact", label: t("nav.contact"), icon: Phone },
+  ];
+
+  const campusLifeLinks = [
+    { href: "/campus-life", label: t("nav.campusLife"), icon: TreePine },
+    { href: "/library", label: language === "ar" ? "المكتبة" : "Library", icon: BookOpen },
+    { href: "/research", label: t("nav.research"), icon: FlaskConical },
   ];
 
   return (
@@ -81,6 +103,11 @@ export function Navbar() {
           <Link href="/about">
             <Button variant="ghost" size="sm" className="px-2 text-[13px] font-medium tracking-tight">
               {t("nav.about")}
+            </Button>
+          </Link>
+          <Link href="/about/directory">
+            <Button variant="ghost" size="sm" className="px-2 text-[13px] font-medium tracking-tight">
+              {t("nav.directory")}
             </Button>
           </Link>
 
@@ -160,21 +187,26 @@ export function Navbar() {
               {t("nav.admissions")}
             </Button>
           </Link>
-          <Link href="/library">
-            <Button variant="ghost" size="sm" className="px-2 text-[13px] font-medium tracking-tight">
-              {language === "ar" ? "المكتبة" : "Library"}
-            </Button>
-          </Link>
-          <Link href="/campus-life">
-            <Button variant="ghost" size="sm" className="px-2 text-[13px] font-medium tracking-tight">
-              {t("nav.campusLife")}
-            </Button>
-          </Link>
-          <Link href="/research">
-            <Button variant="ghost" size="sm" className="px-2 text-[13px] font-medium tracking-tight">
-              {t("nav.research")}
-            </Button>
-          </Link>
+
+          {/* Campus Life Dropdown */}
+          <DropdownMenu dir={dir}>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="gap-1 px-2 text-[13px] font-medium tracking-tight">
+                {t("nav.campusLife")}
+                <ChevronDown className="h-3 w-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="center" className="w-56">
+              {campusLifeLinks.map((link) => (
+                <DropdownMenuItem key={link.href} asChild>
+                  <Link href={link.href} className="w-full text-start cursor-pointer">
+                    {link.label}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Link href="/news">
             <Button variant="ghost" size="sm" className="px-2 text-[13px] font-medium tracking-tight">
               {t("nav.news")}
@@ -218,30 +250,41 @@ export function Navbar() {
             )}
           </Button>
 
-          {/* Portals Dropdown */}
-          <DropdownMenu dir={dir}>
-            <DropdownMenuTrigger asChild>
-              <Button variant="default" size="sm" className="hidden sm:flex gap-1 font-bold">
-                {t("nav.portals")}
-                <ChevronDown className="h-4 w-4" />
+          {/* Login/Portals Button */}
+          {!isLoggedIn ? (
+            <Link href="/login" className="hidden sm:block">
+              <Button variant="default" size="sm" className="font-bold">
+                {language === "ar" ? "تسجيل الدخول" : "Login"}
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" sideOffset={10}>
-              <DropdownMenuItem asChild className="text-start font-medium">
-                <Link href="/login">{language === "ar" ? "تسجيل الدخول" : "Login"}</Link>
-              </DropdownMenuItem>
-              <div className="my-1 border-t" />
-              <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
-                <Link href="/portal/student">{t("nav.studentPortal")}</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
-                <Link href="/portal/faculty">{t("nav.facultyPortal")}</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
-                <Link href="/portal/alumni">{t("nav.alumniPortal")}</Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            </Link>
+          ) : (
+            <DropdownMenu dir={dir}>
+              <DropdownMenuTrigger asChild>
+                <Button variant="default" size="sm" className="hidden sm:flex gap-1 font-bold">
+                  {t("nav.portals")}
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" sideOffset={10}>
+                <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
+                  <Link href="/portal/student">{t("nav.studentPortal")}</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
+                  <Link href="/portal/faculty">{t("nav.facultyPortal")}</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
+                  <Link href="/portal/alumni">{t("nav.alumniPortal")}</Link>
+                </DropdownMenuItem>
+                <div className="my-1 border-t" />
+                <DropdownMenuItem 
+                  onClick={handleLogout}
+                  className="text-start font-bold text-destructive cursor-pointer"
+                >
+                  {t("nav.logout")}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
 
           {/* Mobile Menu */}
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -251,122 +294,156 @@ export function Navbar() {
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side={dir === "rtl" ? "right" : "left"} className="w-80">
-              <SheetHeader className="text-start border-b pb-4">
+            <SheetContent side={dir === "rtl" ? "right" : "left"} className="w-80 p-0 flex flex-col">
+              <SheetHeader className="text-start border-b p-6">
                 <SheetTitle>
                   <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
                     <ASULogo imageClassName="max-h-8" />
                   </Link>
                 </SheetTitle>
               </SheetHeader>
-              <div className="mt-4 px-2">
-                <CommandMenu />
-              </div>
-              <div className="mt-4 flex flex-col gap-1">
-                {navLinks.slice(0, 2).map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start gap-3 font-medium"
+              <div className="flex-1 overflow-y-auto px-6 pb-8">
+                <div className="mt-4">
+                  <CommandMenu />
+                </div>
+                <div className="mt-4 flex flex-col gap-1">
+                  {navLinks.slice(0, 2).map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      <link.icon className="h-5 w-5 text-primary" />
-                      {link.label}
-                    </Button>
-                  </Link>
-                ))}
-
-                {/* Mobile Academics Collapsible */}
-                <Collapsible>
-                  <CollapsibleTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-between gap-3 font-medium"
-                    >
-                      <span className="flex items-center gap-3">
-                        <BookOpen className="h-5 w-5 text-primary" />
-                        {t("nav.academics")}
-                      </span>
-                      <ChevronDown className="h-4 w-4" />
-                    </Button>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent className="ps-10 space-y-1 py-1">
-                    {faculties.map((faculty) => (
-                      <Link
-                        key={faculty.id}
-                        href={`/academics/${faculty.slug}`}
-                        onClick={() => setIsMobileMenuOpen(false)}
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start gap-3 font-medium"
                       >
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="w-full justify-start text-muted-foreground font-normal"
+                        <link.icon className="h-5 w-5 text-primary" />
+                        {link.label}
+                      </Button>
+                    </Link>
+                  ))}
+
+                  {/* Mobile Academics Collapsible */}
+                  <Collapsible>
+                    <CollapsibleTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-between gap-3 font-medium"
+                      >
+                        <span className="flex items-center gap-3">
+                          <BookOpen className="h-5 w-5 text-primary" />
+                          {t("nav.academics")}
+                        </span>
+                        <ChevronDown className="h-4 w-4" />
+                      </Button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="ps-10 space-y-1 py-1">
+                      {faculties.map((faculty) => (
+                        <Link
+                          key={faculty.id}
+                          href={`/academics/${faculty.slug}`}
+                          onClick={() => setIsMobileMenuOpen(false)}
                         >
-                          {language === "ar" ? faculty.nameAr : faculty.nameEn}
-                        </Button>
-                      </Link>
-                    ))}
-                  </CollapsibleContent>
-                </Collapsible>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="w-full justify-start text-muted-foreground font-normal"
+                          >
+                            {language === "ar" ? faculty.nameAr : faculty.nameEn}
+                          </Button>
+                        </Link>
+                      ))}
+                    </CollapsibleContent>
+                  </Collapsible>
 
-                {navLinks.slice(2).map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start gap-3 font-medium"
+                  {/* Mobile Campus Life Collapsible */}
+                  <Collapsible>
+                    <CollapsibleTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-between gap-3 font-medium"
+                      >
+                        <span className="flex items-center gap-3">
+                          <TreePine className="h-5 w-5 text-primary" />
+                          {t("nav.campusLife")}
+                        </span>
+                        <ChevronDown className="h-4 w-4" />
+                      </Button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="ps-10 space-y-1 py-1">
+                      {campusLifeLinks.map((link) => (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="w-full justify-start text-muted-foreground font-normal"
+                          >
+                            {link.label}
+                          </Button>
+                        </Link>
+                      ))}
+                    </CollapsibleContent>
+                  </Collapsible>
+
+                  {navLinks.slice(2).map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      <link.icon className="h-5 w-5 text-primary" />
-                      {link.label}
-                    </Button>
-                  </Link>
-                ))}
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start gap-3 font-medium"
+                      >
+                        <link.icon className="h-5 w-5 text-primary" />
+                        {link.label}
+                      </Button>
+                    </Link>
+                  ))}
 
+                {/* Mobile Portals/Login */}
                 <div className="my-4 border-t" />
-
-                {/* Mobile Portals */}
-                <p className="px-4 mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground text-start">
-                  {t("nav.portals")}
-                </p>
-                <div className="flex flex-col gap-1">
-                  <Link
-                    href="/login"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
+                {!isLoggedIn ? (
+                  <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
                     <Button variant="ghost" className="w-full justify-start font-bold text-primary">
                       {language === "ar" ? "تسجيل الدخول" : "Login"}
                     </Button>
                   </Link>
-                  <Link
-                    href="/portal/student"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <Button variant="ghost" className="w-full justify-start font-medium text-muted-foreground">
-                      {t("nav.studentPortal")}
-                    </Button>
-                  </Link>
-                  <Link
-                    href="/portal/faculty"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <Button variant="ghost" className="w-full justify-start font-medium text-muted-foreground">
-                      {t("nav.facultyPortal")}
-                    </Button>
-                  </Link>
-                  <Link
-                    href="/portal/alumni"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <Button variant="ghost" className="w-full justify-start font-medium text-muted-foreground">
-                      {t("nav.alumniPortal")}
-                    </Button>
-                  </Link>
+                ) : (
+                  <>
+                    <p className="px-4 mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground text-start">
+                      {t("nav.portals")}
+                    </p>
+                    <div className="flex flex-col gap-1">
+                      <Link href="/portal/student" onClick={() => setIsMobileMenuOpen(false)}>
+                        <Button variant="ghost" className="w-full justify-start font-medium text-muted-foreground">
+                          {t("nav.studentPortal")}
+                        </Button>
+                      </Link>
+                      <Link href="/portal/faculty" onClick={() => setIsMobileMenuOpen(false)}>
+                        <Button variant="ghost" className="w-full justify-start font-medium text-muted-foreground">
+                          {t("nav.facultyPortal")}
+                        </Button>
+                      </Link>
+                      <Link href="/portal/alumni" onClick={() => setIsMobileMenuOpen(false)}>
+                        <Button variant="ghost" className="w-full justify-start font-medium text-muted-foreground">
+                          {t("nav.alumniPortal")}
+                        </Button>
+                      </Link>
+                      <Button 
+                        onClick={handleLogout}
+                        variant="ghost" 
+                        className="w-full justify-start font-bold text-destructive"
+                      >
+                        {t("nav.logout")}
+                      </Button>
+                    </div>
+                  </>
+                )}
                 </div>
               </div>
             </SheetContent>

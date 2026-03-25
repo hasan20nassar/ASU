@@ -26,6 +26,9 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.facultyPortal": "بوابة أعضاء هيئة التدريس",
     "nav.alumniPortal": "بوابة الخريجين",
     "nav.studentPortal": "بوابة الطلاب",
+    "nav.directory": "دليل أعضاء هيئة التدريس",
+    "nav.directory.description": "تعرّف على نخبة الأساتذة والباحثين في جامعة أنطاكية السورية. يمكنك البحث والتواصل المباشر مع أعضاء الهيئة التدريسية ومعرفة مجالات تخصصهم وأوقات الساعات المكتبية.",
+    "nav.logout": "تسجيل الخروج",
     
     // Hero
     "hero.title": "جامعة أنطاكية السورية",
@@ -133,6 +136,9 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.facultyPortal": "Faculty Portal",
     "nav.alumniPortal": "Alumni Portal",
     "nav.studentPortal": "Student Portal",
+    "nav.directory": "Faculty Directory",
+    "nav.directory.description": "Meet our distinguished faculty members and researchers at Antioch Syrian University. You can search, contact them directly, and find their areas of expertise and office hours.",
+    "nav.logout": "Logout",
     
     // Hero
     "hero.title": "Antioch Syrian University",
@@ -243,14 +249,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const savedLanguage = localStorage.getItem("asu-language") as Language;
     if (savedLanguage && (savedLanguage === "ar" || savedLanguage === "en")) {
-      setLanguageState(savedLanguage);
+      Promise.resolve().then(() => setLanguageState(savedLanguage));
     } else if (typeof navigator !== "undefined") {
       // Auto-detect browser language
       const browserLang = navigator.language || navigator.languages?.[0] || "";
       if (browserLang.toLowerCase().startsWith("en")) {
-        setLanguageState("en");
+        Promise.resolve().then(() => setLanguageState("en"));
       } else {
-        setLanguageState("ar"); // Default fallback
+        Promise.resolve().then(() => setLanguageState("ar")); // Default fallback
       }
     }
   }, []);

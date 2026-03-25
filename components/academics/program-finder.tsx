@@ -28,6 +28,8 @@ export function ProgramFinder() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFaculty, setSelectedFaculty] = useState<string>("all");
   const [selectedBranch, setSelectedBranch] = useState<string>("all");
+  const [selectedDegree, setSelectedDegree] = useState<string>("all");
+
 
   const filteredPrograms = useMemo(() => {
     return allPrograms.filter((program) => {
@@ -45,17 +47,23 @@ export function ProgramFinder() {
       // Branch matching
       const matchesBranch = selectedBranch === "all" || program.branch === selectedBranch || program.branch === "both";
 
-      return matchesSearch && matchesFaculty && matchesBranch;
+      // Degree matching (Fallback logic since degreeType isn't in mock data yet)
+      const isMaster = program.nameEn.toLowerCase().includes("master") || program.nameAr.includes("ماجستير");
+      const programDegree = isMaster ? "master" : "bachelor";
+      const matchesDegree = selectedDegree === "all" || programDegree === selectedDegree;
+
+      return matchesSearch && matchesFaculty && matchesBranch && matchesDegree;
     });
-  }, [allPrograms, searchQuery, selectedFaculty, selectedBranch]);
+  }, [allPrograms, searchQuery, selectedFaculty, selectedBranch, selectedDegree]);
 
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedFaculty("all");
     setSelectedBranch("all");
+    setSelectedDegree("all");
   };
 
-  const hasActiveFilters = searchQuery !== "" || selectedFaculty !== "all" || selectedBranch !== "all";
+  const hasActiveFilters = searchQuery !== "" || selectedFaculty !== "all" || selectedBranch !== "all" || selectedDegree !== "all";
 
   // Helpers
   const formatBranch = (branch: string) => {
@@ -128,6 +136,20 @@ export function ProgramFinder() {
                   <SelectItem value="all">{t("programs.allBranches")}</SelectItem>
                   <SelectItem value="scientific">{isArabic ? "علمي" : "Scientific"}</SelectItem>
                   <SelectItem value="literary">{isArabic ? "أدبي" : "Literary"}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="degree-select">{isArabic ? "الدرجة العلمية" : "Degree Type"}</Label>
+              <Select value={selectedDegree} onValueChange={setSelectedDegree} dir={dir}>
+                <SelectTrigger id="degree-select">
+                  <SelectValue placeholder={isArabic ? "جميع الدرجات" : "All Degrees"} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{isArabic ? "جميع الدرجات" : "All Degrees"}</SelectItem>
+                  <SelectItem value="bachelor">{isArabic ? "بكالوريوس (إجازة)" : "Bachelor's Degree"}</SelectItem>
+                  <SelectItem value="master">{isArabic ? "ماجستير" : "Master's Degree"}</SelectItem>
                 </SelectContent>
               </Select>
             </div>

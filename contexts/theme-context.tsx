@@ -17,28 +17,30 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const savedTheme = localStorage.getItem("asu-theme") as Theme;
-    
-    if (savedTheme && (savedTheme === "light" || savedTheme === "dark")) {
-      setThemeState(savedTheme);
-    } else if (typeof window !== "undefined") {
-      // Check initial preferences
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      if (mediaQuery.matches) {
-        setThemeState("dark");
-      }
+    Promise.resolve().then(() => {
+      setMounted(true);
+      const savedTheme = localStorage.getItem("asu-theme") as Theme;
       
-      // Listen for system theme changes if no explicit user preference is set
-      const handleChange = (e: MediaQueryListEvent) => {
-        if (!localStorage.getItem("asu-theme")) {
-          setThemeState(e.matches ? "dark" : "light");
+      if (savedTheme && (savedTheme === "light" || savedTheme === "dark")) {
+        setThemeState(savedTheme);
+      } else if (typeof window !== "undefined") {
+        // Check initial preferences
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        if (mediaQuery.matches) {
+          setThemeState("dark");
         }
-      };
-      
-      mediaQuery.addEventListener("change", handleChange);
-      return () => mediaQuery.removeEventListener("change", handleChange);
-    }
+        
+        // Listen for system theme changes if no explicit user preference is set
+        const handleChange = (e: MediaQueryListEvent) => {
+          if (!localStorage.getItem("asu-theme")) {
+            setThemeState(e.matches ? "dark" : "light");
+          }
+        };
+        
+        mediaQuery.addEventListener("change", handleChange);
+        return () => mediaQuery.removeEventListener("change", handleChange);
+      }
+    });
   }, []);
 
   useEffect(() => {

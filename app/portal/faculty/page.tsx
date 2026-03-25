@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/contexts/language-context";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -21,6 +22,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
@@ -187,7 +189,7 @@ export default function FacultyPortalPage() {
                   <DialogTrigger asChild>
                     <button className="group relative flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground overflow-hidden transition-transform hover:scale-105 active:scale-95 focus:outline-none ring-offset-2 focus:ring-2 focus:ring-primary">
                       {profile.profileImage ? (
-                        <img src={profile.profileImage} alt={instructorName} className="h-full w-full object-cover" />
+                        <Image src={profile.profileImage} alt={instructorName} fill className="object-cover" unoptimized priority />
                       ) : (
                         <User className="h-6 w-6 sm:h-8 sm:w-8" />
                       )}
@@ -199,11 +201,12 @@ export default function FacultyPortalPage() {
                   <DialogContent className="sm:max-w-md" dir={language === "ar" ? "rtl" : "ltr"}>
                     <DialogHeader>
                       <DialogTitle className="text-start">{t.profilePicture}</DialogTitle>
+                      <DialogDescription className="sr-only">Update your profile picture</DialogDescription>
                     </DialogHeader>
                     <div className="flex flex-col items-center gap-6 py-4">
-                      <div className="h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-primary/10 overflow-hidden flex items-center justify-center border-4 border-muted shadow-xl">
+                      <div className="relative h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-primary/10 overflow-hidden flex items-center justify-center border-4 border-muted shadow-xl">
                         {profile.profileImage ? (
-                          <img src={profile.profileImage} alt={instructorName} className="h-full w-full object-cover" />
+                          <Image src={profile.profileImage} alt={instructorName} fill className="object-cover" unoptimized />
                         ) : (
                           <User className="h-20 w-20 sm:h-32 sm:w-32 text-muted-foreground" />
                         )}
@@ -248,6 +251,7 @@ export default function FacultyPortalPage() {
                   <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto" dir={language === "ar" ? "rtl" : "ltr"}>
                     <DialogHeader>
                       <DialogTitle className="text-start">{t.editProfile}</DialogTitle>
+                      <DialogDescription className="sr-only">Update your personal and professional information</DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleSaveProfile} className="space-y-4 pt-4 text-start">
                       <div className="grid gap-4 sm:grid-cols-2">
@@ -319,10 +323,6 @@ export default function FacultyPortalPage() {
                     </form>
                   </DialogContent>
                 </Dialog>
-                <Button variant="outline" className="gap-2 bg-transparent w-full sm:w-auto">
-                  <LogOut className="h-4 w-4" />
-                  {t.logout}
-                </Button>
               </div>
             </div>
           </div>
@@ -416,6 +416,7 @@ export default function FacultyPortalPage() {
                                   {t.gradesFor}: {course.code} -{" "}
                                   {isArabic ? course.nameAr : course.nameEn}
                                 </DialogTitle>
+                                <DialogDescription className="sr-only">Enter grades for students in this course</DialogDescription>
                               </DialogHeader>
                               <div className="max-h-[60vh] overflow-auto">
                                 <div className="overflow-x-auto">

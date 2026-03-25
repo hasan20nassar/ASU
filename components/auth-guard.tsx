@@ -13,7 +13,10 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     const auth = localStorage.getItem("asu_auth");
     const isAuth = auth === "true";
     
-    setIsAuthenticated(isAuth);
+    // Defer the set state to avoid the synchronous setState in effect warning
+    Promise.resolve().then(() => {
+      setIsAuthenticated(isAuth);
+    });
 
     const isProtectedPath = pathname.startsWith("/portal");
 

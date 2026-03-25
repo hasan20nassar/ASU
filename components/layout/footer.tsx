@@ -23,6 +23,7 @@ export function Footer() {
 
   const quickLinks = [
     { href: "/about", label: t("nav.about") },
+    { href: "/about/directory", label: t("nav.directory") },
     { href: "/academics", label: t("nav.academics") },
     { href: "/admissions", label: t("nav.admissions") },
     { href: "/campus-life", label: t("nav.campusLife") },

@@ -28,6 +28,7 @@ import {
   Heart,
 } from "lucide-react";
 import Image from "next/image";
+import { BlueprintTour } from "@/components/campus-life/blueprint-tour";
 
 export default function CampusLifePage() {
   const { language, dir } = useLanguage();
@@ -156,28 +157,28 @@ export default function CampusLifePage() {
         <section className="py-12 sm:py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Tabs defaultValue="housing" className="w-full" dir={dir}>
-              <TabsList className="mb-8 grid w-full grid-cols-2 sm:grid-cols-4 lg:w-auto lg:inline-flex">
-                <TabsTrigger value="housing" className="gap-2">
-                  <Home className="h-4 w-4" />
-                  <span className="hidden sm:inline">
+              <TabsList className="mb-8 flex h-auto w-full flex-wrap justify-center gap-2 bg-transparent p-0 lg:w-auto lg:inline-flex lg:bg-muted">
+                <TabsTrigger value="housing" className="flex-1 gap-2 rounded-xl border bg-card py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground lg:flex-none lg:rounded-md lg:border-none lg:bg-transparent lg:py-2">
+                  <Home className="h-4 w-4 shrink-0" />
+                  <span className="text-sm font-medium">
                     {language === "ar" ? "السكن" : "Housing"}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="clubs" className="gap-2">
-                  <Users className="h-4 w-4" />
-                  <span className="hidden sm:inline">
+                <TabsTrigger value="clubs" className="flex-1 gap-2 rounded-xl border bg-card py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground lg:flex-none lg:rounded-md lg:border-none lg:bg-transparent lg:py-2">
+                  <Users className="h-4 w-4 shrink-0" />
+                  <span className="text-sm font-medium">
                     {language === "ar" ? "النوادي" : "Clubs"}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="sports" className="gap-2">
-                  <Dumbbell className="h-4 w-4" />
-                  <span className="hidden sm:inline">
+                <TabsTrigger value="sports" className="flex-1 gap-2 rounded-xl border bg-card py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground lg:flex-none lg:rounded-md lg:border-none lg:bg-transparent lg:py-2">
+                  <Dumbbell className="h-4 w-4 shrink-0" />
+                  <span className="text-sm font-medium">
                     {language === "ar" ? "الرياضة" : "Sports"}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="tour" className="gap-2">
-                  <Camera className="h-4 w-4" />
-                  <span className="hidden sm:inline">
+                <TabsTrigger value="tour" className="flex-1 gap-2 rounded-xl border bg-card py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground lg:flex-none lg:rounded-md lg:border-none lg:bg-transparent lg:py-2">
+                  <Camera className="h-4 w-4 shrink-0" />
+                  <span className="text-sm font-medium">
                     {language === "ar" ? "جولة افتراضية" : "Virtual Tour"}
                   </span>
                 </TabsTrigger>
@@ -342,18 +343,9 @@ export default function CampusLifePage() {
                       ? "استكشف حرم جامعة أنطاكية السورية في معرة صيدنايا من خلال جولتنا الافتراضية"
                       : "Explore Antioch Syrian University campus in Maarat Saidnaya through our virtual tour"}
                   </p>
-                  <Card className="mx-auto max-w-4xl">
+                  <Card className="mx-auto max-w-4xl overflow-hidden">
                     <CardContent className="p-0">
-                      <div className="relative h-96 bg-muted">
-                        <div className="absolute inset-0 flex flex-col items-center justify-center">
-                          <Camera className="mb-4 h-16 w-16 text-muted-foreground/20" />
-                          <div className="text-2xl text-muted-foreground/40">
-                            {language === "ar"
-                              ? "الجولة الافتراضية قادمة قريباً"
-                              : "Virtual Tour Coming Soon"}
-                          </div>
-                        </div>
-                      </div>
+                      <BlueprintTour />
                     </CardContent>
                   </Card>
                 </div>

@@ -37,6 +37,31 @@ export function KnowledgeAnimation() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  // Generate stable random points for the light orbs
+  const [orbPoints] = React.useState(() => {
+    return [...Array(3)].map(() => ({
+      x: [
+        `${Math.random() * 100}%`,
+        `${Math.random() * 100}%`,
+        `${Math.random() * 100}%`,
+      ],
+      y: [
+        `${Math.random() * 100}%`,
+        `${Math.random() * 100}%`,
+        `${Math.random() * 100}%`,
+      ],
+    }));
+  });
+
+  // Use a stable config for floating icons
+  const [floatingIconsConfig] = React.useState(() => {
+    return [...Array(15)].map((_, i) => ({
+      initialX: (i * 7 + 10) % 90,
+      initialY: (i * 13 + 15) % 80,
+      depth: (i % 3) + 1,
+    }));
+  });
+
   return (
     <div 
       ref={containerRef}
@@ -58,12 +83,10 @@ export function KnowledgeAnimation() {
         style={{ y: springYOffset }}
       >
         {/* Floating Elements */}
-        {[...Array(15)].map((_, i) => {
+        {floatingIconsConfig.map((config, i) => {
           const iconData = icons[i % icons.length];
           const Icon = iconData.Icon;
-          const initialX = (i * 7 + 10) % 90;
-          const initialY = (i * 13 + 15) % 80;
-          const depth = (i % 3) + 1; // 1, 2, or 3 for parallax depth
+          const { initialX, initialY, depth } = config;
 
           return (
             <motion.div
@@ -76,7 +99,7 @@ export function KnowledgeAnimation() {
               }}
               animate={{
                 x: mousePosition.x * 30 * depth,
-                y: mousePosition.y * 30 * depth + (Math.sin(Date.now() / 2000 + i) * 20),
+                y: mousePosition.y * 30 * depth,
                 rotateX: mousePosition.y * 20,
                 rotateY: mousePosition.x * 20,
               }}
@@ -86,28 +109,32 @@ export function KnowledgeAnimation() {
                 damping: 20 * depth,
               }}
             >
-              <Icon size={iconData.size + depth * 5} strokeWidth={1.5} />
+              <motion.div
+                animate={{
+                  y: [0, 20, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.2
+                }}
+              >
+                <Icon size={iconData.size + depth * 5} strokeWidth={1.5} />
+              </motion.div>
             </motion.div>
           );
         })}
       </motion.div>
 
       {/* Animated Light Orbs */}
-      {[...Array(3)].map((_, i) => (
+      {orbPoints.map((orb, i) => (
         <motion.div
           key={`orb-${i}`}
           className="absolute w-64 h-64 rounded-full bg-primary/5 blur-3xl"
           animate={{
-            x: [
-              Math.random() * 100 + "%",
-              Math.random() * 100 + "%",
-              Math.random() * 100 + "%"
-            ],
-            y: [
-              Math.random() * 100 + "%",
-              Math.random() * 100 + "%",
-              Math.random() * 100 + "%"
-            ],
+            x: orb.x,
+            y: orb.y,
           }}
           transition={{
             duration: 15 + i * 5,
