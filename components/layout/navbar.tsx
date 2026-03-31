@@ -265,7 +265,11 @@ export function Navbar() {
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" sideOffset={10}>
+               <DropdownMenuContent align="end" sideOffset={10}>
+                <DropdownMenuItem asChild className="text-start font-bold text-primary">
+                  <Link href="/dashboard">{t("nav.dashboard")}</Link>
+                </DropdownMenuItem>
+                <div className="my-1 border-b" />
                 <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
                   <Link href="/portal/student">{t("nav.studentPortal")}</Link>
                 </DropdownMenuItem>
@@ -419,6 +423,12 @@ export function Navbar() {
                       {t("nav.portals")}
                     </p>
                     <div className="flex flex-col gap-1">
+                      <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
+                        <Button variant="ghost" className="w-full justify-start font-bold text-primary">
+                          {t("nav.dashboard")}
+                        </Button>
+                      </Link>
+                      <div className="my-1 border-t" />
                       <Link href="/portal/student" onClick={() => setIsMobileMenuOpen(false)}>
                         <Button variant="ghost" className="w-full justify-start font-medium text-muted-foreground">
                           {t("nav.studentPortal")}

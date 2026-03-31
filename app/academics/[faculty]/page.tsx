@@ -8,7 +8,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { useLanguage } from "@/contexts/language-context";
 import { getFacultyBySlug } from "@/data/programs";
-import { DepartmentStaff } from "@/components/academics/department-staff";
+import { FacultyTabs } from "@/components/academics/faculty-tabs";
 import { TopStudents } from "@/components/academics/top-students";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -84,8 +84,11 @@ export default function FacultyPage({
           </div>
         </section>
 
+        {/* Faculty Information Tabs */}
+        <FacultyTabs facultySlug={faculty.slug} />
+
         {/* Programs */}
-        <section className="py-12 sm:py-16">
+        <section className="py-12 sm:py-16 bg-muted/20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <h2 className="mb-8 text-2xl font-bold text-foreground">
               {language === "ar" ? "البرامج المتاحة" : "Available Programs"}
@@ -157,12 +160,10 @@ export default function FacultyPage({
           </div>
         </section>
 
-        {/* Department Staff */}
-        <DepartmentStaff facultySlug={faculty.slug} />
-
         {/* Top Students */}
         <TopStudents facultySlug={faculty.slug} />
       </main>
+
       <Footer />
     </div>
   );
