@@ -184,3 +184,27 @@ When building/modifying features in this codebase:
 - [ ] Verify both **Arabic (RTL)** and **English (LTR)** layouts do not break, text wraps correctly, and alignment flips perfectly.
 - [ ] Confirm that all added user interface strings are registered in `contexts/language-context.tsx` and fetched via `t()`.
 - [ ] Check console logs to ensure no rendering mismatches, hydrate issues, or Radix UI errors.
+
+---
+
+## 🚀 8. Integrations Implemented (Developer Workflow Upgrade)
+
+We integrated four major engineering practices to align the project with standard enterprise developer workflows:
+
+### 1. Enforced TypeScript Build Strictness
+- **Change**: Removed the bypass key `typescript.ignoreBuildErrors = true` from [next.config.mjs](file:///mnt/3dac2f44-6960-4b29-b035-9c2b4a87fb9d/PC_Work/ASU/ASU_Website/ASU-main/next.config.mjs).
+- **Result**: Next.js builds now strictly compile checking all type definitions. A production build was run, succeeding with zero compilation errors.
+
+### 2. Configured pre-commit Hooks (Husky + lint-staged)
+- **Change**: Installed `husky` and `lint-staged`. Run `husky init` to initialize.
+- **Config**: Added `"lint-staged"` configure block to [package.json](file:///mnt/3dac2f44-6960-4b29-b035-9c2b4a87fb9d/PC_Work/ASU/ASU_Website/ASU-main/package.json), and updated [.husky/pre-commit](file:///mnt/3dac2f44-6960-4b29-b035-9c2b4a87fb9d/PC_Work/ASU/ASU_Website/ASU-main/.husky/pre-commit) to execute `npx lint-staged` on staged files before commit.
+
+### 3. Integrated Commit Message Linting (Commitlint)
+- **Change**: Installed `@commitlint/cli` and `@commitlint/config-conventional`. Created [commitlint.config.mjs](file:///mnt/3dac2f44-6960-4b29-b035-9c2b4a87fb9d/PC_Work/ASU/ASU_Website/ASU-main/commitlint.config.mjs).
+- **Config**: Created [.husky/commit-msg](file:///mnt/3dac2f44-6960-4b29-b035-9c2b4a87fb9d/PC_Work/ASU/ASU_Website/ASU-main/.husky/commit-msg) running `npx --no -- commitlint --edit "$1"` to block non-semantic commit messages.
+
+### 4. Configured Automated Testing (Vitest & RTL)
+- **Change**: Configured a unit testing framework with Vitest, jsdom, and React Testing Library.
+- **Files**: Created [vitest.config.ts](file:///mnt/3dac2f44-6960-4b29-b035-9c2b4a87fb9d/PC_Work/ASU/ASU_Website/ASU-main/vitest.config.ts) and [vitest.setup.ts](file:///mnt/3dac2f44-6960-4b29-b035-9c2b4a87fb9d/PC_Work/ASU/ASU_Website/ASU-main/vitest.setup.ts). Added `npm run test` script to `package.json`.
+- **Unit Test**: Wrote the first test suite [language-context.test.tsx](file:///mnt/3dac2f44-6960-4b29-b035-9c2b4a87fb9d/PC_Work/ASU/ASU_Website/ASU-main/contexts/language-context.test.tsx) ensuring correct i18n logic, translation hooks, RTL direction parameters, and localStorage caching. Tests passed successfully with zero warnings.
+
