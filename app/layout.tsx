@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata, Viewport } from "next";
-import { Inter, Tajawal } from "next/font/google";
+import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { LanguageProvider } from "@/contexts/language-context";
@@ -8,18 +8,13 @@ import { SmoothScroll } from "@/components/smooth-scroll";
 import { HtmlDirUpdater } from "@/components/html-dir-updater";
 import { AuthGuard } from "@/components/auth-guard";
 import { Toaster } from "@/components/ui/sonner";
+import { Preloader } from "@/components/layout/preloader";
 import "./globals.css";
+import "../public/fonts/fonts.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  display: "swap",
-});
-
-const tajawal = Tajawal({
-  subsets: ["arabic"],
-  weight: ["400", "500", "700", "800"],
-  variable: "--font-tajawal",
   display: "swap",
 });
 
@@ -81,14 +76,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" suppressHydrationWarning>
+    <html lang="ar" dir="rtl" className={`${inter.variable}`} suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${tajawal.variable} font-sans antialiased`}
+        className="font-sans antialiased"
       >
         <ThemeProvider>
           <LanguageProvider>
             <HtmlDirUpdater />
             <AuthGuard>
+              <Preloader />
               <SmoothScroll>{children}</SmoothScroll>
             </AuthGuard>
             <Toaster position="top-center" />

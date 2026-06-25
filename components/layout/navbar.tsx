@@ -96,17 +96,17 @@ export function Navbar() {
         {/* Desktop Navigation */}
         <div className="hidden items-center lg:flex">
           <Link href="/">
-            <Button variant="ghost" size="sm" className="px-2 text-[13px] font-medium tracking-tight">
+            <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
               {t("nav.home")}
             </Button>
           </Link>
           <Link href="/about">
-            <Button variant="ghost" size="sm" className="px-2 text-[13px] font-medium tracking-tight">
+            <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
               {t("nav.about")}
             </Button>
           </Link>
           <Link href="/about/directory">
-            <Button variant="ghost" size="sm" className="px-2 text-[13px] font-medium tracking-tight">
+            <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
               {t("nav.directory")}
             </Button>
           </Link>
@@ -114,7 +114,7 @@ export function Navbar() {
           {/* Academics Mega Menu */}
           <DropdownMenu open={isAcademicsOpen} onOpenChange={setIsAcademicsOpen} dir={dir}>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-1 px-2 text-[13px] font-medium tracking-tight">
+              <Button variant="ghost" size="sm" className="gap-1 px-2 text-sm font-medium tracking-tight">
                 {t("nav.academics")}
                 <ChevronDown
                   className={cn(
@@ -183,7 +183,7 @@ export function Navbar() {
           </DropdownMenu>
 
           <Link href="/admissions">
-            <Button variant="ghost" size="sm" className="px-2 text-[13px] font-medium tracking-tight">
+            <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
               {t("nav.admissions")}
             </Button>
           </Link>
@@ -191,7 +191,7 @@ export function Navbar() {
           {/* Campus Life Dropdown */}
           <DropdownMenu dir={dir}>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-1 px-2 text-[13px] font-medium tracking-tight">
+              <Button variant="ghost" size="sm" className="gap-1 px-2 text-sm font-medium tracking-tight">
                 {t("nav.campusLife")}
                 <ChevronDown className="h-3 w-3" />
               </Button>
@@ -208,12 +208,12 @@ export function Navbar() {
           </DropdownMenu>
 
           <Link href="/news">
-            <Button variant="ghost" size="sm" className="px-2 text-[13px] font-medium tracking-tight">
+            <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
               {t("nav.news")}
             </Button>
           </Link>
           <Link href="/contact">
-            <Button variant="ghost" size="sm" className="px-2 text-[13px] font-medium tracking-tight">
+            <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
               {t("nav.contact")}
             </Button>
           </Link>

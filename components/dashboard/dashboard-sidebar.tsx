@@ -110,7 +110,7 @@ export function DashboardSidebar() {
     <Sidebar collapsible="icon" side={language === "ar" ? "right" : "left"} className="border-e">
       <SidebarHeader className="p-4">
         <Link href="/" className="flex items-center gap-2">
-          <ASULogo imageClassName="h-8 w-auto" />
+          <ASULogo imageClassName="h-8 w-auto" priority />
         </Link>
       </SidebarHeader>
       <SidebarContent>

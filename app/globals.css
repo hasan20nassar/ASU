@@ -75,9 +75,13 @@
 }
 
 @theme inline {
-  --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
-  --font-serif: 'Tajawal', 'Cairo', 'Arial', sans-serif;
+  --font-sans: var(--font-inter), 'Inter', 'Inter Fallback', system-ui, sans-serif;
+  --font-serif: 'Cairo', sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --font-tajawal: 'Almarai', sans-serif;
+  --font-markazi: 'Almarai', sans-serif;
+  --font-cairo: 'Cairo', sans-serif;
+  --font-almarai: 'Almarai', sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -124,12 +128,102 @@
     @apply bg-background text-foreground;
   }
   
-  html[dir="rtl"] {
-    font-family: 'Tajawal', 'Cairo', 'Arial', sans-serif;
+  html[dir="rtl"],
+  html[dir="rtl"] body,
+  html[dir="rtl"] select,
+  html[dir="rtl"] button,
+  html[dir="rtl"] input,
+  html[dir="rtl"] textarea {
+    --font-sans: 'Almarai', sans-serif !important;
+    --font-serif: 'Cairo', sans-serif !important;
+    --font-tajawal: 'Almarai', sans-serif !important;
+    --font-markazi: 'Almarai', sans-serif !important;
+    --font-inter: 'Almarai', sans-serif !important;
+    font-family: 'Almarai', sans-serif !important;
+  }
+  
+  html[dir="rtl"] h1,
+  html[dir="rtl"] h2,
+  html[dir="rtl"] h3,
+  html[dir="rtl"] h4,
+  html[dir="rtl"] h5,
+  html[dir="rtl"] h6,
+  html[dir="rtl"] h1 *,
+  html[dir="rtl"] h2 *,
+  html[dir="rtl"] h3 *,
+  html[dir="rtl"] h4 *,
+  html[dir="rtl"] h5 *,
+  html[dir="rtl"] h6 *,
+  html[dir="rtl"] .heading-font,
+  html[dir="rtl"] [class*="title"],
+  html[dir="rtl"] [class*="heading"] {
+    --font-sans: 'Cairo', sans-serif !important;
+    --font-serif: 'Cairo', sans-serif !important;
+    --font-tajawal: 'Cairo', sans-serif !important;
+    --font-markazi: 'Cairo', sans-serif !important;
+    --font-inter: 'Cairo', sans-serif !important;
+    font-family: 'Cairo', sans-serif !important;
   }
   
   html[dir="ltr"] {
     font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Body texts and articles should use Almarai */
+  html[dir="rtl"] p,
+  html[dir="rtl"] article,
+  html[dir="rtl"] .prose,
+  html[dir="rtl"] .prose p,
+  html[dir="rtl"] .prose li,
+  html[dir="rtl"] .prose ol,
+  html[dir="rtl"] .prose ul,
+  html[dir="rtl"] .body-text,
+  html[dir="rtl"] .article-content,
+  html[dir="rtl"] .article-text,
+  html[dir="rtl"] .lead {
+    --font-sans: 'Almarai', sans-serif !important;
+    --font-serif: 'Almarai', sans-serif !important;
+    --font-tajawal: 'Almarai', sans-serif !important;
+    --font-markazi: 'Almarai', sans-serif !important;
+    --font-inter: 'Almarai', sans-serif !important;
+    font-family: 'Almarai', sans-serif !important;
+  }
+
+  /* Screen size optimization for large and extra-large displays */
+  @media (min-width: 1440px) {
+    html {
+      font-size: 19.5px;
+    }
+    :root {
+      --container-7xl: 88rem;
+    }
+  }
+
+  @media (min-width: 1600px) {
+    html {
+      font-size: 21px;
+    }
+    :root {
+      --container-7xl: 92rem;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    html {
+      font-size: 23.5px;
+    }
+    :root {
+      --container-7xl: 96rem;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    html {
+      font-size: 28px;
+    }
+    :root {
+      --container-7xl: 100rem;
+    }
   }
 }
 
