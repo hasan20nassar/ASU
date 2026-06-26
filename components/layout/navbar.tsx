@@ -51,15 +51,128 @@ export function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAcademicsOpen, setIsAcademicsOpen] = useState(false);
+  const [isCampusLifeOpen, setIsCampusLifeOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+
+  const academicsOpenTimeout = React.useRef<NodeJS.Timeout | null>(null);
+  const academicsCloseTimeout = React.useRef<NodeJS.Timeout | null>(null);
+  const campusLifeOpenTimeout = React.useRef<NodeJS.Timeout | null>(null);
+  const campusLifeCloseTimeout = React.useRef<NodeJS.Timeout | null>(null);
+
+  const academicsContainerRef = React.useRef<HTMLDivElement>(null);
+  const campusLifeContainerRef = React.useRef<HTMLDivElement>(null);
+
+  // Cleanup timeouts on unmount
+  useEffect(() => {
+    return () => {
+      if (academicsOpenTimeout.current) clearTimeout(academicsOpenTimeout.current);
+      if (academicsCloseTimeout.current) clearTimeout(academicsCloseTimeout.current);
+      if (campusLifeOpenTimeout.current) clearTimeout(campusLifeOpenTimeout.current);
+      if (campusLifeCloseTimeout.current) clearTimeout(campusLifeCloseTimeout.current);
+    };
+  }, []);
+
+  const handleAcademicsMouseEnter = () => {
+    if (academicsCloseTimeout.current) {
+      clearTimeout(academicsCloseTimeout.current);
+      academicsCloseTimeout.current = null;
+    }
+    if (isAcademicsOpen) return;
+    if (!academicsOpenTimeout.current) {
+      academicsOpenTimeout.current = setTimeout(() => {
+        setIsAcademicsOpen(true);
+        academicsOpenTimeout.current = null;
+      }, 500); // 0.5s hover delay
+    }
+  };
+
+  const handleAcademicsMouseLeave = () => {
+    if (academicsOpenTimeout.current) {
+      clearTimeout(academicsOpenTimeout.current);
+      academicsOpenTimeout.current = null;
+    }
+    if (isAcademicsOpen) {
+      if (!academicsCloseTimeout.current) {
+        academicsCloseTimeout.current = setTimeout(() => {
+          setIsAcademicsOpen(false);
+          academicsCloseTimeout.current = null;
+        }, 200); // 0.2s grace period
+      }
+    }
+  };
+
+  const handleAcademicsContentMouseEnter = () => {
+    if (academicsCloseTimeout.current) {
+      clearTimeout(academicsCloseTimeout.current);
+      academicsCloseTimeout.current = null;
+    }
+  };
+
+  const handleAcademicsContentMouseLeave = () => {
+    if (!academicsCloseTimeout.current) {
+      academicsCloseTimeout.current = setTimeout(() => {
+        setIsAcademicsOpen(false);
+        academicsCloseTimeout.current = null;
+      }, 200);
+    }
+  };
+
+  const handleCampusLifeMouseEnter = () => {
+    if (campusLifeCloseTimeout.current) {
+      clearTimeout(campusLifeCloseTimeout.current);
+      campusLifeCloseTimeout.current = null;
+    }
+    if (isCampusLifeOpen) return;
+    if (!campusLifeOpenTimeout.current) {
+      campusLifeOpenTimeout.current = setTimeout(() => {
+        setIsCampusLifeOpen(true);
+        campusLifeOpenTimeout.current = null;
+      }, 500); // 0.5s hover delay
+    }
+  };
+
+  const handleCampusLifeMouseLeave = () => {
+    if (campusLifeOpenTimeout.current) {
+      clearTimeout(campusLifeOpenTimeout.current);
+      campusLifeOpenTimeout.current = null;
+    }
+    if (isCampusLifeOpen) {
+      if (!campusLifeCloseTimeout.current) {
+        campusLifeCloseTimeout.current = setTimeout(() => {
+          setIsCampusLifeOpen(false);
+          campusLifeCloseTimeout.current = null;
+        }, 200); // 0.2s grace period
+      }
+    }
+  };
+
+  const handleCampusLifeContentMouseEnter = () => {
+    if (campusLifeCloseTimeout.current) {
+      clearTimeout(campusLifeCloseTimeout.current);
+      campusLifeCloseTimeout.current = null;
+    }
+  };
+
+  const handleCampusLifeContentMouseLeave = () => {
+    if (!campusLifeCloseTimeout.current) {
+      campusLifeCloseTimeout.current = setTimeout(() => {
+        setIsCampusLifeOpen(false);
+        campusLifeCloseTimeout.current = null;
+      }, 200);
+    }
+  };
 
   useEffect(() => {
     // Check auth status on mount and when path changes
     const auth = localStorage.getItem("asu_auth");
     const isAuth = auth === "true";
-    Promise.resolve().then(() => setIsLoggedIn(isAuth));
+    Promise.resolve().then(() => {
+      setIsLoggedIn(isAuth);
+      setIsAcademicsOpen(false);
+      setIsCampusLifeOpen(false);
+    });
   }, [pathname]);
 
   const handleLogout = () => {
@@ -111,76 +224,60 @@ export function Navbar() {
             </Button>
           </Link>
 
-          {/* Academics Mega Menu */}
-          <DropdownMenu open={isAcademicsOpen} onOpenChange={setIsAcademicsOpen} dir={dir}>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-1 px-2 text-sm font-medium tracking-tight">
-                {t("nav.academics")}
-                <ChevronDown
-                  className={cn(
-                    "h-3 w-3 transition-transform",
-                    isAcademicsOpen && "rotate-180"
-                  )}
-                />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="center"
-              sideOffset={15}
-              className="w-[700px] max-w-[calc(100vw-2rem)] p-6"
+          {/* Academics Dropdown */}
+          <div
+            ref={academicsContainerRef}
+            className="inline-flex h-9 items-center rounded-md hover:bg-accent hover:text-accent-foreground transition-colors duration-200"
+            onMouseEnter={handleAcademicsMouseEnter}
+            onMouseLeave={handleAcademicsMouseLeave}
+          >
+            <Link
+              href="/academics"
+              className="flex h-full items-center ps-3 pe-1 text-sm font-medium tracking-tight focus-visible:outline-none"
             >
-              <div className="mb-4 border-b pb-3 text-start">
-                <h3 className="text-lg font-bold text-foreground">
-                  {language === "ar" ? "الكليات السبع" : "Our 7 Faculties"}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {language === "ar"
-                    ? "استكشف البرامج الأكاديمية المتنوعة التي تقدمها الجامعة"
-                    : "Explore the diverse academic programs offered by the university"}
-                </p>
-              </div>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {faculties.map((faculty) => (
-                  <Link
-                    key={faculty.id}
-                    href={`/academics/${faculty.slug}`}
-                    onClick={() => setIsAcademicsOpen(false)}
-                  >
-                    <div className="group flex items-start gap-4 rounded-xl border border-transparent p-3 transition-all hover:border-primary/20 hover:bg-primary/5 text-start">
-                      <div
-                        className={cn(
-                          "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform group-hover:scale-110",
-                          faculty.color
-                        )}
-                      >
-                        <BookOpen className="h-6 w-6 text-white" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-bold text-foreground truncate">
-                          {language === "ar" ? faculty.nameAr : faculty.nameEn}
-                        </p>
-                        <p className="text-xs text-muted-foreground line-clamp-1">
-                          {faculty.programs.length}{" "}
-                          {language === "ar" ? "برامج أكاديمية" : "academic programs"}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-            </div>
-            <div className="mt-4 border-t pt-4 text-center">
-              <Link
-                href="/academics/programs"
-                onClick={() => setIsAcademicsOpen(false)}
-                className="w-full"
+              {t("nav.academics")}
+            </Link>
+            <DropdownMenu open={isAcademicsOpen} onOpenChange={setIsAcademicsOpen} modal={false} dir={dir}>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="flex h-full items-center pe-3 ps-1 focus-visible:outline-none"
+                >
+                  <ChevronDown
+                    className={cn(
+                      "h-3 w-3 transition-transform duration-200",
+                      isAcademicsOpen && "rotate-180"
+                    )}
+                  />
+                  <span className="sr-only">Toggle Academics Submenu</span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="center"
+                sideOffset={8}
+                className="w-56 p-1"
+                onMouseEnter={handleAcademicsContentMouseEnter}
+                onMouseLeave={handleAcademicsContentMouseLeave}
+                onPointerDownOutside={(event) => {
+                  if (academicsContainerRef.current?.contains(event.target as Node)) {
+                    event.preventDefault();
+                  }
+                }}
               >
-                <Button variant="outline" className="w-full bg-transparent font-bold">
-                  {language === "ar" ? "مستكشف التخصصات (بحث متقدم)" : "Program Finder (Advanced Search)"}
-                </Button>
-              </Link>
-            </div>
-          </DropdownMenuContent>
-          </DropdownMenu>
+                {faculties.map((faculty) => (
+                  <DropdownMenuItem key={faculty.id} asChild>
+                    <Link
+                      href={`/academics/${faculty.slug}`}
+                      className="w-full text-start cursor-pointer font-medium"
+                      onClick={() => setIsAcademicsOpen(false)}
+                    >
+                      {language === "ar" ? faculty.nameAr : faculty.nameEn}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
 
           <Link href="/admissions">
             <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
@@ -189,23 +286,61 @@ export function Navbar() {
           </Link>
 
           {/* Campus Life Dropdown */}
-          <DropdownMenu dir={dir}>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-1 px-2 text-sm font-medium tracking-tight">
-                {t("nav.campusLife")}
-                <ChevronDown className="h-3 w-3" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="center" className="w-56">
-              {campusLifeLinks.map((link) => (
-                <DropdownMenuItem key={link.href} asChild>
-                  <Link href={link.href} className="w-full text-start cursor-pointer">
-                    {link.label}
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div
+            ref={campusLifeContainerRef}
+            className="inline-flex h-9 items-center rounded-md hover:bg-accent hover:text-accent-foreground transition-colors duration-200"
+            onMouseEnter={handleCampusLifeMouseEnter}
+            onMouseLeave={handleCampusLifeMouseLeave}
+          >
+            <Link
+              href="/campus-life"
+              className="flex h-full items-center ps-3 pe-1 text-sm font-medium tracking-tight focus-visible:outline-none"
+            >
+              {t("nav.campusLife")}
+            </Link>
+            <DropdownMenu open={isCampusLifeOpen} onOpenChange={setIsCampusLifeOpen} modal={false} dir={dir}>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="flex h-full items-center pe-3 ps-1 focus-visible:outline-none"
+                >
+                  <ChevronDown
+                    className={cn(
+                      "h-3 w-3 transition-transform duration-200",
+                      isCampusLifeOpen && "rotate-180"
+                    )}
+                  />
+                  <span className="sr-only">Toggle Campus Life Submenu</span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="center"
+                sideOffset={8}
+                className="w-56 p-1"
+                onMouseEnter={handleCampusLifeContentMouseEnter}
+                onMouseLeave={handleCampusLifeContentMouseLeave}
+                onPointerDownOutside={(event) => {
+                  if (campusLifeContainerRef.current?.contains(event.target as Node)) {
+                    event.preventDefault();
+                  }
+                }}
+              >
+                {campusLifeLinks
+                  .filter((link) => link.href !== "/campus-life")
+                  .map((link) => (
+                    <DropdownMenuItem key={link.href} asChild>
+                      <Link
+                        href={link.href}
+                        className="w-full text-start cursor-pointer font-medium"
+                        onClick={() => setIsCampusLifeOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
 
           <Link href="/news">
             <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">

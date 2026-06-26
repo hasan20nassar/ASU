@@ -58,7 +58,6 @@ export function CommandMenu({ compact = false, ...props }: DialogProps & { compa
     { href: "/", label: t("nav.home"), icon: Building2 },
     { href: "/about", label: t("nav.about"), icon: Users },
     { href: "/about/directory", label: language === "ar" ? "هيئة التدريس" : "Faculty Directory", icon: Users },
-    { href: "/academics/programs", label: language === "ar" ? "مستكشف التخصصات" : "Program Finder", icon: Search },
     { href: "/admissions", label: t("nav.admissions"), icon: GraduationCap },
     { href: "/library", label: language === "ar" ? "المكتبة المركزية" : "University Library", icon: BookOpen },
     { href: "/campus-life", label: t("nav.campusLife"), icon: TreePine },
