@@ -52,6 +52,7 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAcademicsOpen, setIsAcademicsOpen] = useState(false);
   const [isCampusLifeOpen, setIsCampusLifeOpen] = useState(false);
+  const [isPortalsOpen, setIsPortalsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -60,9 +61,12 @@ export function Navbar() {
   const academicsCloseTimeout = React.useRef<NodeJS.Timeout | null>(null);
   const campusLifeOpenTimeout = React.useRef<NodeJS.Timeout | null>(null);
   const campusLifeCloseTimeout = React.useRef<NodeJS.Timeout | null>(null);
+  const portalsOpenTimeout = React.useRef<NodeJS.Timeout | null>(null);
+  const portalsCloseTimeout = React.useRef<NodeJS.Timeout | null>(null);
 
   const academicsContainerRef = React.useRef<HTMLDivElement>(null);
   const campusLifeContainerRef = React.useRef<HTMLDivElement>(null);
+  const portalsContainerRef = React.useRef<HTMLDivElement>(null);
 
   // Cleanup timeouts on unmount
   useEffect(() => {
@@ -71,6 +75,8 @@ export function Navbar() {
       if (academicsCloseTimeout.current) clearTimeout(academicsCloseTimeout.current);
       if (campusLifeOpenTimeout.current) clearTimeout(campusLifeOpenTimeout.current);
       if (campusLifeCloseTimeout.current) clearTimeout(campusLifeCloseTimeout.current);
+      if (portalsOpenTimeout.current) clearTimeout(portalsOpenTimeout.current);
+      if (portalsCloseTimeout.current) clearTimeout(portalsCloseTimeout.current);
     };
   }, []);
 
@@ -164,6 +170,51 @@ export function Navbar() {
     }
   };
 
+  const handlePortalsMouseEnter = () => {
+    if (portalsCloseTimeout.current) {
+      clearTimeout(portalsCloseTimeout.current);
+      portalsCloseTimeout.current = null;
+    }
+    if (isPortalsOpen) return;
+    if (!portalsOpenTimeout.current) {
+      portalsOpenTimeout.current = setTimeout(() => {
+        setIsPortalsOpen(true);
+        portalsOpenTimeout.current = null;
+      }, 500); // 0.5s hover delay
+    }
+  };
+
+  const handlePortalsMouseLeave = () => {
+    if (portalsOpenTimeout.current) {
+      clearTimeout(portalsOpenTimeout.current);
+      portalsOpenTimeout.current = null;
+    }
+    if (isPortalsOpen) {
+      if (!portalsCloseTimeout.current) {
+         portalsCloseTimeout.current = setTimeout(() => {
+           setIsPortalsOpen(false);
+           portalsCloseTimeout.current = null;
+         }, 200); // 0.2s grace period
+      }
+    }
+  };
+
+  const handlePortalsContentMouseEnter = () => {
+    if (portalsCloseTimeout.current) {
+      clearTimeout(portalsCloseTimeout.current);
+      portalsCloseTimeout.current = null;
+    }
+  };
+
+  const handlePortalsContentMouseLeave = () => {
+    if (!portalsCloseTimeout.current) {
+      portalsCloseTimeout.current = setTimeout(() => {
+        setIsPortalsOpen(false);
+        portalsCloseTimeout.current = null;
+      }, 200);
+    }
+  };
+
   useEffect(() => {
     // Check auth status on mount and when path changes
     const auth = localStorage.getItem("asu_auth");
@@ -172,6 +223,7 @@ export function Navbar() {
       setIsLoggedIn(isAuth);
       setIsAcademicsOpen(false);
       setIsCampusLifeOpen(false);
+      setIsPortalsOpen(false);
     });
   }, [pathname]);
 
@@ -393,36 +445,61 @@ export function Navbar() {
               </Button>
             </Link>
           ) : (
-            <DropdownMenu dir={dir}>
-              <DropdownMenuTrigger asChild>
-                <Button variant="default" size="sm" className="hidden sm:flex gap-1 font-bold">
-                  {t("nav.portals")}
-                  <ChevronDown className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-               <DropdownMenuContent align="end" sideOffset={10}>
-                <DropdownMenuItem asChild className="text-start font-bold text-primary">
-                  <Link href="/dashboard">{t("nav.dashboard")}</Link>
-                </DropdownMenuItem>
-                <div className="my-1 border-b" />
-                <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
-                  <Link href="/portal/student">{t("nav.studentPortal")}</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
-                  <Link href="/portal/faculty">{t("nav.facultyPortal")}</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
-                  <Link href="/portal/alumni">{t("nav.alumniPortal")}</Link>
-                </DropdownMenuItem>
-                <div className="my-1 border-t" />
-                <DropdownMenuItem 
-                  onClick={handleLogout}
-                  className="text-start font-bold text-destructive cursor-pointer"
+            <div
+              ref={portalsContainerRef}
+              className="hidden sm:block"
+              onMouseEnter={handlePortalsMouseEnter}
+              onMouseLeave={handlePortalsMouseLeave}
+            >
+              <DropdownMenu open={isPortalsOpen} onOpenChange={setIsPortalsOpen} modal={false} dir={dir}>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="default" size="sm" className="flex gap-1 font-bold focus-visible:outline-none">
+                    {t("nav.portals")}
+                    <ChevronDown 
+                      className={cn(
+                        "h-4 w-4 transition-transform duration-200",
+                        isPortalsOpen && "rotate-180"
+                      )}
+                    />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
+                  align="end" 
+                  sideOffset={10}
+                  onMouseEnter={handlePortalsContentMouseEnter}
+                  onMouseLeave={handlePortalsContentMouseLeave}
+                  onPointerDownOutside={(event) => {
+                    if (portalsContainerRef.current?.contains(event.target as Node)) {
+                      event.preventDefault();
+                    }
+                  }}
                 >
-                  {t("nav.logout")}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  <DropdownMenuItem asChild className="text-start font-bold text-primary">
+                    <Link href="/dashboard" onClick={() => setIsPortalsOpen(false)}>{t("nav.dashboard")}</Link>
+                  </DropdownMenuItem>
+                  <div className="my-1 border-b" />
+                  <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
+                    <Link href="/portal/student" onClick={() => setIsPortalsOpen(false)}>{t("nav.studentPortal")}</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
+                    <Link href="/portal/faculty" onClick={() => setIsPortalsOpen(false)}>{t("nav.facultyPortal")}</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
+                    <Link href="/portal/alumni" onClick={() => setIsPortalsOpen(false)}>{t("nav.alumniPortal")}</Link>
+                  </DropdownMenuItem>
+                  <div className="my-1 border-t" />
+                  <DropdownMenuItem 
+                    onClick={() => {
+                      handleLogout();
+                      setIsPortalsOpen(false);
+                    }}
+                    className="text-start font-bold text-destructive cursor-pointer"
+                  >
+                    {t("nav.logout")}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           )}
 
           {/* Mobile Menu */}

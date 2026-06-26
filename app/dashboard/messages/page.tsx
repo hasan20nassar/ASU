@@ -71,7 +71,7 @@ export default function MessagesManagement() {
   const [selectedMessage, setSelectedMessage] = useState(mockMessages[0]);
 
   return (
-    <div className="h-[calc(100vh-10rem)] animate-in fade-in duration-500 space-y-6">
+    <div className="h-[calc(100vh-10rem)] animate-in fade-in duration-500 space-y-6 text-start" dir={language === "ar" ? "rtl" : "ltr"}>
       <div>
         <h1 className="text-3xl font-bold tracking-tight">
           {language === "ar" ? "صندوق الرسائل" : "Incoming Messages"}

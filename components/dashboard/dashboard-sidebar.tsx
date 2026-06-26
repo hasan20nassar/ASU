@@ -15,6 +15,7 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarGroupContent,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
@@ -106,11 +107,20 @@ export function DashboardSidebar() {
     },
   ];
 
+  const { state } = useSidebar();
+  const isCollapsed = state === "collapsed";
+
   return (
     <Sidebar collapsible="icon" side={language === "ar" ? "right" : "left"} className="border-e">
-      <SidebarHeader className="p-4">
+      <SidebarHeader className="p-4 flex items-center justify-center">
         <Link href="/" className="flex items-center gap-2">
-          <ASULogo imageClassName="h-8 w-auto" priority />
+          {isCollapsed ? (
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <GraduationCap className="h-5 w-5 font-bold" />
+            </div>
+          ) : (
+            <ASULogo imageClassName="h-8 w-auto" priority />
+          )}
         </Link>
       </SidebarHeader>
       <SidebarContent>
@@ -132,12 +142,12 @@ export function DashboardSidebar() {
                         className={cn(
                           "flex items-center gap-3 px-4 py-2 transition-all duration-200",
                           isActive 
-                            ? "bg-primary text-primary-foreground hover:bg-primary/90" 
+                            ? "bg-sidebar-accent text-sidebar-accent-foreground font-semibold" 
                             : "hover:bg-muted text-muted-foreground hover:text-foreground"
                         )}
                       >
                         <Link href={item.href}>
-                          <item.icon className={cn("h-5 w-5", isActive ? "text-primary-foreground" : "text-primary")} />
+                          <item.icon className={cn("h-5 w-5", isActive ? "text-sidebar-accent-foreground" : "text-primary")} />
                           <span className="font-medium">{item.title}</span>
                         </Link>
                       </SidebarMenuButton>
@@ -154,10 +164,16 @@ export function DashboardSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="flex items-center gap-3 px-4 py-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+              isActive={pathname === "/dashboard/settings"}
+              className={cn(
+                "flex items-center gap-3 px-4 py-2 transition-all duration-200",
+                pathname === "/dashboard/settings"
+                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-semibold"
+                  : "hover:bg-muted text-muted-foreground hover:text-foreground"
+              )}
             >
               <Link href="/dashboard/settings">
-                <Settings className="h-5 w-5 text-muted-foreground" />
+                <Settings className={cn("h-5 w-5", pathname === "/dashboard/settings" ? "text-sidebar-accent-foreground" : "text-muted-foreground")} />
                 <span className="font-medium">
                   {language === "ar" ? "الإعدادات" : "Settings"}
                 </span>

@@ -6,7 +6,8 @@ import { useLanguage } from "@/contexts/language-context";
 import { useTheme } from "@/contexts/theme-context";
 
 // Safe layout effect to prevent SSR warnings
-const useSafeLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+const useSafeLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 export function Preloader() {
   const { language } = useLanguage();
@@ -45,11 +46,15 @@ export function Preloader() {
   // 1. Initial check (runs before paint on client)
   useSafeLayoutEffect(() => {
     if (typeof window !== "undefined") {
-      const fontsReady = document.fonts ? document.fonts.status === "loaded" : true;
+      const fontsReady = document.fonts
+        ? document.fonts.status === "loaded"
+        : true;
       const images = Array.from(document.querySelectorAll("img"));
-      const allImagesDone = images.length === 0 || images.every((img) => img.complete);
+      const allImagesDone =
+        images.length === 0 || images.every((img) => img.complete);
       const videos = Array.from(document.querySelectorAll("video"));
-      const allVideosDone = videos.length === 0 || videos.every((vid) => vid.readyState >= 4);
+      const allVideosDone =
+        videos.length === 0 || videos.every((vid) => vid.readyState >= 4);
 
       const needsLoading = !(fontsReady && allImagesDone && allVideosDone);
 
@@ -69,7 +74,7 @@ export function Preloader() {
 
     let timer: NodeJS.Timeout;
     const currentPhrase = currentPhrases[currentPhraseIndex];
-    
+
     // Smooth timing configuration
     const typingSpeed = isDeleting ? 25 : 55;
     const pauseBeforeDelete = 1800; // time to read the message
@@ -104,7 +109,14 @@ export function Preloader() {
     timer = setTimeout(handleType, typingSpeed);
 
     return () => clearTimeout(timer);
-  }, [currentText, isDeleting, currentPhraseIndex, language, currentPhrases, isLoaded]);
+  }, [
+    currentText,
+    isDeleting,
+    currentPhraseIndex,
+    language,
+    currentPhrases,
+    isLoaded,
+  ]);
 
   // Asset loading logic (only runs if shouldTrack is true and not loaded)
   useEffect(() => {
@@ -303,8 +315,8 @@ export function Preloader() {
                       ? "/logo/logo-ar-dark.png"
                       : "/logo/logo-en-dark.png"
                     : language === "ar"
-                    ? "/logo/logo-ar-light.png"
-                    : "/logo/logo-en-light.png"
+                      ? "/logo/logo-ar-light.png"
+                      : "/logo/logo-en-light.png"
                 }
                 alt="Antioch Syrian University Logo"
                 className="h-20 md:h-24 w-auto object-contain relative z-10 transition-transform duration-500 hover:scale-105"
@@ -326,7 +338,7 @@ export function Preloader() {
                 {currentText}
                 <span
                   className={`inline-block w-[3px] h-5 ml-1.5 align-middle cursor-blinking ${
-                    isDark ? "bg-amber-500" : "bg-amber-600"
+                    isDark ? "bg-red-500" : "bg-red-600"
                   }`}
                 />
               </p>

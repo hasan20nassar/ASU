@@ -236,6 +236,8 @@ const translations: Record<Language, Record<string, string>> = {
   },
 };
 
+import { DirectionProvider } from "@radix-ui/react-direction";
+
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
@@ -271,7 +273,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t, dir }}>
-      {children}
+      <DirectionProvider dir={dir}>
+        {children}
+      </DirectionProvider>
     </LanguageContext.Provider>
   );
 }
