@@ -178,6 +178,9 @@ export function Footer() {
               <Link href="/terms" className="hover:text-primary">
                 {language === "ar" ? "الشروط والأحكام" : "Terms of Service"}
               </Link>
+              <Link href="/developer" className="hover:text-primary">
+                {t("footer.developer")}
+              </Link>
             </div>
           </div>
         </div>

@@ -42,7 +42,7 @@ export function FacultiesGrid() {
         {/* Header */}
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-            {language === "ar" ? "الكليات السبع" : "Our 7 Faculties"}
+            {language === "ar" ? "البرامج والكليات" : "Programs and Faculties"}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
             {language === "ar"
@@ -73,7 +73,11 @@ export function FacultiesGrid() {
                         <div className="relative h-32 w-full overflow-hidden">
                           <Image
                             src={faculty.image}
-                            alt={language === "ar" ? faculty.nameAr : faculty.nameEn}
+                            alt={
+                              language === "ar"
+                                ? faculty.nameAr
+                                : faculty.nameEn
+                            }
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
                           />
@@ -85,29 +89,30 @@ export function FacultiesGrid() {
                           className={cn(
                             "mb-3 sm:mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110",
                             faculty.color,
-                            faculty.image && "relative -mt-12 border-2 border-card"
+                            faculty.image &&
+                              "relative -mt-12 border-2 border-card",
                           )}
                         >
-                        <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
-                      </div>
-                      <h3 className="text-base sm:text-lg font-semibold text-foreground">
-                        {language === "ar" ? faculty.nameAr : faculty.nameEn}
-                      </h3>
-                      <p className="mt-2 line-clamp-2 text-xs sm:text-sm text-muted-foreground">
-                        {language === "ar"
-                          ? faculty.descriptionAr
-                          : faculty.descriptionEn}
-                      </p>
-                      <div className="mt-3 sm:mt-4 flex items-center justify-between">
-                        <span className="text-xs sm:text-sm text-muted-foreground">
-                          {faculty.programs.length}{" "}
-                          {language === "ar" ? "برامج" : "programs"}
-                        </span>
-                        <Arrow className="h-3 w-3 sm:h-4 w-4 text-primary opacity-0 transition-opacity group-hover:opacity-100" />
+                          <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                        </div>
+                        <h3 className="text-base sm:text-lg font-semibold text-foreground">
+                          {language === "ar" ? faculty.nameAr : faculty.nameEn}
+                        </h3>
+                        <p className="mt-2 line-clamp-2 text-xs sm:text-sm text-muted-foreground">
+                          {language === "ar"
+                            ? faculty.descriptionAr
+                            : faculty.descriptionEn}
+                        </p>
+                        <div className="mt-3 sm:mt-4 flex items-center justify-between">
+                          <span className="text-xs sm:text-sm text-muted-foreground">
+                            {faculty.programs.length}{" "}
+                            {language === "ar" ? "برامج" : "programs"}
+                          </span>
+                          <Arrow className="h-3 w-3 sm:h-4 w-4 text-primary opacity-0 transition-opacity group-hover:opacity-100" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </TiltCard>
+                  </TiltCard>
                 </Link>
               </motion.div>
             );
@@ -124,7 +129,11 @@ export function FacultiesGrid() {
         >
           <Magnetic strength={0.3} radius={100}>
             <Link href="/academics">
-              <Button variant="outline" size="lg" className="gap-2 bg-transparent">
+              <Button
+                variant="outline"
+                size="lg"
+                className="gap-2 bg-transparent"
+              >
                 {t("common.viewAll")}
                 <Arrow className="h-4 w-4" />
               </Button>

@@ -93,6 +93,7 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.rights": "جميع الحقوق محفوظة",
     "footer.quickLinks": "روابط سريعة",
     "footer.followUs": "تابعنا",
+    "footer.developer": "الجهة المطورة",
     
     // Common
     "common.learnMore": "اقرأ المزيد",
@@ -204,6 +205,7 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.rights": "All Rights Reserved",
     "footer.quickLinks": "Quick Links",
     "footer.followUs": "Follow Us",
+    "footer.developer": "Developer",
     
     // Common
     "common.learnMore": "Learn More",
