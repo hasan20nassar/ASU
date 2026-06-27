@@ -4,7 +4,16 @@ import React from "react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { useLanguage } from "@/contexts/language-context";
-import { Code2, ShieldCheck, Mail, Cpu, Terminal, Laptop, User, Users, Zap, Building2 } from "lucide-react";
+import {
+  Code2,
+  ShieldCheck,
+  Mail,
+  Laptop,
+  User,
+  Users,
+  Zap,
+  Building2,
+} from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function DeveloperPage() {
@@ -16,58 +25,40 @@ export default function DeveloperPage() {
       icon: Code2,
       titleAr: "تطوير واجهات المستخدم التفاعلية",
       titleEn: "Interactive UI/UX Development",
-      contentAr: "تصميم وبناء واجهات مستخدم حديثة وجذابة تدعم الهوية البصرية للجامعة، مع دعم كامل للغتين العربية والإنجليزية والتصميم المتجاوب.",
-      contentEn: "Designing and building modern, appealing user interfaces that support the university's visual identity, with full Arabic & English support and responsive layout."
+      contentAr:
+        "تصميم وبناء واجهات مستخدم حديثة وجذابة تدعم الهوية البصرية للجامعة، مع دعم كامل للغتين العربية والإنجليزية والتصميم المتجاوب.",
+      contentEn:
+        "Designing and building modern, appealing user interfaces that support the university's visual identity, with full Arabic & English support and responsive layout.",
     },
     {
       icon: Zap,
-      titleAr: "الأداء والسرعة الفائقة",
+      titleAr: "الأداء والسرعة",
       titleEn: "Performance & Speed Optimization",
-      contentAr: "بناء الهيكل البرمجي للموقع وتطويره لضمان سرعة تحميل فائقة وتجربة تصفح سلسة ومثالية للمستخدمين على جميع الأجهزة.",
-      contentEn: "Constructing the website's backend and frontend architectures to ensure lightning-fast page loads and a smooth, optimal user experience across all devices."
+      contentAr:
+        "بناء الهيكل البرمجي للموقع وتطويره لضمان سرعة تحميل فائقة وتجربة تصفح سلسة ومثالية للمستخدمين على جميع الأجهزة.",
+      contentEn:
+        "Constructing the website's backend and frontend architectures to ensure lightning-fast page loads and a smooth, optimal user experience across all devices.",
     },
     {
       icon: ShieldCheck,
-      titleAr: "أمن البيانات وحمايتها",
-      titleEn: "Data Security & Protection",
-      contentAr: "تطبيق معايير أمان متقدمة لحماية بيانات الزوار وضمان خصوصيتها، وحماية المنصات الرقمية من التهديدات السيبرانية.",
-      contentEn: "Implementing advanced security standards to safeguard visitor data, ensure privacy, and protect digital platforms from cyber threats."
+      titleAr: "أمن البيانات",
+      titleEn: "Data Security",
+      contentAr:
+        "تطبيق معايير أمان متقدمة لحماية بيانات الزوار وضمان خصوصيتها، وحماية المنصات الرقمية من التهديدات السيبرانية.",
+      contentEn:
+        "Implementing advanced security standards to safeguard visitor data, ensure privacy, and protect digital platforms from cyber threats.",
     },
     {
       icon: Laptop,
-      titleAr: "التوافق والتجاوب التام",
-      titleEn: "Full Responsive Compatibility",
-      contentAr: "ضمان عمل الموقع بكفاءة واستقرار على جميع متصفحات الإنترنت وشاشات الهواتف المحمولة والأجهزة اللوحية والحواسيب.",
-      contentEn: "Ensuring the website operates efficiently and stably across all web browsers, smartphones, tablets, and desktop displays."
-    }
+      titleAr: "التوافق والتجاوب",
+      titleEn: "Responsive Compatibility",
+      contentAr:
+        "ضمان عمل الموقع بكفاءة واستقرار على جميع متصفحات الإنترنت وشاشات الهواتف المحمولة والأجهزة اللوحية والحواسيب.",
+      contentEn:
+        "Ensuring the website operates efficiently and stably across all web browsers, smartphones, tablets, and desktop displays.",
+    },
   ];
 
-  const techStack = [
-    {
-      name: "Next.js 15",
-      descAr: "إطار العمل القوي لدعم رندر الصفحات من جهة الخادم وتحسين الأداء ومحركات البحث (SEO).",
-      descEn: "Modern framework enabling Server-Side Rendering (SSR), optimized performance, and premium SEO.",
-      icon: Laptop
-    },
-    {
-      name: "React 19",
-      descAr: "مكتبة واجهة المستخدم الأكثر شعبية لبناء واجهات تفاعلية وسريعة.",
-      descEn: "The leading UI library for building fast, interactive client-side interfaces.",
-      icon: Cpu
-    },
-    {
-      name: "TypeScript",
-      descAr: "لضمان كتابة كود برمجى خالٍ من الأخطاء وتسهيل الصيانة والتطوير المستقبلي.",
-      descEn: "Ensuring type-safe, maintainable, and bug-free application architecture.",
-      icon: Terminal
-    },
-    {
-      name: "Tailwind CSS",
-      descAr: "لتصميم واجهات مستخدم مخصصة وجذابة تدعم الهوية البصرية للجامعة والتوافق التام مع الشاشات.",
-      descEn: "Providing custom, responsive styles matching the university's corporate identity.",
-      icon: Code2
-    }
-  ];
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -85,15 +76,15 @@ export default function DeveloperPage() {
             >
               {isArabic ? "الجهة المطورة" : "Developing Entity"}
             </motion.h1>
-            
+
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
               className="mt-4 text-lg font-semibold text-primary sm:text-xl"
             >
-              {isArabic 
-                ? "شراكة تطويرية متميزة" 
+              {isArabic
+                ? "شراكة تطويرية متميزة"
                 : "A Distinctive Development Partnership"}
             </motion.p>
 
@@ -104,7 +95,7 @@ export default function DeveloperPage() {
               className="mt-6 text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto"
             >
               {isArabic
-                ? "تم تطوير هذا الموقع الإلكتروني بالكامل لجامعة أنطاكية السورية كجهد مشترك وتعاون تقني بين مطور البرمجيات المستقل محمد حسن ياسين نصار ومديرية تكنولوجيا المعلومات والاتصالات في الجامعة، لتقديم حل رقمي متكامل يعكس تميز الجامعة."
+                ? "تم تطوير هذا الموقع الإلكتروني  لجامعة أنطاكية السورية كجهد مشترك وتعاون تقني بين مطور البرمجيات المستقل محمد حسن ياسين نصار وقسم تقانة المعلومات في الجامعة، لتقديم حل رقمي متكامل يعكس تميز الجامعة."
                 : "This website was developed for Antioch Syrian University as a collaborative technical effort between independent software developer Mohammad Hasan Yasin Nassar and the university's Directorate of Information Technology & Communications (ICTD), delivering an integrated digital solution that reflects the university's excellence."}
             </motion.p>
           </div>
@@ -127,10 +118,14 @@ export default function DeveloperPage() {
                   <User className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-1">
-                  {isArabic ? "محمد حسن ياسين نصار" : "Mohammad Hasan Yasin Nassar"}
+                  {isArabic
+                    ? "محمد حسن ياسين نصار"
+                    : "Mohammad Hasan Yasin Nassar"}
                 </h3>
                 <p className="text-sm text-primary font-medium mb-4">
-                  {isArabic ? "مطور برمجيات مستقل" : "Independent Software Developer"}
+                  {isArabic
+                    ? "مطور برمجيات مستقل"
+                    : "Independent Software Developer"}
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {isArabic
@@ -152,14 +147,18 @@ export default function DeveloperPage() {
                   <Building2 className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-1">
-                  {isArabic ? "مديرية تكنولوجيا المعلومات والاتصالات" : "Directorate of IT & Communications"}
+                  {isArabic
+                    ? "قسم تقانة ا لمعلومات"
+                    : "Directorate of Information Technology"}
                 </h3>
                 <p className="text-sm text-primary font-medium mb-4">
-                  {isArabic ? "جامعة أنطاكية السورية" : "Antioch Syrian University (ICTD)"}
+                  {isArabic
+                    ? "جامعة أنطاكية السورية"
+                    : "Antioch Syrian University (ICTD)"}
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {isArabic
-                    ? "أشرفت على إدارة متطلبات المشروع، وتوفير البيانات والبنية التحتية للخوادم والشبكات، بالإضافة إلى تقديم الدعم التنظيمي والتقني المستمر لضمان إطلاق متميز وبوابة مستدامة."
+                    ? "أشرف على إدارة متطلبات المشروع، وتوفير البيانات والبنية التحتية للخوادم والشبكات، بالإضافة إلى تقديم الدعم التنظيمي والتقني المستمر لضمان إطلاق متميز وبوابة مستدامة."
                     : "Supervised project requirements, provided server and network infrastructures, and offered continuous organizational and technical support to ensure a premium launch and a sustainable portal."}
                 </p>
               </motion.div>
@@ -172,7 +171,9 @@ export default function DeveloperPage() {
           <div className="mx-auto max-w-5xl">
             <div className="text-center mb-16">
               <h2 className="text-2xl font-bold sm:text-3xl text-foreground">
-                {isArabic ? "مساهماتنا الأساسية في المشروع" : "Our Core Contributions"}
+                {isArabic
+                  ? "مساهماتنا الأساسية في المشروع"
+                  : "Our Core Contributions"}
               </h2>
               <div className="mt-2 h-1 w-16 bg-primary mx-auto rounded-full" />
             </div>
@@ -204,38 +205,6 @@ export default function DeveloperPage() {
           </div>
         </section>
 
-        {/* Tech Stack Section */}
-        <section className="py-16 sm:py-24 bg-muted/30 border-y px-4">
-          <div className="mx-auto max-w-5xl">
-            <div className="text-center mb-16">
-              <h2 className="text-2xl font-bold sm:text-3xl text-foreground">
-                {isArabic ? "التقنيات المستخدمة في تطوير البوابة" : "Technologies Used in This Portal"}
-              </h2>
-              <div className="mt-2 h-1 w-16 bg-primary mx-auto rounded-full" />
-            </div>
-
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {techStack.map((tech, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.4 }}
-                  className="flex flex-col items-center text-center p-6 rounded-2xl border bg-card"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 mb-4">
-                    <tech.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-bold text-foreground mb-2">{tech.name}</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {isArabic ? tech.descAr : tech.descEn}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Contact Section */}
         <section className="py-16 sm:py-24 px-4">
@@ -261,7 +230,9 @@ export default function DeveloperPage() {
                     <User className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold mb-2 text-foreground">
-                    {isArabic ? "مطور البرمجيات المستقل" : "Independent Software Developer"}
+                    {isArabic
+                      ? "مطور البرمجيات المستقل"
+                      : "Independent Software Developer"}
                   </h3>
                   <p className="text-xs text-muted-foreground mb-6 leading-relaxed">
                     {isArabic
@@ -270,7 +241,10 @@ export default function DeveloperPage() {
                   </p>
                 </div>
                 <div className="inline-flex items-center justify-center gap-2 rounded-xl bg-background border px-4 py-2 text-sm font-semibold text-primary shadow-sm hover:border-primary/45 transition-colors w-fit mx-auto">
-                  <a href="mailto:hasan.25.nassar@gamil.com" className="hover:underline">
+                  <a
+                    href="mailto:hasan.25.nassar@gamil.com"
+                    className="hover:underline"
+                  >
                     hasan.25.nassar@gamil.com
                   </a>
                 </div>
@@ -289,7 +263,9 @@ export default function DeveloperPage() {
                     <Building2 className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold mb-2 text-foreground">
-                    {isArabic ? "مديرية تكنولوجيا المعلومات والاتصالات" : "Directorate of IT & Communications"}
+                    {isArabic
+                      ? "قسم تقانة المعلومات"
+                      : "Department of Information Technology"}
                   </h3>
                   <p className="text-xs text-muted-foreground mb-6 leading-relaxed">
                     {isArabic

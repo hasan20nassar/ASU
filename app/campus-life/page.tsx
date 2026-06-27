@@ -28,7 +28,7 @@ import {
   Heart,
 } from "lucide-react";
 import Image from "next/image";
-import { BlueprintTour } from "@/components/campus-life/blueprint-tour";
+import { NotFoundContent } from "@/components/layout/not-found-content";
 
 export default function CampusLifePage() {
   const { language, dir } = useLanguage();
@@ -334,21 +334,7 @@ export default function CampusLifePage() {
 
               {/* Virtual Tour Tab */}
               <TabsContent value="tour">
-                <div className="text-center">
-                  <h2 className="mb-4 text-2xl font-bold text-foreground">
-                    {language === "ar" ? "جولة افتراضية" : "Virtual Tour"}
-                  </h2>
-                  <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">
-                    {language === "ar"
-                      ? "استكشف حرم جامعة أنطاكية السورية في معرة صيدنايا من خلال جولتنا الافتراضية"
-                      : "Explore Antioch Syrian University campus in Maarat Saidnaya through our virtual tour"}
-                  </p>
-                  <Card className="mx-auto max-w-4xl overflow-hidden">
-                    <CardContent className="p-0">
-                      <BlueprintTour />
-                    </CardContent>
-                  </Card>
-                </div>
+                <NotFoundContent />
               </TabsContent>
             </Tabs>
           </div>
