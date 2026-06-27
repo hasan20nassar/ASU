@@ -3,7 +3,7 @@ import { Footer } from "@/components/layout/footer";
 import { GravityHero } from "@/components/home/gravity-hero";
 import { StatsSection } from "@/components/home/stats-section";
 import { FacultiesGrid } from "@/components/home/faculties-grid";
-import { QuickLinks } from "@/components/home/quick-links";
+import { PartnersSection } from "@/components/home/partners-section";
 import { NewsPreview } from "@/components/home/news-preview";
 
 export default function HomePage() {
@@ -14,7 +14,7 @@ export default function HomePage() {
         <GravityHero />
         <StatsSection />
         <FacultiesGrid />
-        <QuickLinks />
+        <PartnersSection />
         <NewsPreview />
       </main>
       <Footer />
