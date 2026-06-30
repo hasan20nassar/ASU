@@ -60,7 +60,6 @@ function FloatingIcon({
   containerWidth: number;
   containerHeight: number;
 }) {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [floatOffset, setFloatOffset] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -82,8 +81,8 @@ function FloatingIcon({
     return () => cancelAnimationFrame(animationFrame);
   }, []);
 
-  useEffect(() => {
-    if (containerWidth === 0 || containerHeight === 0) return;
+  const getRepelPosition = () => {
+    if (containerWidth === 0 || containerHeight === 0) return { x: 0, y: 0 };
 
     const elementX = (element.initialX / 100) * containerWidth;
     const elementY = (element.initialY / 100) * containerHeight;
@@ -95,14 +94,15 @@ function FloatingIcon({
 
     if (distance < repelRadius && distance > 0) {
       const force = (1 - distance / repelRadius) * 80;
-      setPosition({
+      return {
         x: -(dx / distance) * force,
         y: -(dy / distance) * force,
-      });
-    } else {
-      setPosition({ x: 0, y: 0 });
+      };
     }
-  }, [mouseX, mouseY, element.initialX, element.initialY, containerWidth, containerHeight]);
+    return { x: 0, y: 0 };
+  };
+
+  const position = getRepelPosition();
 
   const Icon = element.Icon;
 

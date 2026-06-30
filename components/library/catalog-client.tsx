@@ -265,7 +265,9 @@ export default function CatalogClient() {
 
   // Sync state if query parameter changes
   useEffect(() => {
-    setSearchTerm(queryParam);
+    Promise.resolve().then(() => {
+      setSearchTerm(queryParam);
+    });
   }, [queryParam]);
 
   // Handle URL updates when search text changes

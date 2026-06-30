@@ -13,7 +13,13 @@ export function NotFoundContent() {
   return <NotFoundContentInner key={language} language={language} dir={dir} />;
 }
 
-function NotFoundContentInner({ language, dir }: { language: string; dir: "rtl" | "ltr" }) {
+function NotFoundContentInner({
+  language,
+  dir,
+}: {
+  language: string;
+  dir: "rtl" | "ltr";
+}) {
   const [step, setStep] = useState(0);
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
@@ -38,7 +44,7 @@ function NotFoundContentInner({ language, dir }: { language: string; dir: "rtl" 
     } else if (step === 1) {
       const target =
         language === "ar"
-          ? "يبدو أن خطأً ما قد حدث."
+          ? "يبدو أن خطأ ما قد حدث."
           : "It looks like something went wrong.";
       let index = 0;
       const type = () => {
@@ -105,7 +111,10 @@ function NotFoundContentInner({ language, dir }: { language: string; dir: "rtl" 
       </motion.div>
 
       {/* Error Info / Typewriter Sequence */}
-      <div className="flex flex-col items-center justify-center max-w-2xl select-text" dir={dir}>
+      <div
+        className="flex flex-col items-center justify-center max-w-2xl select-text"
+        dir={dir}
+      >
         {/* Step 0: Error 404 */}
         <h2 className="min-h-[2rem] text-2xl font-bold tracking-wide text-foreground/80 md:text-3xl">
           {text1}
@@ -151,7 +160,9 @@ function NotFoundContentInner({ language, dir }: { language: string; dir: "rtl" 
       </motion.div>
 
       {/* Caret Blinking CSS animation */}
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         @keyframes typewriter-blink {
           0%, 100% { opacity: 0; }
           50% { opacity: 1; }
@@ -159,7 +170,9 @@ function NotFoundContentInner({ language, dir }: { language: string; dir: "rtl" 
         .typewriter-cursor {
           animation: typewriter-blink 0.8s step-end infinite;
         }
-      `}} />
+      `,
+        }}
+      />
     </div>
   );
 }

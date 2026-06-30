@@ -9,6 +9,25 @@ import { useTheme } from "@/contexts/theme-context";
 const useSafeLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
+const phrases = {
+  ar: [
+    "جاري تحميل بوابة الجامعة ...",
+    "تهيئة البيانات والمساقات الأكاديمية...",
+    "الاتصال بقواعد بيانات الطلاب والامتحانات...",
+    "تحميل الموارد الرقمية والمكتبة المركزية...",
+    "مرحباً بك في مستقبلك الأكاديمي...",
+    "جامعة أنطاكية السورية - تميز، ريادة، بناء...",
+  ],
+  en: [
+    "Loading ASU University Portal...",
+    "Initializing academic courses & data...",
+    "Connecting to students & exam database...",
+    "Loading digital library resources...",
+    "Welcome to your academic future...",
+    "Antioch Syrian University - Excellence, Leadership, Development...",
+  ],
+};
+
 export function Preloader() {
   const { language } = useLanguage();
   const { theme } = useTheme();
@@ -21,25 +40,6 @@ export function Preloader() {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-
-  const phrases = {
-    ar: [
-      "جاري تحميل بوابة الجامعة ...",
-      "تهيئة البيانات والمساقات الأكاديمية...",
-      "الاتصال بقواعد بيانات الطلاب والامتحانات...",
-      "تحميل الموارد الرقمية والمكتبة المركزية...",
-      "مرحباً بك في مستقبلك الأكاديمي...",
-      "جامعة أنطاكية السورية - تميز، ريادة، بناء...",
-    ],
-    en: [
-      "Loading ASU University Portal...",
-      "Initializing academic courses & data...",
-      "Connecting to students & exam database...",
-      "Loading digital library resources...",
-      "Welcome to your academic future...",
-      "Antioch Syrian University - Excellence, Leadership, Development...",
-    ],
-  };
 
   const currentPhrases = phrases[language] || phrases.ar;
 
@@ -125,12 +125,13 @@ export function Preloader() {
     let isMounted = true;
     let assetsLoaded = false;
     let timeElapsed = false;
+    let completeTimeout: NodeJS.Timeout;
 
     // Lock scrolling on body while preloader is active
     document.body.style.overflow = "hidden";
 
     const completeLoading = () => {
-      setTimeout(() => {
+      completeTimeout = setTimeout(() => {
         if (isMounted) {
           setIsLoaded(true);
           document.body.style.overflow = "";
@@ -147,38 +148,48 @@ export function Preloader() {
     }, 2800);
 
     // Track document assets
-    const checkAssets = async () => {
-      // Font face loading check
-      try {
-        if (document.fonts) {
-          await document.fonts.ready;
-        }
-      } catch (e) {
-        console.warn("Preloader: Fonts ready detection failed, skipping...", e);
-      }
-
+    const checkAssets = () => {
       const images = Array.from(document.querySelectorAll("img"));
       const videos = Array.from(document.querySelectorAll("video"));
       const totalAssets = images.length + videos.length;
       let loadedCount = 0;
+      let fontsLoaded = !document.fonts; // true if no fonts object
 
-      if (totalAssets === 0) {
-        assetsLoaded = true;
-        if (timeElapsed) {
-          completeLoading();
-        }
-        return;
-      }
-
-      const onAssetLoaded = () => {
-        loadedCount++;
-        if (loadedCount >= totalAssets) {
+      const checkAllDone = () => {
+        if (fontsLoaded && loadedCount >= totalAssets) {
           assetsLoaded = true;
           if (timeElapsed) {
             completeLoading();
           }
         }
       };
+
+      const onAssetLoaded = () => {
+        loadedCount++;
+        checkAllDone();
+      };
+
+      // Async fonts check (does not block registration of image/video observers)
+      if (document.fonts) {
+        document.fonts.ready
+          .then(() => {
+            if (isMounted) {
+              fontsLoaded = true;
+              checkAllDone();
+            }
+          })
+          .catch((e) => {
+            console.warn("Preloader: Fonts ready detection failed, skipping...", e);
+            if (isMounted) {
+              fontsLoaded = true;
+              checkAllDone();
+            }
+          });
+      }
+
+      if (totalAssets === 0) {
+        checkAllDone();
+      }
 
       // Register loading event listeners
       images.forEach((img) => {
@@ -250,10 +261,9 @@ export function Preloader() {
       isMounted = false;
       clearTimeout(minTimeTimer);
       clearTimeout(safetyTimeout);
+      if (completeTimeout) clearTimeout(completeTimeout);
       document.body.style.overflow = "";
-      cleanupAssets.then((cleanup) => {
-        if (cleanup) cleanup();
-      });
+      cleanupAssets();
     };
   }, [shouldTrack, isLoaded]);
 

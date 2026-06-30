@@ -25,16 +25,19 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
 
     lenisRef.current = lenis;
 
+    let rafId: number;
+
     // RAF loop for smooth updates
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     // Cleanup
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
       lenisRef.current = null;
     };
