@@ -60,7 +60,7 @@ export default function FacultiesManagement() {
         </Button>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         {faculties.map((faculty) => (
           <Card key={faculty.id} className="overflow-hidden border-none shadow-md hover:shadow-lg transition-all group">
             <div className={cn("h-2 w-full", faculty.color)} />

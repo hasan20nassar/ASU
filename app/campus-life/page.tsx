@@ -135,7 +135,7 @@ export default function CampusLifePage() {
           />
           <div className="absolute inset-0 bg-black/40" />
           <div className="relative h-full flex items-center">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full text-start">
+            <div className="section-container w-full text-start">
               <Badge variant="secondary" className="mb-4 bg-primary text-primary-foreground border-none">
                 {language === "ar" ? "الحياة الجامعية" : "Campus Life"}
               </Badge>
@@ -155,28 +155,28 @@ export default function CampusLifePage() {
 
         {/* Tabs Content */}
         <section className="py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <Tabs defaultValue="housing" className="w-full" dir={dir}>
-              <TabsList className="mb-8 flex h-auto w-full flex-wrap justify-center gap-2 bg-transparent p-0 lg:w-auto lg:inline-flex lg:bg-muted">
-                <TabsTrigger value="housing" className="flex-1 gap-2 rounded-xl border bg-card py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground lg:flex-none lg:rounded-md lg:border-none lg:bg-transparent lg:py-2">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto p-1 bg-muted mb-8 rounded-xl">
+                <TabsTrigger value="housing" className="flex items-center justify-center gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground w-full rounded-lg">
                   <Home className="h-4 w-4 shrink-0" />
                   <span className="text-sm font-medium">
                     {language === "ar" ? "السكن" : "Housing"}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="clubs" className="flex-1 gap-2 rounded-xl border bg-card py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground lg:flex-none lg:rounded-md lg:border-none lg:bg-transparent lg:py-2">
+                <TabsTrigger value="clubs" className="flex items-center justify-center gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground w-full rounded-lg">
                   <Users className="h-4 w-4 shrink-0" />
                   <span className="text-sm font-medium">
                     {language === "ar" ? "النوادي" : "Clubs"}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="sports" className="flex-1 gap-2 rounded-xl border bg-card py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground lg:flex-none lg:rounded-md lg:border-none lg:bg-transparent lg:py-2">
+                <TabsTrigger value="sports" className="flex items-center justify-center gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground w-full rounded-lg">
                   <Dumbbell className="h-4 w-4 shrink-0" />
                   <span className="text-sm font-medium">
                     {language === "ar" ? "الرياضة" : "Sports"}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="tour" className="flex-1 gap-2 rounded-xl border bg-card py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground lg:flex-none lg:rounded-md lg:border-none lg:bg-transparent lg:py-2">
+                <TabsTrigger value="tour" className="flex items-center justify-center gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground w-full rounded-lg">
                   <Camera className="h-4 w-4 shrink-0" />
                   <span className="text-sm font-medium">
                     {language === "ar" ? "جولة افتراضية" : "Virtual Tour"}
@@ -258,7 +258,7 @@ export default function CampusLifePage() {
                 <h2 className="mb-6 text-2xl font-bold text-foreground text-start">
                   {language === "ar" ? "النوادي الطلابية" : "Student Clubs"}
                 </h2>
-                <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 text-start">
+                <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-6 text-start">
                   {clubs.map((club, index) => (
                     <Card key={index} className="transition-all hover:shadow-lg">
                       <CardContent className="p-6">

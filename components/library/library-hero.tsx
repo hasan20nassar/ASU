@@ -19,7 +19,7 @@ export function LibraryHero() {
     <section className="relative overflow-hidden py-16 sm:py-24 lg:py-32">
 
       
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="section-container relative z-10">
         <div className="mx-auto max-w-3xl text-center">
 
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl mb-4">

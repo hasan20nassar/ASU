@@ -61,7 +61,7 @@ export function PartnersSection() {
         }
       `}} />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="section-container">
         {/* Header */}
         <div className="mb-12 text-start">
           <h2 className="text-3xl font-bold text-foreground sm:text-4xl">

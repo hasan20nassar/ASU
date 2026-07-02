@@ -118,7 +118,7 @@ export function TopStudents({ facultySlug }: TopStudentsProps) {
 
   return (
     <section className="top-students-section">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="section-container">
         {/* Section Title */}
         <div className="top-students-header">
           <div className="top-students-header-icon">

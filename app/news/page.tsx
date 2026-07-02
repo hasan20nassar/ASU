@@ -63,7 +63,7 @@ export default function NewsPage() {
           />
           <div className="absolute inset-0 bg-black/50" />
           <div className="relative h-full flex items-center">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full text-start">
+            <div className="section-container w-full text-start">
               <Badge variant="secondary" className="mb-4 bg-primary text-primary-foreground border-none">
                 {t("nav.news")}
               </Badge>
@@ -81,7 +81,7 @@ export default function NewsPage() {
 
         {/* Content */}
         <section className="py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <Tabs defaultValue="news" className="w-full" dir={dir}>
               <TabsList className="mb-8 grid w-full grid-cols-2 lg:w-auto lg:inline-flex">
                 <TabsTrigger value="news" className="gap-2">
@@ -111,7 +111,7 @@ export default function NewsPage() {
                 </div>
 
                 {/* News Grid */}
-                <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 text-start">
+                <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 text-start">
                   {filteredNews.map((article) => (
                     <Link
                       key={article.id}

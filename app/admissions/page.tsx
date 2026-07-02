@@ -8,7 +8,6 @@ import { useLanguage } from "@/contexts/language-context";
 import { faculties, getAllPrograms } from "@/data/programs";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -43,7 +42,8 @@ export default function AdmissionsPage() {
       titleAr: "اختر البرنامج",
       titleEn: "Choose Program",
       descAr: "استعرض الكليات والبرامج المتاحة واختر ما يناسب تطلعاتك",
-      descEn: "Browse available faculties and programs and choose what suits your aspirations",
+      descEn:
+        "Browse available faculties and programs and choose what suits your aspirations",
     },
     {
       titleAr: "تحقق من الشروط",
@@ -61,7 +61,8 @@ export default function AdmissionsPage() {
       titleAr: "انتظر الرد",
       titleEn: "Await Response",
       descAr: "سيتم مراجعة طلبك وإعلامك بالنتيجة خلال أيام",
-      descEn: "Your application will be reviewed and you'll be notified within days",
+      descEn:
+        "Your application will be reviewed and you'll be notified within days",
     },
   ];
 
@@ -69,26 +70,34 @@ export default function AdmissionsPage() {
     {
       questionAr: "ما هي شروط القبول العامة؟",
       questionEn: "What are the general admission requirements?",
-      answerAr: "الشهادة الثانوية السورية (علمي أو أدبي حسب التخصص) مع تحقيق الحد الأدنى من الدرجات المطلوبة لكل برنامج.",
-      answerEn: "Syrian Baccalaureate (Scientific or Literary depending on major) with meeting the minimum score required for each program.",
+      answerAr:
+        "الشهادة الثانوية السورية (علمي أو أدبي حسب التخصص) مع تحقيق الحد الأدنى من الدرجات المطلوبة لكل برنامج.",
+      answerEn:
+        "Syrian Baccalaureate (Scientific or Literary depending on major) with meeting the minimum score required for each program.",
     },
     {
       questionAr: "هل تقبل الجامعة الطلاب غير السوريين؟",
       questionEn: "Does the university accept non-Syrian students?",
-      answerAr: "نعم، تقبل الجامعة الطلاب من جميع الجنسيات مع رسوم دراسية خاصة بغير المقيمين.",
-      answerEn: "Yes, the university accepts students of all nationalities with special tuition fees for non-residents.",
+      answerAr:
+        "نعم، تقبل الجامعة الطلاب من جميع الجنسيات مع رسوم دراسية خاصة بغير المقيمين.",
+      answerEn:
+        "Yes, the university accepts students of all nationalities with special tuition fees for non-residents.",
     },
     {
       questionAr: "ما هي المنح الدراسية المتاحة؟",
       questionEn: "What scholarships are available?",
-      answerAr: "تقدم الجامعة 5% منح كاملة لوزارة التعليم العالي، بالإضافة إلى خصومات التفوق الأكاديمي.",
-      answerEn: "The university offers 5% full scholarships for Ministry of Higher Education, plus academic excellence discounts.",
+      answerAr:
+        "تقدم الجامعة 5% منح كاملة لوزارة التعليم العالي، بالإضافة إلى خصومات التفوق الأكاديمي.",
+      answerEn:
+        "The university offers 5% full scholarships for Ministry of Higher Education, plus academic excellence discounts.",
     },
     {
       questionAr: "متى تبدأ فترة التسجيل؟",
       questionEn: "When does the registration period start?",
-      answerAr: "تبدأ فترة التسجيل عادة في شهر أغسطس وتستمر حتى بداية الفصل الدراسي.",
-      answerEn: "The registration period usually starts in August and continues until the beginning of the semester.",
+      answerAr:
+        "تبدأ فترة التسجيل عادة في شهر أغسطس وتستمر حتى بداية الفصل الدراسي.",
+      answerEn:
+        "The registration period usually starts in August and continues until the beginning of the semester.",
     },
   ];
 
@@ -98,11 +107,8 @@ export default function AdmissionsPage() {
       <main className="flex-1">
         {/* Hero */}
         <section className="border-b bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <div className="text-center">
-              <Badge variant="secondary" className="mb-4">
-                {language === "ar" ? "القبول والتسجيل" : "Admissions"}
-              </Badge>
               <h1 className="text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
                 {language === "ar"
                   ? "ابدأ رحلتك الأكاديمية"
@@ -119,7 +125,7 @@ export default function AdmissionsPage() {
 
         {/* Steps */}
         <section className="py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <h2 className="mb-8 text-center text-2xl font-bold text-foreground">
               {language === "ar" ? "خطوات التقديم" : "Application Steps"}
             </h2>
@@ -145,7 +151,7 @@ export default function AdmissionsPage() {
 
         {/* Requirements */}
         <section className="bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
               {/* General Requirements */}
               <Card>
@@ -235,7 +241,7 @@ export default function AdmissionsPage() {
 
         {/* Tuition Fees Table */}
         <section id="fees" className="py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <h2 className="mb-8 text-center text-2xl font-bold text-foreground">
               {t("admissions.tuition")}
             </h2>
@@ -285,8 +291,8 @@ export default function AdmissionsPage() {
                             {program.tuitionCurrency.nonResident}
                           </TableCell>
                           <TableCell>
-                            {program.minScorePercent}% (
-                            {program.minScorePoints})
+                            {program.minScorePercent}% ({program.minScorePoints}
+                            )
                           </TableCell>
                         </TableRow>
                       ))}
@@ -300,9 +306,11 @@ export default function AdmissionsPage() {
 
         {/* FAQs */}
         <section className="bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <h2 className="mb-8 text-center text-2xl font-bold text-foreground">
-              {language === "ar" ? "الأسئلة الشائعة" : "Frequently Asked Questions"}
+              {language === "ar"
+                ? "الأسئلة الشائعة"
+                : "Frequently Asked Questions"}
             </h2>
             <Card className="mx-auto max-w-3xl">
               <CardContent className="p-4 sm:p-6">
@@ -327,9 +335,7 @@ export default function AdmissionsPage() {
         <section className="py-12 sm:py-16">
           <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
-              {language === "ar"
-                ? "مستعد للتقديم؟"
-                : "Ready to Apply?"}
+              {language === "ar" ? "مستعد للتقديم؟" : "Ready to Apply?"}
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
               {language === "ar"
@@ -344,7 +350,11 @@ export default function AdmissionsPage() {
                 </Button>
               </Link>
               <Link href="/academics" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto"
+                >
                   {language === "ar" ? "استعرض البرامج" : "Browse Programs"}
                 </Button>
               </Link>

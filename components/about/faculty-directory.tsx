@@ -134,7 +134,7 @@ export function FacultyDirectory() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6">
             {filteredMembers.map((prof) => (
               <Card key={prof.id} className="flex flex-col overflow-hidden transition-all hover:border-primary/50 hover:shadow-md">
                 <CardHeader className="flex flex-col items-center p-6 text-center border-b bg-muted/10 space-y-4">

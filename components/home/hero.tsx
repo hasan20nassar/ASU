@@ -19,7 +19,7 @@ export function Hero() {
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
+      <div className="section-container relative py-16 sm:py-24 lg:py-32">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-8">
           {/* Content */}
           <div className="flex flex-col justify-center">

@@ -177,7 +177,7 @@ export default function NewsArticlePage({
         {/* Related Articles */}
         {relatedArticles.length > 0 && (
           <section className="bg-muted/30 py-12 sm:py-16">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="section-container">
               <h2 className="mb-8 text-2xl font-bold text-foreground">
                 {language === "ar" ? "أخبار ذات صلة" : "Related News"}
               </h2>

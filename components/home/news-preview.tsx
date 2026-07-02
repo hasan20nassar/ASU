@@ -88,7 +88,7 @@ export function NewsPreview() {
 
   return (
     <section className="bg-muted/30 py-16 sm:py-24 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="section-container">
         {/* Header */}
         <div className="mb-12 flex items-end justify-between">
           <div className="text-start">
@@ -131,7 +131,7 @@ export function NewsPreview() {
                 return (
                   <CarouselItem
                     key={article.id}
-                    className="pl-4 md:pl-6 basis-full sm:basis-[80%] md:basis-[48%] lg:basis-[33.33%] xl:basis-[30%]"
+                    className="pl-4 md:pl-6 basis-full sm:basis-[80%] md:basis-[48%] lg:basis-[33.33%] xl:basis-[30%] 2xl:basis-[24%] 3xl:basis-[20%]"
                   >
                     <motion.div
                       custom={{ slideX, index }}

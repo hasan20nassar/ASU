@@ -118,6 +118,21 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* ================================
+     Custom Breakpoints for Large Screens
+     (beyond Tailwind's default 2xl = 1536px)
+     ================================ */
+  --breakpoint-3xl: 1920px;  /* Full HD / Large TVs */
+  --breakpoint-4xl: 2560px;  /* 2K / 4K / Ultra-wide */
+
+  /* ================================
+     Responsive Container Sizes
+     ================================ */
+  --container-responsive: min(100% - 2rem, 80rem);     /* Default: max-w-7xl with padding */
+  --container-2xl: min(100% - 2rem, 96rem);            /* 1536px+ screens */
+  --container-3xl: min(100% - 3rem, 112rem);           /* 1920px+ screens */
+  --container-4xl: min(100% - 4rem, 140rem);           /* 2560px+ screens */
 }
 
 @layer base {
@@ -189,47 +204,104 @@
     font-family: 'Almarai', sans-serif !important;
   }
 
-  /* Screen size optimization for large and extra-large displays */
+  /* ================================
+     Screen size optimization for large and extra-large displays
+     Standard professional responsive scaling
+     ================================ */
+
+  /* 2xl: Large Desktops (1536px+) */
+  @media (min-width: 1536px) {
+    html {
+      font-size: 17.5px;
+    }
+  }
+
+  /* 1440p Monitors */
   @media (min-width: 1440px) {
     html {
-      font-size: 19.5px;
-    }
-    :root {
-      --container-7xl: 88rem;
+      font-size: 17px;
     }
   }
 
+  /* Large Monitors (1600px) */
   @media (min-width: 1600px) {
     html {
-      font-size: 21px;
-    }
-    :root {
-      --container-7xl: 92rem;
+      font-size: 18px;
     }
   }
 
+  /* 3xl: Full HD / Large TVs (1920px+) */
   @media (min-width: 1920px) {
     html {
-      font-size: 23.5px;
-    }
-    :root {
-      --container-7xl: 96rem;
+      font-size: 19px;
     }
   }
 
+  /* 4xl: 2K / 4K screens (2560px+) */
   @media (min-width: 2560px) {
     html {
-      font-size: 28px;
+      font-size: 22px;
     }
-    :root {
-      --container-7xl: 100rem;
+  }
+
+  /* 5K+ Ultra wide / professional displays */
+  @media (min-width: 3440px) {
+    html {
+      font-size: 26px;
     }
+  }
+}
+
+/* ================================
+   Global Responsive Container System
+   Professional standard for all screen sizes
+   Usage: replace max-w-7xl containers with .section-container
+   ================================ */
+
+.section-container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;       /* 16px mobile */
+  max-width: 80rem;            /* 1280px — default (xl) */
+}
+
+@media (min-width: 640px) {
+  .section-container {
+    padding-inline: 1.5rem;   /* 24px sm+ */
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-container {
+    padding-inline: 2rem;     /* 32px lg+ */
+  }
+}
+
+@media (min-width: 1536px) {
+  .section-container {
+    max-width: 96rem;          /* 1536px — 2xl */
+    padding-inline: 2.5rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .section-container {
+    max-width: 112rem;         /* 1792px — 3xl / Full HD */
+    padding-inline: 3rem;
+  }
+}
+
+@media (min-width: 2560px) {
+  .section-container {
+    max-width: 140rem;         /* 2240px — 4xl / 2K-4K */
+    padding-inline: 4rem;
   }
 }
 
 /* ================================
    Department Staff Section
    ================================ */
+
 
 .department-staff-section {
   padding: 3rem 0 4rem;

@@ -140,7 +140,7 @@ export default function ResearchPage() {
           />
           <div className="absolute inset-0 bg-black/50" />
           <div className="relative h-full flex items-center">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+            <div className="section-container w-full">
               <div className="text-start">
                 <Badge variant="secondary" className="mb-4 bg-primary text-primary-foreground border-none">
                   {language === "ar" ? "البحث العلمي" : "Research"}
@@ -162,7 +162,7 @@ export default function ResearchPage() {
 
         {/* Stats */}
         <section className="py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {achievements.map((stat, index) => (
                 <Card key={index} className="text-center">
@@ -182,11 +182,11 @@ export default function ResearchPage() {
 
         {/* Research Centers */}
         <section className="bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <h2 className="mb-8 text-center text-2xl font-bold text-foreground sm:text-3xl">
               {language === "ar" ? "مراكز البحث العلمي" : "Research Centers"}
             </h2>
-            <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+            <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
               {researchCenters.map((center, index) => (
                 <Card key={index} className="transition-all hover:shadow-lg">
                   <CardContent className="flex items-start gap-4 p-6">
@@ -210,7 +210,7 @@ export default function ResearchPage() {
 
         {/* Research Areas */}
         <section className="py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
               <div>
                 <h2 className="mb-4 text-2xl font-bold text-foreground sm:text-3xl">
@@ -272,7 +272,7 @@ export default function ResearchPage() {
 
         {/* Publications */}
         <section className="bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <h2 className="mb-8 text-center text-2xl font-bold text-foreground sm:text-3xl">
               {language === "ar" ? "أحدث المنشورات" : "Recent Publications"}
             </h2>
@@ -310,7 +310,7 @@ export default function ResearchPage() {
 
         {/* CTA */}
         <section className="py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <Card className="bg-primary/5">
               <CardContent className="flex flex-col items-center gap-4 sm:gap-6 p-6 sm:p-8 text-center md:flex-row md:text-start">
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-primary/10">

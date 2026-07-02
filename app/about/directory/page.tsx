@@ -12,7 +12,7 @@ export default function FacultyDirectoryPage() {
     <div className="flex min-h-screen flex-col">
       <Navbar />
       <main className="flex-1 bg-muted/20">
-        <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div className="section-container py-12">
           <div className="mb-10 max-w-2xl">
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-primary">
               {t("nav.directory")}

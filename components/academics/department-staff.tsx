@@ -121,7 +121,7 @@ export function DepartmentStaff({ facultySlug }: DepartmentStaffProps) {
 
   return (
     <section className="department-staff-section">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="section-container">
         {/* Section Title */}
         <div className="department-staff-header">
           <div className="department-staff-header-icon">

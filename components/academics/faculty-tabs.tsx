@@ -43,14 +43,14 @@ export function FacultyTabs({ facultySlug }: FacultyTabsProps) {
 
   return (
     <section className="py-12 bg-background">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="section-container">
         <Tabs defaultValue="activities" className="w-full" dir={dir}>
-          <TabsList className="flex flex-wrap h-auto p-1 bg-muted/50 mb-8 items-stretch justify-start overflow-x-auto scrollbar-hide">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 h-auto p-1 bg-muted/50 mb-8 rounded-xl">
             {tabs.map((tab) => (
               <TabsTrigger
                 key={tab.id}
                 value={tab.id}
-                className="flex items-center gap-2 px-6 py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground min-w-fit"
+                className="flex items-center justify-center gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground w-full rounded-lg"
               >
                 <tab.icon className="h-4 w-4" />
                 <span>{language === "ar" ? tab.labelAr : tab.labelEn}</span>
@@ -60,7 +60,7 @@ export function FacultyTabs({ facultySlug }: FacultyTabsProps) {
 
           {/* Activities Tab */}
           <TabsContent value="activities" className="mt-0">
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {details.activities.map((activity) => (
                 <Card key={activity.id} className="overflow-hidden group hover:shadow-xl transition-shadow border-none bg-muted/30">
                   <div className="relative h-64 overflow-hidden">

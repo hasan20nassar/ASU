@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/language-context";
@@ -52,6 +52,47 @@ interface TimeSlot {
   reason?: string;
 }
 
+function generateSlots(professor: FacultyMember | undefined): TimeSlot[] {
+  if (!professor) return [];
+
+  // Define mock slots based on professor's office hours
+  const daysList = professor.officeHours === "By Appointment" 
+    ? [
+        { dayAr: "الأحد", dayEn: "Sunday", times: ["10:00 AM - 11:00 AM", "11:00 AM - 12:00 PM"] },
+        { dayAr: "الثلاثاء", dayEn: "Tuesday", times: ["09:00 AM - 10:00 AM", "01:00 PM - 02:00 PM"] }
+      ]
+    : professor.officeHours.includes("Sun, Tue") 
+      ? [
+          { dayAr: "الأحد", dayEn: "Sunday", times: ["10:00 AM - 11:00 AM", "11:00 AM - 12:00 PM"] },
+          { dayAr: "الثلاثاء", dayEn: "Tuesday", times: ["10:00 AM - 11:00 AM", "11:00 AM - 12:00 PM"] }
+        ]
+      : professor.officeHours.includes("Mon, Wed")
+        ? [
+            { dayAr: "الاثنين", dayEn: "Monday", times: ["01:00 PM - 02:00 PM", "02:00 PM - 03:00 PM"] },
+            { dayAr: "الأربعاء", dayEn: "Wednesday", times: ["01:00 PM - 02:00 PM", "02:00 PM - 03:00 PM"] }
+          ]
+        : [
+            { dayAr: "الاثنين", dayEn: "Monday", times: ["10:00 AM - 11:30 AM"] },
+            { dayAr: "الخميس", dayEn: "Thursday", times: ["10:00 AM - 11:30 AM"] }
+          ];
+
+  const generatedSlots: TimeSlot[] = [];
+  let idCounter = 1;
+  daysList.forEach((dayGroup) => {
+    dayGroup.times.forEach((timeStr) => {
+      generatedSlots.push({
+        id: `slot-${idCounter++}`,
+        dayAr: dayGroup.dayAr,
+        dayEn: dayGroup.dayEn,
+        time: timeStr,
+        status: "available"
+      });
+    });
+  });
+
+  return generatedSlots;
+}
+
 export default function ProfessorProfilePage() {
   const params = useParams();
   const router = useRouter();
@@ -69,10 +110,10 @@ export default function ProfessorProfilePage() {
   }, [professorId]);
 
   // Retrieve faculty name
-  const getFacultyName = (slug: string) => {
+  const getFacultyName = useCallback((slug: string) => {
     const f = faculties.find((fac) => fac.slug === slug);
     return f ? (isArabic ? f.nameAr : f.nameEn) : "";
-  };
+  }, [isArabic]);
 
   // Profile detailed mock database
   const details = useMemo(() => {
@@ -133,10 +174,18 @@ export default function ProfessorProfilePage() {
         { titleAr: "الاستراتيجيات الحديثة لتحسين جودة التعليم والتدريب الأكاديمي", titleEn: "Modern Strategies for Improving Academic Quality and Training", journalAr: "المجلة العربية لتطوير التعليم", journalEn: "Arab Journal of Education Development", year: "2021" }
       ]
     };
-  }, [professor, language]);
+  }, [professor, getFacultyName]);
 
   // Office Hour Booking Slots State
-  const [slots, setSlots] = useState<TimeSlot[]>([]);
+  const [slots, setSlots] = useState<TimeSlot[]>(() => generateSlots(professor));
+  const [prevProfessorId, setPrevProfessorId] = useState(professorId);
+
+  // Adjust slots state if professor changes (during render)
+  if (professorId !== prevProfessorId) {
+    setPrevProfessorId(professorId);
+    setSlots(generateSlots(professor));
+  }
+
   const [selectedSlot, setSelectedSlot] = useState<TimeSlot | null>(null);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -145,48 +194,6 @@ export default function ProfessorProfilePage() {
   const [studentName, setStudentName] = useState("");
   const [studentId, setStudentId] = useState("");
   const [meetingReason, setMeetingReason] = useState("");
-
-  // Initialize booking slots
-  useEffect(() => {
-    if (!professor) return;
-
-    // Define mock slots based on professor's office hours
-    const daysList = professor.officeHours === "By Appointment" 
-      ? [
-          { dayAr: "الأحد", dayEn: "Sunday", times: ["10:00 AM - 11:00 AM", "11:00 AM - 12:00 PM"] },
-          { dayAr: "الثلاثاء", dayEn: "Tuesday", times: ["09:00 AM - 10:00 AM", "01:00 PM - 02:00 PM"] }
-        ]
-      : professor.officeHours.includes("Sun, Tue") 
-        ? [
-            { dayAr: "الأحد", dayEn: "Sunday", times: ["10:00 AM - 11:00 AM", "11:00 AM - 12:00 PM"] },
-            { dayAr: "الثلاثاء", dayEn: "Tuesday", times: ["10:00 AM - 11:00 AM", "11:00 AM - 12:00 PM"] }
-          ]
-        : professor.officeHours.includes("Mon, Wed")
-          ? [
-              { dayAr: "الاثنين", dayEn: "Monday", times: ["01:00 PM - 02:00 PM", "02:00 PM - 03:00 PM"] },
-              { dayAr: "الأربعاء", dayEn: "Wednesday", times: ["01:00 PM - 02:00 PM", "02:00 PM - 03:00 PM"] }
-            ]
-          : [
-              { dayAr: "الاثنين", dayEn: "Monday", times: ["10:00 AM - 11:30 AM"] },
-              { dayAr: "الخميس", dayEn: "Thursday", times: ["10:00 AM - 11:30 AM"] }
-            ];
-
-    const generatedSlots: TimeSlot[] = [];
-    let idCounter = 1;
-    daysList.forEach((dayGroup) => {
-      dayGroup.times.forEach((timeStr) => {
-        generatedSlots.push({
-          id: `slot-${idCounter++}`,
-          dayAr: dayGroup.dayAr,
-          dayEn: dayGroup.dayEn,
-          time: timeStr,
-          status: "available"
-        });
-      });
-    });
-
-    setSlots(generatedSlots);
-  }, [professor]);
 
   const handleOpenBooking = (slot: TimeSlot) => {
     setSelectedSlot(slot);

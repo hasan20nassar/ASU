@@ -304,7 +304,7 @@ export default function ProgramPage({
       <main className="flex-1">
         {/* Header */}
         <section className="border-b bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             {/* Breadcrumb */}
             <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
               <Link href="/academics" className="hover:text-primary">
@@ -404,7 +404,7 @@ export default function ProgramPage({
 
         {/* Tabs Content */}
         <section className="py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <Tabs defaultValue="curriculum" className="w-full" dir={dir}>
               <TabsList className="mb-6 sm:mb-8 grid w-full grid-cols-3 h-auto p-1">
                 <TabsTrigger value="curriculum" className="gap-2">

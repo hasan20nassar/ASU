@@ -12,7 +12,7 @@ export function StatsSection() {
 
   return (
     <section className="bg-background py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="section-container">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <motion.div
             className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg"

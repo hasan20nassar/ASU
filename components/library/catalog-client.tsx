@@ -32,6 +32,8 @@ import {
   BookOpenCheck,
   CalendarDays,
   BookmarkCheck,
+  LayoutGrid,
+  List,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -262,6 +264,7 @@ export default function CatalogClient() {
   const [studentMajor, setStudentMajor] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showFiltersMobile, setShowFiltersMobile] = useState(false);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   // Sync state if query parameter changes
   useEffect(() => {
@@ -376,7 +379,7 @@ export default function CatalogClient() {
         <div className="absolute bottom-[20%] right-[10%] w-[40vw] h-[40vw] rounded-full bg-indigo-500/10 blur-[150px]" />
       </div>
 
-      <main className="flex-1 relative z-10 px-4 sm:px-6 lg:px-8 py-10 max-w-7xl mx-auto w-full">
+      <main className="flex-1 relative z-10 py-10 section-container">
         
         {/* Page title and breadcrumbs */}
         <div className="mb-8 text-start flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-white/5 pb-6">
@@ -398,18 +401,18 @@ export default function CatalogClient() {
           </div>
 
           {/* Search stats cards */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 bg-slate-900/40 p-2.5 rounded-2xl border border-white/5 backdrop-blur-md max-w-sm w-full font-mono text-[11px] sm:text-xs">
-            <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-slate-950/50 border border-white/5">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 bg-muted/30 dark:bg-slate-900/40 p-2.5 rounded-2xl border border-border dark:border-white/5 backdrop-blur-md max-w-sm w-full font-mono text-[11px] sm:text-xs">
+            <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-card dark:bg-slate-950/50 border border-border dark:border-white/5">
               <span className="text-muted-foreground">{isArabic ? "الإجمالي" : "Total"}</span>
               <span className="text-lg font-bold text-foreground mt-0.5">{totalBooksCount}</span>
             </div>
-            <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
-              <span className="text-emerald-400/80">{isArabic ? "متاح" : "Available"}</span>
-              <span className="text-lg font-bold text-emerald-400 mt-0.5">{availableBooksCount}</span>
+            <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-emerald-500/5 border border-emerald-500/20 dark:border-emerald-500/10">
+              <span className="text-emerald-600 dark:text-emerald-400/80">{isArabic ? "متاح" : "Available"}</span>
+              <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">{availableBooksCount}</span>
             </div>
-            <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-rose-500/5 border border-rose-500/10">
-              <span className="text-rose-400/80">{isArabic ? "محجوز" : "Reserved"}</span>
-              <span className="text-lg font-bold text-rose-400 mt-0.5">{reservedBooksCount}</span>
+            <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-rose-500/5 border border-rose-500/20 dark:border-rose-500/10">
+              <span className="text-rose-600 dark:text-rose-400/80">{isArabic ? "محجوز" : "Reserved"}</span>
+              <span className="text-lg font-bold text-rose-600 dark:text-rose-400 mt-0.5">{reservedBooksCount}</span>
             </div>
           </div>
         </div>
@@ -418,9 +421,9 @@ export default function CatalogClient() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
           
           {/* 1. Sidebar Controls (Desktop) */}
-          <aside className={`lg:block ${showFiltersMobile ? "block" : "hidden"} space-y-6 lg:sticky lg:top-24 bg-slate-950/40 p-6 rounded-2xl border border-white/5 backdrop-blur-md z-30 lg:z-10`}>
+          <aside className={`lg:block ${showFiltersMobile ? "block" : "hidden"} space-y-6 lg:sticky lg:top-24 bg-card dark:bg-slate-950/40 p-6 rounded-2xl border border-border dark:border-white/5 backdrop-blur-md z-30 lg:z-10`}>
             
-            <div className="flex items-center justify-between border-b border-white/5 pb-4">
+            <div className="flex items-center justify-between border-b border-border dark:border-white/5 pb-4">
               <h3 className="font-bold text-sm text-foreground flex items-center gap-2">
                 <Filter className="h-4 w-4 text-primary" />
                 {isArabic ? "تصفية الفهرس" : "Filter Catalog"}
@@ -428,7 +431,7 @@ export default function CatalogClient() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 text-xs text-muted-foreground hover:text-white"
+                className="h-8 text-xs text-muted-foreground hover:text-foreground dark:hover:text-white"
                 onClick={resetFilters}
               >
                 <RotateCcw className="h-3 w-3 mr-1 rtl:ml-1 rtl:mr-0" />
@@ -438,7 +441,7 @@ export default function CatalogClient() {
 
             {/* A. Search Bar */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-400 block text-start">
+              <label className="text-xs font-semibold text-muted-foreground dark:text-slate-400 block text-start">
                 {isArabic ? "البحث بالاسم أو الرقم" : "Search Name or ISBN"}
               </label>
               <div className="relative">
@@ -451,14 +454,14 @@ export default function CatalogClient() {
                     setSearchTerm(e.target.value);
                     triggerSearch(e.target.value);
                   }}
-                  className="pl-9 pr-4 rtl:pr-9 rtl:pl-4 bg-slate-950/60 border-white/10"
+                  className="pl-9 pr-4 rtl:pr-9 rtl:pl-4 bg-background dark:bg-slate-950/60 border-input dark:border-white/10"
                 />
               </div>
             </div>
 
             {/* B. Academic Faculties Categories */}
             <div className="space-y-2.5">
-              <label className="text-xs font-semibold text-slate-400 block text-start">
+              <label className="text-xs font-semibold text-muted-foreground dark:text-slate-400 block text-start">
                 {isArabic ? "حسب التخصص الأكاديمي" : "By Academic Major"}
               </label>
               <div className="flex flex-col gap-1.5 text-start">
@@ -471,7 +474,7 @@ export default function CatalogClient() {
                       className={`w-full text-left rtl:text-right px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center justify-between border ${
                         isActive
                           ? "bg-primary border-primary text-white shadow-lg shadow-primary/20"
-                          : "bg-slate-900/30 border-white/5 text-slate-300 hover:bg-slate-900/60 hover:text-white hover:border-white/10"
+                          : "bg-muted/40 dark:bg-slate-900/30 border-border dark:border-white/5 text-foreground dark:text-slate-300 hover:bg-muted/70 hover:text-foreground dark:hover:bg-slate-900/60 dark:hover:text-white dark:hover:border-white/10"
                       }`}
                     >
                       <span>{isArabic ? cat.nameAr : cat.nameEn}</span>
@@ -484,7 +487,7 @@ export default function CatalogClient() {
 
             {/* C. Availability Status */}
             <div className="space-y-2.5">
-              <label className="text-xs font-semibold text-slate-400 block text-start">
+              <label className="text-xs font-semibold text-muted-foreground dark:text-slate-400 block text-start">
                 {isArabic ? "حالة التوافر" : "Availability Status"}
               </label>
               <div className="flex flex-col gap-1.5 text-start">
@@ -496,8 +499,8 @@ export default function CatalogClient() {
                       onClick={() => setSelectedAvailability(av.id)}
                       className={`w-full text-left rtl:text-right px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center justify-between border ${
                         isActive
-                          ? "bg-slate-800 border-slate-700 text-white"
-                          : "bg-slate-900/30 border-white/5 text-slate-400 hover:bg-slate-900/60 hover:text-white"
+                          ? "bg-accent/10 dark:bg-slate-800 border-accent/20 dark:border-slate-700 text-foreground dark:text-white"
+                          : "bg-muted/40 dark:bg-slate-900/30 border-border dark:border-white/5 text-muted-foreground dark:text-slate-400 hover:bg-muted/70 hover:text-foreground dark:hover:bg-slate-900/60 dark:hover:text-white"
                       }`}
                     >
                       <span>{isArabic ? av.nameAr : av.nameEn}</span>
@@ -510,7 +513,7 @@ export default function CatalogClient() {
 
             {/* Mobile close filters btn */}
             <Button
-              className="w-full lg:hidden bg-slate-900 text-white mt-4 border border-white/10"
+              className="w-full lg:hidden bg-primary text-primary-foreground mt-4 border border-primary/20"
               onClick={() => setShowFiltersMobile(false)}
             >
               {isArabic ? "تطبيق التصفية" : "Apply Filters"}
@@ -518,8 +521,8 @@ export default function CatalogClient() {
           </aside>
 
           {/* Mobile Filter Trigger Button */}
-          <div className="lg:hidden flex justify-between items-center bg-slate-900/30 p-4 rounded-xl border border-white/5 mb-2 w-full">
-            <span className="text-xs font-semibold text-slate-300">
+          <div className="lg:hidden flex justify-between items-center bg-card dark:bg-slate-900/30 p-4 rounded-xl border border-border dark:border-white/5 mb-2 w-full">
+            <span className="text-xs font-semibold text-muted-foreground dark:text-slate-300">
               {isArabic
                 ? `عرض ${filteredBooks.length} من أصل ${totalBooksCount} كتاب`
                 : `Showing ${filteredBooks.length} of ${totalBooksCount} books`}
@@ -527,7 +530,7 @@ export default function CatalogClient() {
             <Button
               size="sm"
               variant="outline"
-              className="border-white/10 gap-2"
+              className="border-border dark:border-white/10 gap-2"
               onClick={() => setShowFiltersMobile(true)}
             >
               <Filter className="h-4 w-4" />
@@ -539,34 +542,61 @@ export default function CatalogClient() {
           <div className="lg:col-span-3 space-y-6">
             
             {/* Header info */}
-            <div className="hidden lg:flex justify-between items-center text-sm text-muted-foreground border-b border-white/5 pb-3 text-start">
+            <div className="hidden lg:flex justify-between items-center text-sm text-muted-foreground border-b border-border dark:border-white/5 pb-3 text-start">
               <span>
                 {isArabic
                   ? `وجدنا ${filteredBooks.length} كتاباً يطابق خيارات التصفية`
                   : `Found ${filteredBooks.length} books matching your filters`}
               </span>
-              <span>
-                {isArabic ? "ترتيب: الأحدث" : "Sort: Newest"}
-              </span>
+              <div className="flex items-center gap-4">
+                <span>
+                  {isArabic ? "ترتيب: الأحدث" : "Sort: Newest"}
+                </span>
+                <div className="h-4 w-[1px] bg-border dark:bg-white/10" />
+                <div className="flex items-center gap-1 bg-muted/50 dark:bg-slate-950/40 p-1 rounded-lg border border-border dark:border-white/5">
+                  <button
+                    onClick={() => setViewMode("grid")}
+                    className={`p-1.5 rounded-md transition-colors ${
+                      viewMode === "grid"
+                        ? "bg-card text-primary shadow-sm"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                    title={isArabic ? "عرض كروت" : "Grid View"}
+                  >
+                    <LayoutGrid className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => setViewMode("list")}
+                    className={`p-1.5 rounded-md transition-colors ${
+                      viewMode === "list"
+                        ? "bg-card text-primary shadow-sm"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                    title={isArabic ? "عرض قائمة" : "List View"}
+                  >
+                    <List className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
             </div>
 
             {filteredBooks.length === 0 ? (
-              <div className="flex flex-col items-center justify-center p-12 rounded-3xl border border-dashed border-white/10 bg-slate-950/20 text-center min-h-[400px]">
+              <div className="flex flex-col items-center justify-center p-12 rounded-3xl border border-dashed border-border dark:border-white/10 bg-muted/20 dark:bg-slate-950/20 text-center min-h-[400px]">
                 <BookOpen className="h-12 w-12 text-slate-600 mb-4 animate-bounce" />
                 <h3 className="text-lg font-bold text-foreground">
                   {isArabic ? "لم نجد أي نتائج مطابقة" : "No Matching Books Found"}
                 </h3>
-                <p className="text-sm text-slate-500 mt-2 max-w-sm">
+                <p className="text-sm text-muted-foreground mt-2 max-w-sm">
                   {isArabic
                     ? "يرجى تعديل خيارات البحث والتصفية أو إعادة الضبط لعرض كل كتب الفهرس."
                     : "Please try adjusting your search term or select another category filter to explore more."}
                 </p>
-                <Button variant="outline" className="mt-6 border-white/10" onClick={resetFilters}>
+                <Button variant="outline" className="mt-6 border-border dark:border-white/10" onClick={resetFilters}>
                   {isArabic ? "إعادة عرض كل الكتب" : "View All Books"}
                 </Button>
               </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            ) : viewMode === "grid" ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {filteredBooks.map((book) => {
                   // Get category styling
                   const catStyle = CATEGORIES.find((c) => c.id === book.category);
@@ -574,7 +604,7 @@ export default function CatalogClient() {
                   return (
                     <div
                       key={book.id}
-                      className="group relative flex flex-col justify-between bg-slate-950/50 hover:bg-slate-950 border border-white/5 hover:border-primary/20 rounded-2xl p-5 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1.5 overflow-hidden"
+                      className="group relative flex flex-col justify-between bg-card dark:bg-slate-950/50 hover:bg-card dark:hover:bg-slate-950 border border-border dark:border-white/5 hover:border-primary/30 dark:hover:border-primary/20 rounded-2xl p-5 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1.5 overflow-hidden"
                     >
                       {/* Interactive glowing cover indicator */}
                       <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-transparent via-primary/0 to-transparent group-hover:via-primary/50 transition-all duration-500" />
@@ -642,18 +672,18 @@ export default function CatalogClient() {
                       </div>
 
                       {/* Lower Actions Section */}
-                      <div className="mt-5 pt-3.5 border-t border-white/5 flex flex-col gap-2">
+                      <div className="mt-5 pt-3.5 border-t border-border dark:border-white/5 flex flex-col gap-2">
                         
                         {/* Status Label */}
                         <div className="flex items-center justify-between text-xs">
                           <span className="text-muted-foreground">{isArabic ? "الحالة:" : "Status:"}</span>
                           {book.available ? (
-                            <span className="flex items-center gap-1 text-emerald-400 font-semibold">
+                            <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
                               <CheckCircle2 className="h-3.5 w-3.5" />
                               {isArabic ? "متاح للاستعارة" : "Available to Borrow"}
                             </span>
                           ) : (
-                            <span className="flex items-center gap-1 text-rose-400 font-medium">
+                            <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-medium">
                               <AlertCircle className="h-3.5 w-3.5" />
                               {isArabic 
                                 ? (book.reservedBy ? `محجوز لـ ${book.reservedBy}` : "مستعار حالياً") 
@@ -676,13 +706,135 @@ export default function CatalogClient() {
                             <Button
                               variant="outline"
                               size="sm"
-                              className="flex-1 border-white/10 hover:bg-slate-900 text-[11px] h-9 rounded-xl"
+                              className="flex-1 border-border dark:border-white/10 hover:bg-muted dark:hover:bg-slate-900 text-[11px] h-9 rounded-xl"
                               onClick={() => handleNotifyMe(book)}
                             >
                               <Clock className="h-3 w-3 mr-1.5 rtl:ml-1.5 rtl:mr-0 text-amber-500" />
                               {isArabic ? "تنبيه التوفر" : "Notify Availability"}
                             </Button>
                           </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-4">
+                {filteredBooks.map((book) => {
+                  // Get category styling
+                  const catStyle = CATEGORIES.find((c) => c.id === book.category);
+                  
+                  return (
+                    <div
+                      key={book.id}
+                      className="group relative flex flex-col sm:flex-row justify-between items-start sm:items-center bg-card dark:bg-slate-950/50 hover:bg-card dark:hover:bg-slate-950 border border-border dark:border-white/5 hover:border-primary/30 dark:hover:border-primary/20 rounded-2xl p-5 transition-all duration-300 shadow-sm hover:shadow-md overflow-hidden gap-5"
+                    >
+                      {/* Interactive glowing cover indicator */}
+                      <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-transparent via-primary/0 to-transparent group-hover:via-primary/50 transition-all duration-500 rtl:left-0 rtl:right-auto" />
+
+                      <div className="flex flex-row items-start gap-4 flex-1 min-w-0">
+                        {/* 3D-Like Book Cover Art */}
+                        <div className="relative aspect-[3/4.2] w-[90px] shrink-0 rounded-md shadow-md group-hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col justify-between p-2 select-none bg-gradient-to-br border border-white/10">
+                          {/* Inner dynamic background gradient */}
+                          <div className={`absolute inset-0 bg-gradient-to-br ${book.coverColor} opacity-95 group-hover:scale-105 transition-transform duration-500`} />
+                          
+                          {/* Book spine simulation overlay */}
+                          <div className="absolute top-0 left-0 bottom-0 w-2 bg-gradient-to-r from-black/40 via-black/10 to-transparent border-r border-white/5 rtl:right-0 rtl:left-auto rtl:bg-gradient-to-l rtl:border-l rtl:border-r-0" />
+                          <div className="absolute top-0 left-2 bottom-0 w-[1px] bg-white/10 rtl:right-2 rtl:left-auto" />
+
+                          {/* Cover content */}
+                          <div className="relative z-10 text-start flex flex-col h-full justify-between">
+                            <span className="text-[6px] uppercase tracking-widest font-mono text-white/50 bg-black/30 w-fit px-1 py-0.5 rounded-full">
+                              ASU LIB
+                            </span>
+                            
+                            <h3 className="text-[10px] font-black text-white leading-tight line-clamp-2 text-start mt-1 shadow-sm drop-shadow">
+                              {isArabic ? book.titleAr : book.titleEn}
+                            </h3>
+                            
+                            <div className="border-t border-white/15 pt-1.5 mt-auto">
+                              <p className="text-[8px] text-white/80 font-bold truncate">
+                                {isArabic ? book.authorAr : book.authorEn}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Text Detail Section */}
+                        <div className="space-y-1 text-start flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            {catStyle && (
+                              <Badge className={`text-[9px] uppercase font-bold py-0 px-2 rounded-full border ${catStyle.color} bg-transparent`}>
+                                {isArabic ? catStyle.nameAr : catStyle.nameEn}
+                              </Badge>
+                            )}
+                            <span className="text-[9px] text-muted-foreground font-mono">
+                              {book.year}
+                            </span>
+                          </div>
+
+                          <h3 className="font-bold text-base text-foreground line-clamp-1 group-hover:text-primary transition-colors">
+                            {isArabic ? book.titleAr : book.titleEn}
+                          </h3>
+                          
+                          <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+                            <User className="h-3.5 w-3.5 shrink-0 text-slate-500" />
+                            <span className="truncate">{isArabic ? book.authorAr : book.authorEn}</span>
+                          </p>
+
+                          <p className="text-[10px] text-slate-500 font-mono flex items-center gap-1.5">
+                            <Hash className="h-3 w-3 shrink-0" />
+                            <span>ISBN: {book.isbn}</span>
+                          </p>
+
+                          <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed pt-1 hidden sm:block">
+                            {isArabic 
+                              ? `المرجع العلمي المعتمد لـ ${isArabic ? catStyle?.nameAr : catStyle?.nameEn} بجامعة أنطاكية السورية، طبعة حديثة تغطي المفردات الدراسية للكلية.`
+                              : `Official textbook reference for ${isArabic ? catStyle?.nameAr : catStyle?.nameEn} at ASU, covering current curriculum topics.`}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Actions Section */}
+                      <div className="w-full sm:w-48 shrink-0 flex flex-col justify-between gap-4 border-t sm:border-t-0 sm:border-l rtl:sm:border-r rtl:sm:border-l-0 border-border dark:border-white/5 pt-4 sm:pt-0 sm:pl-5 rtl:sm:pr-5 rtl:sm:pl-0 text-start sm:text-end h-full min-h-[90px]">
+                        <div className="flex flex-col gap-1">
+                          <span className="text-[10px] text-muted-foreground">{isArabic ? "الحالة:" : "Status:"}</span>
+                          {book.available ? (
+                            <span className="flex items-center sm:justify-end gap-1 text-emerald-600 dark:text-emerald-400 font-semibold text-xs">
+                              <CheckCircle2 className="h-3.5 w-3.5" />
+                              {isArabic ? "متاح للاستعارة" : "Available to Borrow"}
+                            </span>
+                          ) : (
+                            <span className="flex items-center sm:justify-end gap-1 text-rose-600 dark:text-rose-400 font-medium text-xs">
+                              <AlertCircle className="h-3.5 w-3.5" />
+                              <span className="truncate max-w-[140px]">
+                                {isArabic 
+                                  ? (book.reservedBy ? `محجوز لـ ${book.reservedBy}` : "مستعار") 
+                                  : (book.reservedBy ? `Reserved` : "Borrowed")}
+                              </span>
+                            </span>
+                          )}
+                        </div>
+
+                        {book.available ? (
+                          <Button
+                            className="w-full bg-primary hover:bg-primary/95 text-white font-bold text-xs h-9 rounded-xl"
+                            onClick={() => setSelectedBook(book)}
+                          >
+                            <BookOpenCheck className="h-3.5 w-3.5 mr-1.5 rtl:ml-1.5 rtl:mr-0" />
+                            {isArabic ? "حجز هذا الكتاب" : "Reserve Book"}
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full border-border dark:border-white/10 hover:bg-muted dark:hover:bg-slate-900 text-[11px] h-9 rounded-xl"
+                            onClick={() => handleNotifyMe(book)}
+                          >
+                            <Clock className="h-3 w-3 mr-1.5 rtl:ml-1.5 rtl:mr-0 text-amber-500" />
+                            {isArabic ? "تنبيه التوفر" : "Notify Availability"}
+                          </Button>
                         )}
                       </div>
                     </div>

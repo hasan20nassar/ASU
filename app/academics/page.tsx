@@ -44,13 +44,12 @@ export default function AcademicsPage() {
       <main className="flex-1">
         {/* Header */}
         <section className="border-b bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <div className="text-center">
-              <Badge variant="secondary" className="mb-4">
-                {language === "ar" ? "البرامج الأكاديمية" : "Academic Programs"}
-              </Badge>
               <h1 className="text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
-                {language === "ar" ? "الكليات والبرامج" : "Faculties & Programs"}
+                {language === "ar"
+                  ? "الكليات والبرامج"
+                  : "Faculties & Programs"}
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
                 {language === "ar"
@@ -63,7 +62,7 @@ export default function AcademicsPage() {
 
         {/* Faculties Grid */}
         <section className="py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <div className="grid gap-8">
               {faculties.map((faculty) => {
                 const Icon = iconMap[faculty.icon] || BookOpen;
@@ -77,14 +76,16 @@ export default function AcademicsPage() {
                         <div
                           className={cn(
                             "flex h-14 w-14 shrink-0 items-center justify-center rounded-xl",
-                            faculty.color
+                            faculty.color,
                           )}
                         >
                           <Icon className="h-7 w-7 text-white" />
                         </div>
                         <div className="flex-1">
                           <CardTitle className="text-xl sm:text-2xl">
-                            {language === "ar" ? faculty.nameAr : faculty.nameEn}
+                            {language === "ar"
+                              ? faculty.nameAr
+                              : faculty.nameEn}
                           </CardTitle>
                           <p className="mt-1 text-muted-foreground">
                             {language === "ar"
@@ -95,7 +96,7 @@ export default function AcademicsPage() {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                         {faculty.programs.map((program) => (
                           <Link
                             key={program.id}
@@ -130,7 +131,10 @@ export default function AcademicsPage() {
                       </div>
                       <div className="mt-6 border-t pt-4">
                         <Link href={`/academics/${faculty.slug}`}>
-                          <Button variant="outline" className="gap-2 bg-transparent">
+                          <Button
+                            variant="outline"
+                            className="gap-2 bg-transparent"
+                          >
                             {language === "ar"
                               ? `استكشف ${faculty.nameAr}`
                               : `Explore ${faculty.nameEn}`}

@@ -38,7 +38,7 @@ export function FacultiesGrid() {
 
   return (
     <section className="bg-muted/30 py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="section-container">
         {/* Header */}
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
@@ -52,7 +52,7 @@ export function FacultiesGrid() {
         </div>
 
         {/* Grid */}
-        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6">
           {faculties.map((faculty, index) => {
             const Icon = iconMap[faculty.icon] || BookOpen;
             return (

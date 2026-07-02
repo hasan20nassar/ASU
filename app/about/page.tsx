@@ -35,14 +35,16 @@ export default function AboutPage() {
       titleAr: "صدور المرسوم التأسيسي",
       titleEn: "Founding Decree Issued",
       descAr: "صدور المرسوم الرئاسي رقم 233 لتأسيس جامعة أنطاكية السورية",
-      descEn: "Presidential Decree No. 233 issued to establish Antioch Syrian University",
+      descEn:
+        "Presidential Decree No. 233 issued to establish Antioch Syrian University",
     },
     {
       year: "2018",
       titleAr: "افتتاح الجامعة",
       titleEn: "University Opening",
       descAr: "افتتاح الجامعة رسمياً واستقبال أول دفعة من الطلاب في سبتمبر",
-      descEn: "Official university opening and welcoming the first batch of students in September",
+      descEn:
+        "Official university opening and welcoming the first batch of students in September",
     },
     {
       year: "2019",
@@ -98,12 +100,9 @@ export default function AboutPage() {
         <MouseGravityIcons />
         {/* Hero */}
         <section className="relative border-b bg-muted/30 py-12 sm:py-16">
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative section-container">
             <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
               <div className="text-start relative z-10">
-                <Badge variant="secondary" className="mb-4">
-                  {t("nav.about")}
-                </Badge>
                 <h1 className="text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
                   {language === "ar"
                     ? "عن جامعة أنطاكية السورية"
@@ -119,7 +118,9 @@ export default function AboutPage() {
                 <Card>
                   <CardContent className="p-6 text-center">
                     <GraduationCap className="mx-auto mb-2 h-8 w-8 text-primary" />
-                    <div className="text-3xl font-bold">{universityInfo.stats.faculties}</div>
+                    <div className="text-3xl font-bold">
+                      {universityInfo.stats.faculties}
+                    </div>
                     <div className="text-sm text-muted-foreground">
                       {language === "ar" ? "كليات" : "Faculties"}
                     </div>
@@ -128,7 +129,9 @@ export default function AboutPage() {
                 <Card>
                   <CardContent className="p-6 text-center">
                     <BookOpen className="mx-auto mb-2 h-8 w-8 text-primary" />
-                    <div className="text-3xl font-bold">{universityInfo.stats.programs}+</div>
+                    <div className="text-3xl font-bold">
+                      {universityInfo.stats.programs}+
+                    </div>
                     <div className="text-sm text-muted-foreground">
                       {language === "ar" ? "برامج" : "Programs"}
                     </div>
@@ -166,10 +169,17 @@ export default function AboutPage() {
                 </p>
                 <div className="flex flex-col items-center justify-center gap-3">
                   <h3 className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
-                    {language === "ar" ? "أ.د. راكان رزوق" : "Prof. Dr. Rakan Razzouk"}
+                    {language === "ar"
+                      ? "أ.د. راكان رزوق"
+                      : "Prof. Dr. Rakan Razzouk"}
                   </h3>
-                  <Badge variant="outline" className="text-sm font-semibold sm:text-base px-5 py-1.5 uppercase tracking-wider text-primary border-primary/20 bg-background/50 backdrop-blur-sm">
-                    {language === "ar" ? "رئيس الجامعة" : "University President"}
+                  <Badge
+                    variant="outline"
+                    className="text-sm font-semibold sm:text-base px-5 py-1.5 uppercase tracking-wider text-primary border-primary/20 bg-background/50 backdrop-blur-sm"
+                  >
+                    {language === "ar"
+                      ? "رئيس الجامعة"
+                      : "University President"}
                   </Badge>
                 </div>
               </CardContent>
@@ -179,7 +189,7 @@ export default function AboutPage() {
 
         {/* History */}
         <section className="py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <div className="text-start">
               <Card>
                 <CardHeader>
@@ -200,7 +210,7 @@ export default function AboutPage() {
 
         {/* Vision & Mission */}
         <section className="bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <div className="grid gap-4 sm:gap-6 md:grid-cols-2 text-start">
               <Card className="border-primary/20">
                 <CardHeader>
@@ -239,7 +249,7 @@ export default function AboutPage() {
 
         {/* Values */}
         <section className="py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <h2 className="mb-12 text-center text-3xl font-bold text-foreground">
               {language === "ar" ? "قيمنا" : "Our Values"}
             </h2>
@@ -265,11 +275,11 @@ export default function AboutPage() {
 
         {/* Timeline (Our Journey) */}
         <section className="bg-muted/30 py-12 sm:py-24">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <h2 className="mb-16 text-center text-3xl font-bold text-foreground">
               {language === "ar" ? "مسيرتنا" : "Our Journey"}
             </h2>
-            
+
             <div className="relative">
               {/* Vertical Line */}
               <div className="absolute left-1/2 top-0 hidden h-full w-0.5 -translate-x-1/2 bg-primary/20 md:block" />
@@ -279,25 +289,31 @@ export default function AboutPage() {
                   <div key={index} className="relative">
                     {/* Desktop View */}
                     <div className="hidden items-center md:flex">
-                      <div className={`w-1/2 ${index % 2 === 0 ? "pr-12 text-right" : "pl-12 text-left order-last"}`}>
-                        <Card className="inline-block w-full max-w-md text-start">
+                      <div
+                        className={`w-1/2 flex ${index % 2 === 0 ? "pe-12 justify-end" : "ps-12 justify-start order-last"}`}
+                      >
+                        <Card className="w-full max-w-md text-start">
                           <CardContent className="p-6">
                             <Badge variant="secondary" className="mb-2">
                               {milestone.year}
                             </Badge>
                             <h3 className="text-lg font-bold text-foreground">
-                              {language === "ar" ? milestone.titleAr : milestone.titleEn}
+                              {language === "ar"
+                                ? milestone.titleAr
+                                : milestone.titleEn}
                             </h3>
                             <p className="mt-2 text-sm text-muted-foreground">
-                              {language === "ar" ? milestone.descAr : milestone.descEn}
+                              {language === "ar"
+                                ? milestone.descAr
+                                : milestone.descEn}
                             </p>
                           </CardContent>
                         </Card>
                       </div>
-                      
+
                       {/* Center Dot */}
                       <div className="absolute left-1/2 z-10 flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full bg-primary ring-4 ring-background" />
-                      
+
                       <div className="w-1/2" />
                     </div>
 
@@ -313,10 +329,14 @@ export default function AboutPage() {
                             {milestone.year}
                           </Badge>
                           <h3 className="font-bold text-foreground">
-                            {language === "ar" ? milestone.titleAr : milestone.titleEn}
+                            {language === "ar"
+                              ? milestone.titleAr
+                              : milestone.titleEn}
                           </h3>
                           <p className="mt-1 text-sm text-muted-foreground">
-                            {language === "ar" ? milestone.descAr : milestone.descEn}
+                            {language === "ar"
+                              ? milestone.descAr
+                              : milestone.descEn}
                           </p>
                         </CardContent>
                       </Card>
@@ -330,7 +350,7 @@ export default function AboutPage() {
 
         {/* Jobs CTA */}
         <section className="py-12 sm:py-24">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <Card className="bg-primary/5">
               <CardContent className="flex flex-col items-center gap-4 sm:gap-6 p-6 sm:p-8 text-center md:flex-row md:text-start">
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-primary/10">

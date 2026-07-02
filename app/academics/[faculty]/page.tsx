@@ -10,6 +10,7 @@ import { useLanguage } from "@/contexts/language-context";
 import { getFacultyBySlug } from "@/data/programs";
 import { FacultyTabs } from "@/components/academics/faculty-tabs";
 import { TopStudents } from "@/components/academics/top-students";
+import { SuccessStories } from "@/components/academics/success-stories";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -46,7 +47,7 @@ export default function FacultyPage({
       <main className="flex-1">
         {/* Header */}
         <section className="border-b bg-muted/30 py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             {/* Breadcrumb */}
             <nav className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
               <Link href="/academics" className="hover:text-primary">
@@ -89,7 +90,7 @@ export default function FacultyPage({
 
         {/* Programs */}
         <section className="py-12 sm:py-16 bg-muted/20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="section-container">
             <h2 className="mb-8 text-2xl font-bold text-foreground">
               {language === "ar" ? "البرامج المتاحة" : "Available Programs"}
             </h2>
@@ -162,6 +163,9 @@ export default function FacultyPage({
 
         {/* Top Students */}
         <TopStudents facultySlug={faculty.slug} />
+
+        {/* Success Stories */}
+        <SuccessStories facultySlug={faculty.slug} />
       </main>
 
       <Footer />
