@@ -34,30 +34,36 @@ export function FacultyTabs({ facultySlug }: FacultyTabsProps) {
   if (!details) return null;
 
   const tabs = [
-    { id: "activities", labelAr: "نشاطات الكلية", labelEn: "Activities", icon: Activity },
     { id: "structure", labelAr: "الهيكل التنظيمي", labelEn: "Organizational Structure", icon: Users },
+    { id: "activities", labelAr: "نشاطات الكلية", labelEn: "Activities", icon: Activity },
     { id: "departments", labelAr: "التخصصات والأقسام", labelEn: "Departments", icon: Layers },
     { id: "study-plan", labelAr: "الخطة الدرسية", labelEn: "Study Plan", icon: ClipboardList },
     { id: "research", labelAr: "الأبحاث العلمية", labelEn: "Scientific Research", icon: FlaskConical },
   ];
 
   return (
-    <section className="py-12 bg-background">
-      <div className="section-container">
-        <Tabs defaultValue="activities" className="w-full" dir={dir}>
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 h-auto p-1 bg-muted/50 mb-8 rounded-xl">
+    <Tabs defaultValue="structure" className="w-full" dir={dir}>
+      {/* Sticky Tab Bar */}
+      <div className="sticky top-16 z-30 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 shadow-sm">
+        <div className="section-container">
+          <TabsList className="grid w-full grid-cols-5 h-auto p-1 bg-muted/50 rounded-xl gap-1">
             {tabs.map((tab) => (
               <TabsTrigger
                 key={tab.id}
                 value={tab.id}
-                className="flex items-center justify-center gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground w-full rounded-lg"
+                className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-2 sm:py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground w-full rounded-lg"
               >
-                <tab.icon className="h-4 w-4" />
-                <span>{language === "ar" ? tab.labelAr : tab.labelEn}</span>
+                <tab.icon className="h-4 w-4 shrink-0" />
+                <span className="hidden sm:inline">{language === "ar" ? tab.labelAr : tab.labelEn}</span>
               </TabsTrigger>
             ))}
           </TabsList>
+        </div>
+      </div>
 
+      {/* Tab Contents */}
+      <section className="py-12 bg-background">
+        <div className="section-container">
           {/* Activities Tab */}
           <TabsContent value="activities" className="mt-0">
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -127,30 +133,6 @@ export function FacultyTabs({ facultySlug }: FacultyTabsProps) {
               </div>
             </div>
 
-            {/* Faculty Board */}
-            <div>
-              <h3 className="text-2xl font-bold mb-6 px-2 flex items-center gap-2">
-                <Users className="h-6 w-6 text-primary" />
-                {language === "ar" ? "مجلس الكلية" : "College Board"}
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {details.board.map((member) => (
-                  <Card key={member.id} className="text-center hover:border-primary/50 transition-colors bg-muted/20 border-muted">
-                    <CardHeader className="items-center pb-2">
-                      <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-primary/20">
-                        <Image src={member.image} alt={member.nameEn} fill className="object-cover" />
-                      </div>
-                      <CardTitle className="text-base">
-                        {language === "ar" ? member.nameAr : member.nameEn}
-                      </CardTitle>
-                      <CardDescription className="text-primary font-medium">
-                        {language === "ar" ? member.roleAr : member.roleEn}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                ))}
-              </div>
-            </div>
 
             {/* Staff - Embed existing component */}
             <div className="pt-8 border-t">
@@ -244,8 +226,8 @@ export function FacultyTabs({ facultySlug }: FacultyTabsProps) {
               ))}
             </div>
           </TabsContent>
-        </Tabs>
-      </div>
-    </section>
+        </div>
+      </section>
+    </Tabs>
   );
 }

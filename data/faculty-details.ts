@@ -67,7 +67,7 @@ export interface FacultyDetails {
 export const facultyDetails: Record<string, FacultyDetails> = {
   engineering: {
     facultySlug: "engineering",
-    deanWordAr: "ترحب بكم كلية الهندسة في جامعة الشام الخاصة، حيث نسعى للتميز في التعليم الهندسي والبحث العلمي والابتكار.",
+    deanWordAr: "ترحب بكم كلية الهندسة في جامعة انطاكية السورية الخاصة، حيث نسعى للتميز في التعليم الهندسي والبحث العلمي والابتكار.",
     deanWordEn: "The Faculty of Engineering at ASU welcomes you. We strive for excellence in engineering education, scientific research, and innovation.",
     activities: [
       {

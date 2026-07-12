@@ -18,6 +18,10 @@ import {
   ArrowLeft,
   Newspaper,
   CalendarDays,
+  LayoutGrid,
+  Megaphone,
+  Trophy,
+  FlaskConical,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -32,7 +36,15 @@ export default function NewsPage() {
     announcement: { ar: "إعلانات", en: "Announcements" },
     event: { ar: "فعاليات", en: "Events" },
     achievement: { ar: "إنجازات", en: "Achievements" },
-    research: { ar: "بحث علمي", en: "Research" },
+    research: { ar: "بحث علمي", en: "Scientific Research" },
+  };
+
+  const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+    all: LayoutGrid,
+    announcement: Megaphone,
+    event: CalendarDays,
+    achievement: Trophy,
+    research: FlaskConical,
   };
 
   const eventTypeLabels: Record<string, { ar: string; en: string }> = {
@@ -53,18 +65,13 @@ export default function NewsPage() {
       <main className="flex-1">
         {/* Header */}
         {/* Hero Section */}
-        <section className="relative h-[35vh] min-h-[300px] w-full overflow-hidden">
-          <Image
-            src="/images/pages/news.png"
-            alt="University News"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/50" />
+        <section className="relative h-[35vh] min-h-[300px] w-full overflow-hidden bg-gradient-to-br from-primary to-zinc-950">
           <div className="relative h-full flex items-center">
             <div className="section-container w-full text-start">
-              <Badge variant="secondary" className="mb-4 bg-primary text-primary-foreground border-none">
+              <Badge
+                variant="secondary"
+                className="mb-4 bg-primary text-primary-foreground border-none"
+              >
                 {t("nav.news")}
               </Badge>
               <h1 className="text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
@@ -83,12 +90,12 @@ export default function NewsPage() {
         <section className="py-12 sm:py-16">
           <div className="section-container">
             <Tabs defaultValue="news" className="w-full" dir={dir}>
-              <TabsList className="mb-8 grid w-full grid-cols-2 lg:w-auto lg:inline-flex">
-                <TabsTrigger value="news" className="gap-2">
+              <TabsList className="mb-8 grid w-full grid-cols-2">
+                <TabsTrigger value="news" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground">
                   <Newspaper className="h-4 w-4" />
                   {language === "ar" ? "الأخبار" : "News"}
                 </TabsTrigger>
-                <TabsTrigger value="events" className="gap-2">
+                <TabsTrigger value="events" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground">
                   <CalendarDays className="h-4 w-4" />
                   {language === "ar" ? "الفعاليات" : "Events"}
                 </TabsTrigger>
@@ -97,17 +104,26 @@ export default function NewsPage() {
               {/* News Tab */}
               <TabsContent value="news">
                 {/* Category Filter */}
-                <div className="mb-6 sm:mb-8 flex flex-wrap gap-2 justify-start">
-                  {Object.entries(categoryLabels).map(([key, label]) => (
-                    <Button
-                      key={key}
-                      variant={selectedCategory === key ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setSelectedCategory(key)}
-                    >
-                      {language === "ar" ? label.ar : label.en}
-                    </Button>
-                  ))}
+                <div className="mb-6 sm:mb-8 grid grid-cols-5 w-full h-auto p-1 bg-muted rounded-xl gap-1">
+                  {Object.entries(categoryLabels).map(([key, label]) => {
+                    const Icon = categoryIcons[key];
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => setSelectedCategory(key)}
+                        className={`py-2 px-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium rounded-lg transition-all cursor-pointer ${
+                          selectedCategory === key
+                            ? "bg-primary text-primary-foreground shadow-sm"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted-foreground/5"
+                        }`}
+                      >
+                        {Icon && <Icon className="h-4 w-4 shrink-0" />}
+                        <span className="hidden sm:inline">
+                          {language === "ar" ? label.ar : label.en}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
 
                 {/* News Grid */}
@@ -125,7 +141,11 @@ export default function NewsPage() {
                             {article.image ? (
                               <Image
                                 src={article.image}
-                                alt={language === "ar" ? article.titleAr : article.titleEn}
+                                alt={
+                                  language === "ar"
+                                    ? article.titleAr
+                                    : article.titleEn
+                                }
                                 fill
                                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                               />
@@ -158,7 +178,7 @@ export default function NewsPage() {
                                     year: "numeric",
                                     month: "long",
                                     day: "numeric",
-                                  }
+                                  },
                                 )}
                               </time>
                             </div>
@@ -207,7 +227,7 @@ export default function NewsPage() {
                                   <span className="text-xs text-muted-foreground">
                                     {new Date(event.date).toLocaleDateString(
                                       language === "ar" ? "ar-SY" : "en-US",
-                                      { month: "short" }
+                                      { month: "short" },
                                     )}
                                   </span>
                                 </div>
@@ -259,7 +279,9 @@ export default function NewsPage() {
                   {/* Calendar View Placeholder */}
                   <div>
                     <h2 className="mb-6 text-xl font-semibold text-foreground">
-                      {language === "ar" ? "التقويم الأكاديمي" : "Academic Calendar"}
+                      {language === "ar"
+                        ? "التقويم الأكاديمي"
+                        : "Academic Calendar"}
                     </h2>
                     <Card>
                       <CardContent className="p-6">
@@ -297,10 +319,14 @@ export default function NewsPage() {
                               <div className="h-3 w-3 shrink-0 rounded-full bg-primary" />
                               <div>
                                 <p className="font-medium text-foreground">
-                                  {language === "ar" ? item.eventAr : item.eventEn}
+                                  {language === "ar"
+                                    ? item.eventAr
+                                    : item.eventEn}
                                 </p>
                                 <p className="text-sm text-muted-foreground">
-                                  {language === "ar" ? item.dateAr : item.dateEn}
+                                  {language === "ar"
+                                    ? item.dateAr
+                                    : item.dateEn}
                                 </p>
                               </div>
                             </div>

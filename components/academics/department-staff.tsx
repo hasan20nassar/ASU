@@ -128,9 +128,7 @@ export function DepartmentStaff({ facultySlug }: DepartmentStaffProps) {
             <GraduationCap className="h-6 w-6" />
           </div>
           <h2 className="department-staff-title">
-            {language === "ar"
-              ? "الهيئة التدريسية"
-              : "Academic Staff"}
+            {language === "ar" ? "الهيئة التدريسية" : "Academic Staff"}
           </h2>
           <p className="department-staff-subtitle">
             {language === "ar"
@@ -146,9 +144,7 @@ export function DepartmentStaff({ facultySlug }: DepartmentStaffProps) {
         {staff.length > 0 && (
           <div className="staff-marquee-wrapper">
             <h3 className="staff-marquee-title">
-              {language === "ar"
-                ? "أعضاء الهيئة التدريسية"
-                : "Faculty Members"}
+              {language === "ar" ? "أعضاء الهيئة التدريسية" : "Faculty Members"}
             </h3>
             <div className="staff-marquee-container">
               <div className="staff-marquee-fade-left" />

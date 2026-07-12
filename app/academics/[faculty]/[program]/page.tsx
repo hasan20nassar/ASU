@@ -407,17 +407,17 @@ export default function ProgramPage({
           <div className="section-container">
             <Tabs defaultValue="curriculum" className="w-full" dir={dir}>
               <TabsList className="mb-6 sm:mb-8 grid w-full grid-cols-3 h-auto p-1">
-                <TabsTrigger value="curriculum" className="gap-2">
+                <TabsTrigger value="curriculum" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground">
                   <BookOpen className="h-4 w-4" />
                   <span className="hidden sm:inline">
                     {t("common.curriculum")}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="fees" className="gap-2">
+                <TabsTrigger value="fees" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground">
                   <DollarSign className="h-4 w-4" />
                   <span className="hidden sm:inline">{t("common.fees")}</span>
                 </TabsTrigger>
-                <TabsTrigger value="admission" className="gap-2">
+                <TabsTrigger value="admission" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground">
                   <FileText className="h-4 w-4" />
                   <span className="hidden sm:inline">
                     {t("common.admission")}
@@ -444,12 +444,15 @@ export default function ProgramPage({
                     </p>
 
                     <Tabs defaultValue="year-1" className="w-full">
-                      <TabsList className="flex flex-wrap h-auto gap-2 bg-muted/50 p-1 mb-6">
+                      <TabsList
+                        className="grid w-full h-auto p-1 mb-6"
+                        style={{ gridTemplateColumns: `repeat(${curriculum.length}, minmax(0, 1fr))` }}
+                      >
                         {curriculum.map((yearData) => (
                           <TabsTrigger
                             key={yearData.year}
                             value={`year-${yearData.year}`}
-                            className="flex-1 py-2 text-sm sm:text-base font-semibold"
+                            className="py-2 text-sm sm:text-base font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground"
                             onClick={() => setExpandedCourse(null)}
                           >
                             {language === "ar"
@@ -462,12 +465,12 @@ export default function ProgramPage({
                       {curriculum.map((yearData) => (
                         <TabsContent key={yearData.year} value={`year-${yearData.year}`} className="space-y-6">
                           <Tabs defaultValue="sem-1" className="w-full">
-                            <TabsList className="grid grid-cols-2 h-auto gap-2 bg-muted/30 p-1 mb-4 max-w-md mx-auto">
+                            <TabsList className="grid grid-cols-2 w-full h-auto p-1 mb-4">
                               {yearData.semesters.map((semData) => (
                                 <TabsTrigger
                                   key={semData.semester}
                                   value={`sem-${semData.semester}`}
-                                  className="py-1.5 text-xs sm:text-sm font-medium"
+                                  className="py-1.5 text-xs sm:text-sm font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground"
                                   onClick={() => setExpandedCourse(null)}
                                 >
                                   {language === "ar"
@@ -544,7 +547,7 @@ export default function ProgramPage({
                                             
                                             {isExpanded && (
                                               <TableRow className="bg-muted/20 hover:bg-muted/20">
-                                                <TableCell colSpan={5} className="p-0 border-t-0">
+                                                <TableCell colSpan={5} className="p-0 border-t-0 whitespace-normal">
                                                   <div className="p-6 space-y-4 animate-slideDown">
                                                     <div className="grid gap-6 md:grid-cols-3">
                                                       <div className="md:col-span-2 space-y-2">

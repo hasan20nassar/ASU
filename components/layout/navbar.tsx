@@ -50,6 +50,7 @@ export function Navbar() {
   const { language, setLanguage, t, dir } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isAcademicsOpen, setIsAcademicsOpen] = useState(false);
   const [isCampusLifeOpen, setIsCampusLifeOpen] = useState(false);
   const [isPortalsOpen, setIsPortalsOpen] = useState(false);
@@ -57,6 +58,8 @@ export function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
 
+  const aboutOpenTimeout = React.useRef<NodeJS.Timeout | null>(null);
+  const aboutCloseTimeout = React.useRef<NodeJS.Timeout | null>(null);
   const academicsOpenTimeout = React.useRef<NodeJS.Timeout | null>(null);
   const academicsCloseTimeout = React.useRef<NodeJS.Timeout | null>(null);
   const campusLifeOpenTimeout = React.useRef<NodeJS.Timeout | null>(null);
@@ -64,6 +67,7 @@ export function Navbar() {
   const portalsOpenTimeout = React.useRef<NodeJS.Timeout | null>(null);
   const portalsCloseTimeout = React.useRef<NodeJS.Timeout | null>(null);
 
+  const aboutContainerRef = React.useRef<HTMLDivElement>(null);
   const academicsContainerRef = React.useRef<HTMLDivElement>(null);
   const campusLifeContainerRef = React.useRef<HTMLDivElement>(null);
   const portalsContainerRef = React.useRef<HTMLDivElement>(null);
@@ -71,14 +75,66 @@ export function Navbar() {
   // Cleanup timeouts on unmount
   useEffect(() => {
     return () => {
-      if (academicsOpenTimeout.current) clearTimeout(academicsOpenTimeout.current);
-      if (academicsCloseTimeout.current) clearTimeout(academicsCloseTimeout.current);
-      if (campusLifeOpenTimeout.current) clearTimeout(campusLifeOpenTimeout.current);
-      if (campusLifeCloseTimeout.current) clearTimeout(campusLifeCloseTimeout.current);
+      if (aboutOpenTimeout.current) clearTimeout(aboutOpenTimeout.current);
+      if (aboutCloseTimeout.current) clearTimeout(aboutCloseTimeout.current);
+      if (academicsOpenTimeout.current)
+        clearTimeout(academicsOpenTimeout.current);
+      if (academicsCloseTimeout.current)
+        clearTimeout(academicsCloseTimeout.current);
+      if (campusLifeOpenTimeout.current)
+        clearTimeout(campusLifeOpenTimeout.current);
+      if (campusLifeCloseTimeout.current)
+        clearTimeout(campusLifeCloseTimeout.current);
       if (portalsOpenTimeout.current) clearTimeout(portalsOpenTimeout.current);
-      if (portalsCloseTimeout.current) clearTimeout(portalsCloseTimeout.current);
+      if (portalsCloseTimeout.current)
+        clearTimeout(portalsCloseTimeout.current);
     };
   }, []);
+
+  const handleAboutMouseEnter = () => {
+    if (aboutCloseTimeout.current) {
+      clearTimeout(aboutCloseTimeout.current);
+      aboutCloseTimeout.current = null;
+    }
+    if (isAboutOpen) return;
+    if (!aboutOpenTimeout.current) {
+      aboutOpenTimeout.current = setTimeout(() => {
+        setIsAboutOpen(true);
+        aboutOpenTimeout.current = null;
+      }, 500); // 0.5s hover delay
+    }
+  };
+
+  const handleAboutMouseLeave = () => {
+    if (aboutOpenTimeout.current) {
+      clearTimeout(aboutOpenTimeout.current);
+      aboutOpenTimeout.current = null;
+    }
+    if (isAboutOpen) {
+      if (!aboutCloseTimeout.current) {
+        aboutCloseTimeout.current = setTimeout(() => {
+          setIsAboutOpen(false);
+          aboutCloseTimeout.current = null;
+        }, 200); // 0.2s grace period
+      }
+    }
+  };
+
+  const handleAboutContentMouseEnter = () => {
+    if (aboutCloseTimeout.current) {
+      clearTimeout(aboutCloseTimeout.current);
+      aboutCloseTimeout.current = null;
+    }
+  };
+
+  const handleAboutContentMouseLeave = () => {
+    if (!aboutCloseTimeout.current) {
+      aboutCloseTimeout.current = setTimeout(() => {
+        setIsAboutOpen(false);
+        aboutCloseTimeout.current = null;
+      }, 200);
+    }
+  };
 
   const handleAcademicsMouseEnter = () => {
     if (academicsCloseTimeout.current) {
@@ -191,10 +247,10 @@ export function Navbar() {
     }
     if (isPortalsOpen) {
       if (!portalsCloseTimeout.current) {
-         portalsCloseTimeout.current = setTimeout(() => {
-           setIsPortalsOpen(false);
-           portalsCloseTimeout.current = null;
-         }, 200); // 0.2s grace period
+        portalsCloseTimeout.current = setTimeout(() => {
+          setIsPortalsOpen(false);
+          portalsCloseTimeout.current = null;
+        }, 200); // 0.2s grace period
       }
     }
   };
@@ -221,6 +277,7 @@ export function Navbar() {
     const isAuth = auth === "true";
     Promise.resolve().then(() => {
       setIsLoggedIn(isAuth);
+      setIsAboutOpen(false);
       setIsAcademicsOpen(false);
       setIsCampusLifeOpen(false);
       setIsPortalsOpen(false);
@@ -237,8 +294,6 @@ export function Navbar() {
 
   const navLinks = [
     { href: "/", label: t("nav.home"), icon: Building2 },
-    { href: "/about", label: t("nav.about"), icon: Users },
-    { href: "/about/directory", label: t("nav.directory"), icon: Users },
     { href: "/admissions", label: t("nav.admissions"), icon: GraduationCap },
     { href: "/news", label: t("nav.news"), icon: Newspaper },
     { href: "/contact", label: t("nav.contact"), icon: Phone },
@@ -246,7 +301,11 @@ export function Navbar() {
 
   const campusLifeLinks = [
     { href: "/campus-life", label: t("nav.campusLife"), icon: TreePine },
-    { href: "/library", label: language === "ar" ? "المكتبة" : "Library", icon: BookOpen },
+    {
+      href: "/library",
+      label: language === "ar" ? "المكتبة" : "Library",
+      icon: BookOpen,
+    },
     { href: "/research", label: t("nav.research"), icon: FlaskConical },
   ];
 
@@ -261,20 +320,73 @@ export function Navbar() {
         {/* Desktop Navigation */}
         <div className="hidden items-center lg:flex">
           <Link href="/">
-            <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="px-2 text-sm font-medium tracking-tight"
+            >
               {t("nav.home")}
             </Button>
           </Link>
-          <Link href="/about">
-            <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
+          {/* About Dropdown */}
+          <div
+            ref={aboutContainerRef}
+            className="inline-flex h-9 items-center rounded-md hover:bg-accent hover:text-accent-foreground transition-colors duration-200"
+            onMouseEnter={handleAboutMouseEnter}
+            onMouseLeave={handleAboutMouseLeave}
+          >
+            <Link
+              href="/about"
+              className="flex h-full items-center ps-3 pe-1 text-sm font-medium tracking-tight focus-visible:outline-none"
+            >
               {t("nav.about")}
-            </Button>
-          </Link>
-          <Link href="/about/directory">
-            <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
-              {t("nav.directory")}
-            </Button>
-          </Link>
+            </Link>
+            <DropdownMenu
+              open={isAboutOpen}
+              onOpenChange={setIsAboutOpen}
+              modal={false}
+              dir={dir}
+            >
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="flex h-full items-center pe-3 ps-1 focus-visible:outline-none"
+                >
+                  <ChevronDown
+                    className={cn(
+                      "h-3 w-3 transition-transform duration-200",
+                      isAboutOpen && "rotate-180",
+                    )}
+                  />
+                  <span className="sr-only">Toggle About Submenu</span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="center"
+                sideOffset={8}
+                className="w-56 p-1"
+                onMouseEnter={handleAboutContentMouseEnter}
+                onMouseLeave={handleAboutContentMouseLeave}
+                onPointerDownOutside={(event) => {
+                  if (
+                    aboutContainerRef.current?.contains(event.target as Node)
+                  ) {
+                    event.preventDefault();
+                  }
+                }}
+              >
+                <DropdownMenuItem asChild>
+                  <Link
+                    href="/about/directory"
+                    className="w-full text-start cursor-pointer font-medium"
+                    onClick={() => setIsAboutOpen(false)}
+                  >
+                    {t("nav.directory")}
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
 
           {/* Academics Dropdown */}
           <div
@@ -289,7 +401,12 @@ export function Navbar() {
             >
               {t("nav.academics")}
             </Link>
-            <DropdownMenu open={isAcademicsOpen} onOpenChange={setIsAcademicsOpen} modal={false} dir={dir}>
+            <DropdownMenu
+              open={isAcademicsOpen}
+              onOpenChange={setIsAcademicsOpen}
+              modal={false}
+              dir={dir}
+            >
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
@@ -298,7 +415,7 @@ export function Navbar() {
                   <ChevronDown
                     className={cn(
                       "h-3 w-3 transition-transform duration-200",
-                      isAcademicsOpen && "rotate-180"
+                      isAcademicsOpen && "rotate-180",
                     )}
                   />
                   <span className="sr-only">Toggle Academics Submenu</span>
@@ -311,7 +428,11 @@ export function Navbar() {
                 onMouseEnter={handleAcademicsContentMouseEnter}
                 onMouseLeave={handleAcademicsContentMouseLeave}
                 onPointerDownOutside={(event) => {
-                  if (academicsContainerRef.current?.contains(event.target as Node)) {
+                  if (
+                    academicsContainerRef.current?.contains(
+                      event.target as Node,
+                    )
+                  ) {
                     event.preventDefault();
                   }
                 }}
@@ -332,7 +453,11 @@ export function Navbar() {
           </div>
 
           <Link href="/admissions">
-            <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="px-2 text-sm font-medium tracking-tight"
+            >
               {t("nav.admissions")}
             </Button>
           </Link>
@@ -350,7 +475,12 @@ export function Navbar() {
             >
               {t("nav.campusLife")}
             </Link>
-            <DropdownMenu open={isCampusLifeOpen} onOpenChange={setIsCampusLifeOpen} modal={false} dir={dir}>
+            <DropdownMenu
+              open={isCampusLifeOpen}
+              onOpenChange={setIsCampusLifeOpen}
+              modal={false}
+              dir={dir}
+            >
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
@@ -359,7 +489,7 @@ export function Navbar() {
                   <ChevronDown
                     className={cn(
                       "h-3 w-3 transition-transform duration-200",
-                      isCampusLifeOpen && "rotate-180"
+                      isCampusLifeOpen && "rotate-180",
                     )}
                   />
                   <span className="sr-only">Toggle Campus Life Submenu</span>
@@ -372,7 +502,11 @@ export function Navbar() {
                 onMouseEnter={handleCampusLifeContentMouseEnter}
                 onMouseLeave={handleCampusLifeContentMouseLeave}
                 onPointerDownOutside={(event) => {
-                  if (campusLifeContainerRef.current?.contains(event.target as Node)) {
+                  if (
+                    campusLifeContainerRef.current?.contains(
+                      event.target as Node,
+                    )
+                  ) {
                     event.preventDefault();
                   }
                 }}
@@ -395,12 +529,20 @@ export function Navbar() {
           </div>
 
           <Link href="/news">
-            <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="px-2 text-sm font-medium tracking-tight"
+            >
               {t("nav.news")}
             </Button>
           </Link>
           <Link href="/contact">
-            <Button variant="ghost" size="sm" className="px-2 text-sm font-medium tracking-tight">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="px-2 text-sm font-medium tracking-tight"
+            >
               {t("nav.contact")}
             </Button>
           </Link>
@@ -451,44 +593,89 @@ export function Navbar() {
               onMouseEnter={handlePortalsMouseEnter}
               onMouseLeave={handlePortalsMouseLeave}
             >
-              <DropdownMenu open={isPortalsOpen} onOpenChange={setIsPortalsOpen} modal={false} dir={dir}>
+              <DropdownMenu
+                open={isPortalsOpen}
+                onOpenChange={setIsPortalsOpen}
+                modal={false}
+                dir={dir}
+              >
                 <DropdownMenuTrigger asChild>
-                  <Button variant="default" size="sm" className="flex gap-1 font-bold focus-visible:outline-none">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="flex gap-1 font-bold focus-visible:outline-none"
+                  >
                     {t("nav.portals")}
-                    <ChevronDown 
+                    <ChevronDown
                       className={cn(
                         "h-4 w-4 transition-transform duration-200",
-                        isPortalsOpen && "rotate-180"
+                        isPortalsOpen && "rotate-180",
                       )}
                     />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent 
-                  align="end" 
+                <DropdownMenuContent
+                  align="end"
                   sideOffset={10}
                   onMouseEnter={handlePortalsContentMouseEnter}
                   onMouseLeave={handlePortalsContentMouseLeave}
                   onPointerDownOutside={(event) => {
-                    if (portalsContainerRef.current?.contains(event.target as Node)) {
+                    if (
+                      portalsContainerRef.current?.contains(
+                        event.target as Node,
+                      )
+                    ) {
                       event.preventDefault();
                     }
                   }}
                 >
-                  <DropdownMenuItem asChild className="text-start font-bold text-primary">
-                    <Link href="/dashboard" onClick={() => setIsPortalsOpen(false)}>{t("nav.dashboard")}</Link>
+                  <DropdownMenuItem
+                    asChild
+                    className="text-start font-bold text-primary"
+                  >
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setIsPortalsOpen(false)}
+                    >
+                      {t("nav.dashboard")}
+                    </Link>
                   </DropdownMenuItem>
                   <div className="my-1 border-b" />
-                  <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
-                    <Link href="/portal/student" onClick={() => setIsPortalsOpen(false)}>{t("nav.studentPortal")}</Link>
+                  <DropdownMenuItem
+                    asChild
+                    className="text-start font-medium text-muted-foreground"
+                  >
+                    <Link
+                      href="/portal/student"
+                      onClick={() => setIsPortalsOpen(false)}
+                    >
+                      {t("nav.studentPortal")}
+                    </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
-                    <Link href="/portal/faculty" onClick={() => setIsPortalsOpen(false)}>{t("nav.facultyPortal")}</Link>
+                  <DropdownMenuItem
+                    asChild
+                    className="text-start font-medium text-muted-foreground"
+                  >
+                    <Link
+                      href="/portal/faculty"
+                      onClick={() => setIsPortalsOpen(false)}
+                    >
+                      {t("nav.facultyPortal")}
+                    </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="text-start font-medium text-muted-foreground">
-                    <Link href="/portal/alumni" onClick={() => setIsPortalsOpen(false)}>{t("nav.alumniPortal")}</Link>
+                  <DropdownMenuItem
+                    asChild
+                    className="text-start font-medium text-muted-foreground"
+                  >
+                    <Link
+                      href="/portal/alumni"
+                      onClick={() => setIsPortalsOpen(false)}
+                    >
+                      {t("nav.alumniPortal")}
+                    </Link>
                   </DropdownMenuItem>
                   <div className="my-1 border-t" />
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     onClick={() => {
                       handleLogout();
                       setIsPortalsOpen(false);
@@ -510,7 +697,10 @@ export function Navbar() {
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side={dir === "rtl" ? "right" : "left"} className="w-80 p-0 flex flex-col">
+            <SheetContent
+              side={dir === "rtl" ? "right" : "left"}
+              className="w-80 p-0 flex flex-col"
+            >
               <SheetHeader className="text-start border-b p-6">
                 <SheetTitle>
                   <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
@@ -523,7 +713,7 @@ export function Navbar() {
                   <CommandMenu />
                 </div>
                 <div className="mt-4 flex flex-col gap-1">
-                  {navLinks.slice(0, 2).map((link) => (
+                  {navLinks.slice(0, 1).map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
@@ -538,6 +728,48 @@ export function Navbar() {
                       </Button>
                     </Link>
                   ))}
+
+                  {/* Mobile About Collapsible */}
+                  <Collapsible>
+                    <CollapsibleTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-between gap-3 font-medium"
+                      >
+                        <span className="flex items-center gap-3">
+                          <Users className="h-5 w-5 text-primary" />
+                          {t("nav.about")}
+                        </span>
+                        <ChevronDown className="h-4 w-4" />
+                      </Button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="ps-10 space-y-1 py-1">
+                      <Link
+                        href="/about"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="w-full justify-start text-muted-foreground font-normal"
+                        >
+                          {t("about.history")}
+                        </Button>
+                      </Link>
+                      <Link
+                        href="/about/directory"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="w-full justify-start text-muted-foreground font-normal"
+                        >
+                          {t("nav.directory")}
+                        </Button>
+                      </Link>
+                    </CollapsibleContent>
+                  </Collapsible>
 
                   {/* Mobile Academics Collapsible */}
                   <Collapsible>
@@ -565,7 +797,9 @@ export function Navbar() {
                             size="sm"
                             className="w-full justify-start text-muted-foreground font-normal"
                           >
-                            {language === "ar" ? faculty.nameAr : faculty.nameEn}
+                            {language === "ar"
+                              ? faculty.nameAr
+                              : faculty.nameEn}
                           </Button>
                         </Link>
                       ))}
@@ -605,7 +839,7 @@ export function Navbar() {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  {navLinks.slice(2).map((link) => (
+                  {navLinks.slice(1).map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
@@ -621,51 +855,81 @@ export function Navbar() {
                     </Link>
                   ))}
 
-                {/* Mobile Portals/Login */}
-                <div className="my-4 border-t" />
-                {!isLoggedIn ? (
-                  <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="ghost" className="w-full justify-start font-bold text-primary">
-                      {language === "ar" ? "تسجيل الدخول" : "Login"}
-                    </Button>
-                  </Link>
-                ) : (
-                  <>
-                    <p className="px-4 mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground text-start">
-                      {t("nav.portals")}
-                    </p>
-                    <div className="flex flex-col gap-1">
-                      <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
-                        <Button variant="ghost" className="w-full justify-start font-bold text-primary">
-                          {t("nav.dashboard")}
-                        </Button>
-                      </Link>
-                      <div className="my-1 border-t" />
-                      <Link href="/portal/student" onClick={() => setIsMobileMenuOpen(false)}>
-                        <Button variant="ghost" className="w-full justify-start font-medium text-muted-foreground">
-                          {t("nav.studentPortal")}
-                        </Button>
-                      </Link>
-                      <Link href="/portal/faculty" onClick={() => setIsMobileMenuOpen(false)}>
-                        <Button variant="ghost" className="w-full justify-start font-medium text-muted-foreground">
-                          {t("nav.facultyPortal")}
-                        </Button>
-                      </Link>
-                      <Link href="/portal/alumni" onClick={() => setIsMobileMenuOpen(false)}>
-                        <Button variant="ghost" className="w-full justify-start font-medium text-muted-foreground">
-                          {t("nav.alumniPortal")}
-                        </Button>
-                      </Link>
-                      <Button 
-                        onClick={handleLogout}
-                        variant="ghost" 
-                        className="w-full justify-start font-bold text-destructive"
+                  {/* Mobile Portals/Login */}
+                  <div className="my-4 border-t" />
+                  {!isLoggedIn ? (
+                    <Link
+                      href="/login"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start font-bold text-primary"
                       >
-                        {t("nav.logout")}
+                        {language === "ar" ? "تسجيل الدخول" : "Login"}
                       </Button>
-                    </div>
-                  </>
-                )}
+                    </Link>
+                  ) : (
+                    <>
+                      <p className="px-4 mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground text-start">
+                        {t("nav.portals")}
+                      </p>
+                      <div className="flex flex-col gap-1">
+                        <Link
+                          href="/dashboard"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-start font-bold text-primary"
+                          >
+                            {t("nav.dashboard")}
+                          </Button>
+                        </Link>
+                        <div className="my-1 border-t" />
+                        <Link
+                          href="/portal/student"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-start font-medium text-muted-foreground"
+                          >
+                            {t("nav.studentPortal")}
+                          </Button>
+                        </Link>
+                        <Link
+                          href="/portal/faculty"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-start font-medium text-muted-foreground"
+                          >
+                            {t("nav.facultyPortal")}
+                          </Button>
+                        </Link>
+                        <Link
+                          href="/portal/alumni"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-start font-medium text-muted-foreground"
+                          >
+                            {t("nav.alumniPortal")}
+                          </Button>
+                        </Link>
+                        <Button
+                          onClick={handleLogout}
+                          variant="ghost"
+                          className="w-full justify-start font-bold text-destructive"
+                        >
+                          {t("nav.logout")}
+                        </Button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </SheetContent>

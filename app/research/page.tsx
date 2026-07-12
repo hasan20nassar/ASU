@@ -21,8 +21,6 @@ import {
   Target,
   ExternalLink,
 } from "lucide-react";
-import Image from "next/image";
-
 export default function ResearchPage() {
   const { language, dir } = useLanguage();
   const Arrow = dir === "rtl" ? ArrowLeft : ArrowRight;
@@ -130,15 +128,7 @@ export default function ResearchPage() {
       <main className="flex-1">
         {/* Header */}
         {/* Hero Section */}
-        <section className="relative h-[40vh] min-h-[300px] w-full overflow-hidden">
-          <Image
-            src="/images/pages/research.png"
-            alt="Research and Innovation"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/50" />
+        <section className="relative h-[40vh] min-h-[300px] w-full overflow-hidden bg-gradient-to-br from-primary to-zinc-950">
           <div className="relative h-full flex items-center">
             <div className="section-container w-full">
               <div className="text-start">

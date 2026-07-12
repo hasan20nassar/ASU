@@ -125,15 +125,7 @@ export default function CampusLifePage() {
       <main className="flex-1">
         {/* Header */}
         {/* Hero Section */}
-        <section className="relative h-[40vh] min-h-[350px] w-full overflow-hidden">
-          <Image
-            src="/images/pages/campus-life.png"
-            alt="Campus Life"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/40" />
+        <section className="relative h-[40vh] min-h-[350px] w-full overflow-hidden bg-gradient-to-br from-primary to-zinc-950">
           <div className="relative h-full flex items-center">
             <div className="section-container w-full text-start">
               <Badge variant="secondary" className="mb-4 bg-primary text-primary-foreground border-none">
@@ -157,28 +149,28 @@ export default function CampusLifePage() {
         <section className="py-12 sm:py-16">
           <div className="section-container">
             <Tabs defaultValue="housing" className="w-full" dir={dir}>
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto p-1 bg-muted mb-8 rounded-xl">
-                <TabsTrigger value="housing" className="flex items-center justify-center gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground w-full rounded-lg">
+              <TabsList className="grid w-full grid-cols-4 h-auto p-1 bg-muted mb-8 rounded-xl gap-1">
+                <TabsTrigger value="housing" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-2 sm:py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground w-full rounded-lg">
                   <Home className="h-4 w-4 shrink-0" />
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-medium hidden sm:inline">
                     {language === "ar" ? "السكن" : "Housing"}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="clubs" className="flex items-center justify-center gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground w-full rounded-lg">
+                <TabsTrigger value="clubs" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-2 sm:py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground w-full rounded-lg">
                   <Users className="h-4 w-4 shrink-0" />
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-medium hidden sm:inline">
                     {language === "ar" ? "النوادي" : "Clubs"}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="sports" className="flex items-center justify-center gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground w-full rounded-lg">
+                <TabsTrigger value="sports" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-2 sm:py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground w-full rounded-lg">
                   <Dumbbell className="h-4 w-4 shrink-0" />
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-medium hidden sm:inline">
                     {language === "ar" ? "الرياضة" : "Sports"}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="tour" className="flex items-center justify-center gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground w-full rounded-lg">
+                <TabsTrigger value="tour" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-2 sm:py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground w-full rounded-lg">
                   <Camera className="h-4 w-4 shrink-0" />
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-medium hidden sm:inline">
                     {language === "ar" ? "جولة افتراضية" : "Virtual Tour"}
                   </span>
                 </TabsTrigger>
