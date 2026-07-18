@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { NotFoundContent } from "@/components/layout/not-found-content";
+import RoomFinder from "@/components/campus-life/RoomFinder";
 
 export default function CampusLifePage() {
   const { language, dir } = useLanguage();
@@ -326,7 +327,7 @@ export default function CampusLifePage() {
 
               {/* Virtual Tour Tab */}
               <TabsContent value="tour">
-                <NotFoundContent />
+                <RoomFinder />
               </TabsContent>
             </Tabs>
           </div>

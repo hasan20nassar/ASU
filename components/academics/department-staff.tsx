@@ -116,8 +116,14 @@ export function DepartmentStaff({ facultySlug }: DepartmentStaffProps) {
 
   if (!head && staff.length === 0) return null;
 
-  // Duplicate staff for infinite scroll effect
-  const duplicatedStaff = [...staff, ...staff];
+  // Duplicate staff to ensure it is wide enough to cover the screen and scroll infinitely
+  let singleSet = [...staff];
+  if (staff.length > 0) {
+    while (singleSet.length < 10) {
+      singleSet = [...singleSet, ...staff];
+    }
+  }
+  const duplicatedStaff = [...singleSet, ...singleSet];
 
   return (
     <section className="department-staff-section">
@@ -149,7 +155,10 @@ export function DepartmentStaff({ facultySlug }: DepartmentStaffProps) {
             <div className="staff-marquee-container">
               <div className="staff-marquee-fade-left" />
               <div className="staff-marquee-fade-right" />
-              <div className="staff-marquee-track">
+              <div
+                className="staff-marquee-track"
+                style={{ animationDuration: `${singleSet.length * 6}s` }}
+              >
                 {duplicatedStaff.map((member, index) => (
                   <StaffCard key={`${member.id}-${index}`} member={member} />
                 ))}

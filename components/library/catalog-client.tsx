@@ -848,13 +848,13 @@ export default function CatalogClient() {
 
       {/* Reservation Dialog Modal */}
       <Dialog open={selectedBook !== null} onOpenChange={(open) => { if (!open) setSelectedBook(null); }}>
-        <DialogContent className="bg-slate-950 border border-white/10 max-w-md w-full p-6 text-start" dir={dir}>
+        <DialogContent className="sm:max-w-md" dir={dir}>
           <DialogHeader>
             <DialogTitle className="text-xl font-extrabold text-foreground flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary animate-pulse" />
               {isArabic ? "طلب حجز كتاب جامعي" : "Reserve Academic Book"}
             </DialogTitle>
-            <DialogDescription className="text-xs text-slate-400 mt-1">
+            <DialogDescription className="text-xs text-muted-foreground mt-1">
               {isArabic
                 ? "يرجى ملء النموذج أدناه لتأكيد حجز الكتاب. بعد الحجز، سيتم حفظ المرجع لك في المكتبة المركزية."
                 : "Please fill out the form below to confirm your reservation. Reserved books are held at the central desk."}
@@ -862,8 +862,8 @@ export default function CatalogClient() {
           </DialogHeader>
 
           {selectedBook && (
-            <div className="my-4 bg-slate-900/40 p-4 rounded-xl border border-white/5 flex gap-4 items-center">
-              <div className={`w-14 aspect-[3/4.2] rounded-md bg-gradient-to-br ${selectedBook.coverColor} relative shadow-md shrink-0 border border-white/10`}>
+            <div className="my-4 bg-muted/40 p-4 rounded-xl border border-border flex gap-4 items-center">
+              <div className={`w-14 aspect-[3/4.2] rounded-md bg-gradient-to-br ${selectedBook.coverColor} relative shadow-md shrink-0 border border-border`}>
                 <div className="absolute top-0 left-0 bottom-0 w-1.5 bg-black/35 rtl:right-0 rtl:left-auto" />
               </div>
               <div className="space-y-1 text-start overflow-hidden">
@@ -882,7 +882,7 @@ export default function CatalogClient() {
 
           <form onSubmit={handleReserveSubmit} className="space-y-4 text-start">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">
+              <label className="text-xs font-semibold text-foreground">
                 {isArabic ? "الاسم الكامل للطالب" : "Student Full Name"} <span className="text-rose-500">*</span>
               </label>
               <Input
@@ -891,13 +891,13 @@ export default function CatalogClient() {
                 value={studentName}
                 onChange={(e) => setStudentName(e.target.value)}
                 placeholder={isArabic ? "أدخل اسمك كما هو مسجل في الجامعة" : "Enter your official student name"}
-                className="bg-slate-900 border-white/10 h-10 rounded-xl"
+                className="h-10 rounded-xl"
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">
+                <label className="text-xs font-semibold text-foreground">
                   {isArabic ? "الرقم الجامعي" : "Student ID"} <span className="text-rose-500">*</span>
                 </label>
                 <Input
@@ -906,12 +906,12 @@ export default function CatalogClient() {
                   value={studentId}
                   onChange={(e) => setStudentId(e.target.value)}
                   placeholder="e.g. 202410123"
-                  className="bg-slate-900 border-white/10 h-10 rounded-xl font-mono"
+                  className="h-10 rounded-xl font-mono"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">
+                <label className="text-xs font-semibold text-foreground">
                   {isArabic ? "التخصص / الكلية" : "College Major"} <span className="text-rose-500">*</span>
                 </label>
                 <Input
@@ -920,12 +920,12 @@ export default function CatalogClient() {
                   value={studentMajor}
                   onChange={(e) => setStudentMajor(e.target.value)}
                   placeholder={isArabic ? "مثال: هندسة برمجيات" : "e.g. Software Engineering"}
-                  className="bg-slate-900 border-white/10 h-10 rounded-xl"
+                  className="h-10 rounded-xl"
                 />
               </div>
             </div>
 
-            <div className="bg-primary/5 p-3 rounded-lg border border-primary/10 flex gap-2.5 text-xs text-primary leading-relaxed mt-2.5">
+            <div className="bg-primary/5 p-3 rounded-lg border border-primary/20 flex gap-2.5 text-xs text-primary leading-relaxed mt-2.5">
               <CalendarDays className="h-4 w-4 shrink-0 mt-0.5" />
               <p>
                 {isArabic
@@ -934,11 +934,11 @@ export default function CatalogClient() {
               </p>
             </div>
 
-            <div className="pt-4 border-t border-white/5 flex gap-2 justify-end">
+            <div className="pt-4 border-t border-border flex gap-2 justify-end">
               <Button
                 type="button"
                 variant="outline"
-                className="border-white/10 hover:bg-slate-900 h-10 px-5 rounded-xl text-xs font-medium"
+                className="border-border hover:bg-muted h-10 px-5 rounded-xl text-xs font-medium"
                 onClick={() => setSelectedBook(null)}
               >
                 {isArabic ? "إلغاء" : "Cancel"}

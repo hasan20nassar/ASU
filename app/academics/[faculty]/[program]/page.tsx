@@ -536,7 +536,7 @@ export default function ProgramPage({
                                                     : course.prerequisitesEn}
                                                 </Badge>
                                               </TableCell>
-                                              <TableCell className="text-right">
+                                              <TableCell className="text-end">
                                                 {isExpanded ? (
                                                   <ChevronUp className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
                                                 ) : (

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { useLanguage } from "@/contexts/language-context";
 import { useTheme } from "@/contexts/theme-context";
 
@@ -318,7 +319,7 @@ export function Preloader() {
           >
             {/* Logo Container */}
             <div className="mb-8 group">
-              <img
+              <Image
                 src={
                   isDark
                     ? language === "ar"
@@ -329,6 +330,9 @@ export function Preloader() {
                       : "/logo/logo-en-light.png"
                 }
                 alt="Antioch Syrian University Logo"
+                width={300}
+                height={96}
+                priority
                 className="h-20 md:h-24 w-auto object-contain relative z-10 transition-transform duration-500 hover:scale-105"
                 style={{
                   filter: isDark
