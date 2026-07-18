@@ -29,6 +29,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.dashboard": "لوحة التحكم",
     "nav.directory": "دليل أعضاء هيئة التدريس",
     "nav.directory.description": "تعرّف على نخبة الأساتذة والباحثين في جامعة أنطاكية السورية. يمكنك البحث والتواصل المباشر مع أعضاء الهيئة التدريسية ومعرفة مجالات تخصصهم وأوقات الساعات المكتبية.",
+    "nav.map": "خريطة الجامعة",
     "nav.logout": "تسجيل الخروج",
     
     // Hero
@@ -141,6 +142,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.dashboard": "Dashboard",
     "nav.directory": "Faculty Directory",
     "nav.directory.description": "Meet our distinguished faculty members and researchers at Antioch Syrian University. You can search, contact them directly, and find their areas of expertise and office hours.",
+    "nav.map": "Campus Map",
     "nav.logout": "Logout",
     
     // Hero

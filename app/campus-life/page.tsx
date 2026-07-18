@@ -13,7 +13,6 @@ import {
   Home,
   Users,
   Dumbbell,
-  Camera,
   ArrowRight,
   ArrowLeft,
   Bed,
@@ -29,7 +28,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { NotFoundContent } from "@/components/layout/not-found-content";
-import RoomFinder from "@/components/campus-life/RoomFinder";
 
 export default function CampusLifePage() {
   const { language, dir } = useLanguage();
@@ -129,7 +127,10 @@ export default function CampusLifePage() {
         <section className="relative h-[40vh] min-h-[350px] w-full overflow-hidden bg-gradient-to-br from-primary to-zinc-950">
           <div className="relative h-full flex items-center">
             <div className="section-container w-full text-start">
-              <Badge variant="secondary" className="mb-4 bg-primary text-primary-foreground border-none">
+              <Badge
+                variant="secondary"
+                className="mb-4 bg-primary text-primary-foreground border-none"
+              >
                 {language === "ar" ? "الحياة الجامعية" : "Campus Life"}
               </Badge>
               <h1 className="text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
@@ -150,29 +151,32 @@ export default function CampusLifePage() {
         <section className="py-12 sm:py-16">
           <div className="section-container">
             <Tabs defaultValue="housing" className="w-full" dir={dir}>
-              <TabsList className="grid w-full grid-cols-4 h-auto p-1 bg-muted mb-8 rounded-xl gap-1">
-                <TabsTrigger value="housing" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-2 sm:py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground w-full rounded-lg">
+              <TabsList className="grid w-full grid-cols-3 h-auto p-1 bg-muted mb-8 rounded-xl gap-1">
+                <TabsTrigger
+                  value="housing"
+                  className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-2 sm:py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground w-full rounded-lg"
+                >
                   <Home className="h-4 w-4 shrink-0" />
                   <span className="text-sm font-medium hidden sm:inline">
                     {language === "ar" ? "السكن" : "Housing"}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="clubs" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-2 sm:py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground w-full rounded-lg">
+                <TabsTrigger
+                  value="clubs"
+                  className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-2 sm:py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground w-full rounded-lg"
+                >
                   <Users className="h-4 w-4 shrink-0" />
                   <span className="text-sm font-medium hidden sm:inline">
                     {language === "ar" ? "النوادي" : "Clubs"}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="sports" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-2 sm:py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground w-full rounded-lg">
+                <TabsTrigger
+                  value="sports"
+                  className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-2 sm:py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground w-full rounded-lg"
+                >
                   <Dumbbell className="h-4 w-4 shrink-0" />
                   <span className="text-sm font-medium hidden sm:inline">
                     {language === "ar" ? "الرياضة" : "Sports"}
-                  </span>
-                </TabsTrigger>
-                <TabsTrigger value="tour" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 py-2 sm:py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground dark:data-[state=active]:bg-primary dark:data-[state=active]:text-primary-foreground w-full rounded-lg">
-                  <Camera className="h-4 w-4 shrink-0" />
-                  <span className="text-sm font-medium hidden sm:inline">
-                    {language === "ar" ? "جولة افتراضية" : "Virtual Tour"}
                   </span>
                 </TabsTrigger>
               </TabsList>
@@ -253,7 +257,10 @@ export default function CampusLifePage() {
                 </h2>
                 <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-6 text-start">
                   {clubs.map((club, index) => (
-                    <Card key={index} className="transition-all hover:shadow-lg">
+                    <Card
+                      key={index}
+                      className="transition-all hover:shadow-lg"
+                    >
                       <CardContent className="p-6">
                         <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10">
                           <club.icon className="h-7 w-7 text-primary" />
@@ -325,10 +332,6 @@ export default function CampusLifePage() {
                 </div>
               </TabsContent>
 
-              {/* Virtual Tour Tab */}
-              <TabsContent value="tour">
-                <RoomFinder />
-              </TabsContent>
             </Tabs>
           </div>
         </section>

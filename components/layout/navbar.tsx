@@ -384,6 +384,15 @@ export function Navbar() {
                     {t("nav.directory")}
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link
+                    href="/about/map"
+                    className="w-full text-start cursor-pointer font-medium"
+                    onClick={() => setIsAboutOpen(false)}
+                  >
+                    {t("nav.map")}
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -766,6 +775,18 @@ export function Navbar() {
                           className="w-full justify-start text-muted-foreground font-normal"
                         >
                           {t("nav.directory")}
+                        </Button>
+                      </Link>
+                      <Link
+                        href="/about/map"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="w-full justify-start text-muted-foreground font-normal"
+                        >
+                          {t("nav.map")}
                         </Button>
                       </Link>
                     </CollapsibleContent>
