@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document id="document">
+	<name>ASU</name>
+	<gx:CascadingStyle kml:id="__managed_style_0E49FC186840AA0B6461_highlight">
+		<styleUrl>https://earth.google.com/balloon_components/base/1.1.0.0/card_template.kml#main</styleUrl>
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_0E49FC186840AA0B6461_normal">
+		<styleUrl>https://earth.google.com/balloon_components/base/1.1.0.0/card_template.kml#main</styleUrl>
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>2.66667</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0E49FC186840AA0B6461">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_0E49FC186840AA0B6461_normal</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_0E49FC186840AA0B6461_highlight</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0FAE95B20C40AA103668">
+		<name>Faculty of Law Building</name>
+		<LookAt>
+			<longitude>36.37469900803624</longitude>
+			<latitude>33.65802409801908</latitude>
+			<altitude>1308.746615314438</altitude>
+			<heading>-9.662561275097946</heading>
+			<tilt>15.82392060364836</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>511.3962076081953</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0E49FC186840AA0B6461</styleUrl>
+		<Point>
+			<coordinates>36.37497254446367,33.65791806613972,1311.718893885678</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="07C6D119F340AA107156">
+		<name>Faculty of Dentistry Building</name>
+		<LookAt>
+			<longitude>36.3747982540107</longitude>
+			<latitude>33.65793810447138</latitude>
+			<altitude>1310.024372271436</altitude>
+			<heading>-9.662506269073434</heading>
+			<tilt>15.82391734725792</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>510.0680848096817</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0E49FC186840AA0B6461</styleUrl>
+		<Point>
+			<coordinates>36.37526712368856,33.65739050328335,1317.0253171746</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="04BF408FC740AA114177">
+		<name>Pharmacy College Building</name>
+		<LookAt>
+			<longitude>36.3747982540107</longitude>
+			<latitude>33.65793810447138</latitude>
+			<altitude>1310.024372271436</altitude>
+			<heading>-9.662506269073434</heading>
+			<tilt>15.82391734725792</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>510.0680848096817</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0E49FC186840AA0B6461</styleUrl>
+		<Point>
+			<coordinates>36.37481761865426,33.65823439688824,1307.985967147714</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0A2521B85140AA1204A9">
+		<name>The Main Building</name>
+		<description><![CDATA[<div>The main building, which houses the university administration and the College of Engineering.<br></div>]]></description>
+		<LookAt>
+			<longitude>36.37483998751187</longitude>
+			<latitude>33.65807353700824</latitude>
+			<altitude>1309.464729441574</altitude>
+			<heading>-9.662483141450396</heading>
+			<tilt>15.82391877349217</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>510.6497961984134</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0E49FC186840AA0B6461</styleUrl>
+		<gx:Carousel>
+			<gx:Image kml:id="hosted_image_QUU1YS9HeWMzL0U2THcxTVlyNlFUeHhsUVphSWlMOUxScTllYjJsdXRiYWhQcnEwN2tuWUdUWGZjVW9RbTE1NmFGOXRuSm5wOWp4TnFUK2lTN3FjNHFEdG4wcHRRR1FOU1JXd2FnYlBhdmlSaHgyQUVTcmJwTkk4R1UyU29VdVk4cDlDeVNTQjlkL3NJTzVnMDYxL3RsR0ppc0tXcWxHODkzZThmYVVNd3VwMm5Ic0ZyV1ZNSWxZZlBQaHB3ek5KV3V1d2xWdFFDQnl6OU8rb3JuMHcxek5Pbmp1ckU0V1QwL25CVzFoajZxNGJ1VE1TaGdmRHRkOUM5enNzK3NyQ1FIWW1uRUk9">
+				<gx:imageUrl>https://earth.usercontent.google.com/hostedimage/e/*/4AE5a_GznVmWIQLyf7U-TF9_zE7WvFe3hgLEHj1AI67JtCHufpuqAYoRu4LBxO859GF_5tIBCkHle3vwOHaoSWriVaU5BkpghE6ujxzQL_-kGI_-Ge5mHWjRvGCufXeKMZTBSVtt6FpHEWXKd2Perwjoik_8evyoKmoX3_YbS-yqcYYZIwTQgIeU2KMsPeddY3SVE1wRYz67CcEFLxtM_SHkxngx3yX1GE9HiJlsVjQs94a2Plyv1oRfHNlX7CLVtAqaqPfWi-RGTqH1fKKRBAMm0nBQ_Q7ZZD8u7gffS-A?authuser=0&amp;fife=s{size}</gx:imageUrl>
+			</gx:Image>
+		</gx:Carousel>
+		<Point>
+			<coordinates>36.37441436685869,33.65872142897872,1302.074225097688</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0D3FC1493F40AA17B6CB">
+		<name>Sports Facilities</name>
+		<LookAt>
+			<longitude>36.37568809749281</longitude>
+			<latitude>33.65794761986223</latitude>
+			<altitude>1316.779722403149</altitude>
+			<heading>-12.77052579939907</heading>
+			<tilt>30.03471667612017</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>447.2705116835277</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0E49FC186840AA0B6461</styleUrl>
+		<Point>
+			<coordinates>36.37522416020599,33.65879398807943,1304.684638698047</coordinates>
+		</Point>
+	</Placemark>
+</Document>
+</kml>
